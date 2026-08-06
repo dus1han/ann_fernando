@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import { verify } from "@/content/copy";
 import { Say } from "@/lib/bi";
@@ -21,19 +22,42 @@ export default function Verify() {
       </div>
 
       <div className="mx-auto max-w-7xl px-6">
-        <Reveal className="max-w-3xl">
-          <p className="mb-4 text-xs uppercase tracking-[0.3em] text-gold-500">
-            {verify.eyebrow}
-          </p>
-          <Say
-            as="h2"
-            v={verify.title}
-            className="glow-gold font-display text-[clamp(2.2rem,5vw,3.6rem)] font-light leading-[1.08] text-bone"
-          />
-          <p className="mt-6 text-lg leading-relaxed text-bone-dim">
-            {verify.intro}
-          </p>
-        </Reveal>
+        {/* Her looking straight at the reader, next to "don't take my word for
+            any of this". A face makes candour read as candour rather than as
+            a slogan — this section was text-only and felt like fine print. */}
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+          <Reveal className="lg:col-span-4">
+            <div className="ring-anim relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl bg-ink-900">
+              <Image
+                src="/images/ann-headshot.jpg"
+                alt="Ann Fernando"
+                fill
+                quality={86}
+                sizes="(max-width: 1024px) 80vw, 380px"
+                style={{ objectPosition: "50% 26%" }}
+                className="object-cover"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink-950 via-ink-950/35 to-transparent" />
+              <p className="absolute inset-x-0 bottom-0 p-6 text-[11px] uppercase tracking-[0.22em] text-gold-400">
+                Check everything
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal className="lg:col-span-8">
+            <p className="mb-4 text-xs uppercase tracking-[0.3em] text-gold-500">
+              {verify.eyebrow}
+            </p>
+            <Say
+              as="h2"
+              v={verify.title}
+              className="glow-gold font-display text-[clamp(2.2rem,5vw,3.6rem)] font-light leading-[1.08] text-bone"
+            />
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-bone-dim">
+              {verify.intro}
+            </p>
+          </Reveal>
+        </div>
 
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {verify.items.map((item, i) => (

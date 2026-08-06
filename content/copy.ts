@@ -530,13 +530,13 @@ export const process = {
       label: t("Let's talk", "කතා කරමු", "high", "Repeats the primary CTA — consistency reinforces it."),
       body: "A 20-minute video call. Budget, timeline, and whether buying now is right for you at all.",
       meta: "20 minutes · video",
-      img: "/images/int-02.jpg",
+      img: "/images/ann-portrait.jpg",
     },
     {
       label: t("Shortlist and virtual tour"),
       body: "I send three to five options with full financials — service charges, realistic rent, net yield. We walk them on video.",
       meta: "3–5 options · full financials",
-      img: "/images/int-01.jpg",
+      img: "/images/ann-stone.jpg",
     },
     {
       label: t("Reserve remotely"),
@@ -560,7 +560,7 @@ export const process = {
       label: t("Handover and letting"),
       body: "We furnish if you wish, list the unit, place a tenant, and manage it. You receive statements quarterly.",
       meta: "Managed end to end",
-      img: "/images/int-04.jpg",
+      img: "/images/ann-cinema.jpg",
     },
   ],
 };

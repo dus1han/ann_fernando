@@ -25,20 +25,25 @@ export default function Statement() {
       className="relative isolate flex min-h-[62vh] items-center overflow-hidden border-y border-ink-800"
     >
       <motion.div style={{ y }} className="absolute inset-0 -z-10 h-[124%]">
+        {/* Ann in a high-floor lounge above Sheikh Zayed Road. The line is
+            about people who moved early — putting her, looking out over the
+            city, behind it makes the point far better than a bare skyline. */}
         <Image
-          src="/images/city-04.jpg"
-          alt=""
+          src="/images/ann-skyline.jpg"
+          alt="Ann Fernando overlooking the Dubai skyline"
           fill
-          quality={76}
+          quality={86}
           sizes="100vw"
-          className="object-cover object-top brightness-[1.12] contrast-[1.04] saturate-[1.06]"
+          style={{ objectPosition: "72% 42%" }}
+          className="object-cover brightness-[1.04] contrast-[1.04] saturate-[1.05]"
         />
       </motion.div>
 
       {/* Overlays kept light — the photograph carries this band, so the
-          gradients only need to protect the text on the left. */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink-950/95 via-ink-950/50 to-transparent" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink-950/75 via-transparent to-ink-950/20" />
+          gradients only need to protect the text on the left and keep Ann
+          clear of it on the right. */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink-950 via-ink-950/72 to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink-950/70 via-transparent to-ink-950/25" />
 
       <div className="mx-auto w-full max-w-7xl px-6 py-20">
         <motion.div
