@@ -24,6 +24,7 @@ export default function HeroBackdrop() {
           frame but the image is never quite still. */}
       <motion.div
         className="absolute inset-0"
+        style={{ willChange: "transform" }}
         initial={{ scale: 1.04 }}
         animate={{ scale: reduced ? 1.04 : [1.04, 1.13, 1.04] }}
         transition={{
@@ -41,7 +42,10 @@ export default function HeroBackdrop() {
           quality={88}
           sizes="100vw"
           style={{ objectPosition: "center 58%" }}
-          className="object-cover brightness-[1.1] contrast-[1.06] saturate-[1.22]"
+          /* PERF: warmth is baked into the image filter rather than applied
+             with a full-screen mix-blend layer — blend modes force the whole
+             viewport to recomposite on every scroll frame. */
+          className="object-cover brightness-[1.1] contrast-[1.06] saturate-[1.3] sepia-[0.12] hue-rotate-[-6deg]"
         />
       </motion.div>
 
@@ -49,7 +53,6 @@ export default function HeroBackdrop() {
           A night frame is already dark, so the overlays only carve a
           readable well on the left. The right side stays fully open so the
           tower lights and water reflections carry the frame. */}
-      <div className="absolute inset-0 bg-[#e0ac52] opacity-[0.14] mix-blend-soft-light" />
       <div className="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/74 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-transparent to-ink-950/35" />
 
@@ -57,11 +60,8 @@ export default function HeroBackdrop() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_55%_50%,transparent_48%,rgba(10,11,14,0.55)_100%)]" />
 
       {/* Gold blooms */}
-      <div className="aurora absolute right-[6%] top-[6%] h-[40vmax] w-[40vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.22),transparent_66%)] blur-3xl" />
-      <div className="aurora-slow absolute -left-[12%] bottom-[4%] h-[32vmax] w-[32vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.14),transparent_66%)] blur-3xl" />
-
-      {/* Slow light sweep */}
-      <div className="beam absolute inset-0 overflow-hidden" />
+      <div className="aurora absolute right-[6%] top-[6%] h-[40vmax] w-[40vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.22),transparent_66%)]" />
+      <div className="aurora-slow absolute -left-[12%] bottom-[4%] h-[32vmax] w-[32vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.14),transparent_66%)]" />
 
       {/* Hairline horizon + fade into the section below */}
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink-950 to-transparent" />

@@ -23,7 +23,7 @@ export default function Partners() {
           className="object-cover opacity-45"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-ink-950 via-ink-950/72 to-ink-950" />
-        <div className="aurora-slow absolute right-[10%] top-[8%] h-[30vmax] w-[30vmax] rounded-full bg-[radial-gradient(circle,rgba(212,182,120,0.14),transparent_66%)] blur-3xl" />
+        <div className="aurora-slow absolute right-[10%] top-[8%] h-[30vmax] w-[30vmax] rounded-full bg-[radial-gradient(circle,rgba(212,182,120,0.14),transparent_66%)]" />
       </div>
 
       <div className="mx-auto max-w-7xl px-6">

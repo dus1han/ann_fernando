@@ -27,7 +27,7 @@ export default function Nav() {
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-500",
           scrolled
-            ? "border-b border-ink-800/80 bg-ink-950/80 py-3 backdrop-blur-xl"
+            ? "border-b border-ink-800/80 bg-ink-950/92 py-3 backdrop-blur-sm"
             : "border-b border-transparent py-6"
         )}
       >

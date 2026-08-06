@@ -112,7 +112,7 @@ function Rail({
             fill
             quality={70}
             sizes="416px"
-            className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+            className="object-cover transition-transform duration-[1200ms] ease-out will-change-transform group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-30" />
         </figure>

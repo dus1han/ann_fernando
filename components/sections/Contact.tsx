@@ -61,7 +61,7 @@ export default function Contact() {
           className="object-cover opacity-50"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-ink-950 via-ink-950/72 to-ink-950" />
-        <div className="aurora absolute left-[6%] top-1/3 h-[32vmax] w-[32vmax] rounded-full bg-[radial-gradient(circle,rgba(212,182,120,0.13),transparent_66%)] blur-3xl" />
+        <div className="aurora absolute left-[6%] top-1/3 h-[32vmax] w-[32vmax] rounded-full bg-[radial-gradient(circle,rgba(212,182,120,0.13),transparent_66%)]" />
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-12 lg:gap-20">

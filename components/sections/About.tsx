@@ -14,7 +14,7 @@ export default function About() {
           would stop the sticky portrait below from pinning. */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div className="gold-grid absolute inset-0" />
-        <div className="aurora absolute -left-[8%] top-1/4 h-[34vmax] w-[34vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.13),transparent_66%)] blur-3xl" />
+        <div className="aurora absolute -left-[8%] top-1/4 h-[34vmax] w-[34vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.13),transparent_66%)]" />
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-12 lg:gap-16">

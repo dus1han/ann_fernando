@@ -17,7 +17,7 @@ export default function Afford() {
       className="relative overflow-hidden border-t border-ink-800 py-20 lg:py-24"
     >
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="aurora-slow absolute right-[4%] top-[10%] h-[32vmax] w-[32vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.12),transparent_66%)] blur-3xl" />
+        <div className="aurora-slow absolute right-[4%] top-[10%] h-[32vmax] w-[32vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.12),transparent_66%)]" />
       </div>
 
       <div className="mx-auto max-w-7xl px-6">
@@ -59,7 +59,7 @@ export default function Afford() {
                       fill
                       quality={78}
                       sizes="(max-width: 1024px) 100vw, 420px"
-                      className={`object-cover transition-all duration-700 ease-out ${
+                      className={`object-cover transition-[transform,filter] duration-700 ease-out ${
                         isActive ? "scale-105 saturate-110" : "scale-100"
                       }`}
                     />

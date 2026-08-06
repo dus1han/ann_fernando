@@ -39,7 +39,7 @@ export default function Faq() {
           className="object-cover opacity-25"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-ink-950 via-ink-950/88 to-ink-950" />
-        <div className="aurora-slow absolute right-[8%] top-1/4 h-[32vmax] w-[32vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.12),transparent_66%)] blur-3xl" />
+        <div className="aurora-slow absolute right-[8%] top-1/4 h-[32vmax] w-[32vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.12),transparent_66%)]" />
       </div>
 
       <div className="mx-auto max-w-6xl px-6">

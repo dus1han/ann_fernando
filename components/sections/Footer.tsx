@@ -37,7 +37,7 @@ export default function Footer() {
     <footer className="relative overflow-hidden border-t border-ink-800 bg-ink-950">
       <div className="gold-grid pointer-events-none absolute inset-0" />
       <div className="pointer-events-none absolute inset-0">
-        <div className="aurora absolute -bottom-[10%] left-1/2 h-[34vmax] w-[70vmax] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(217,189,128,0.13),transparent_66%)] blur-3xl" />
+        <div className="aurora absolute -bottom-[10%] left-1/2 h-[34vmax] w-[70vmax] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(217,189,128,0.13),transparent_66%)]" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 pt-14">

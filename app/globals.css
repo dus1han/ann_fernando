@@ -91,16 +91,25 @@ body {
 
 /* Slow-drifting gold bloom. Used behind section headings so large dark
    fields feel lit rather than empty. */
+/* PERF: no `scale` in these keyframes. Scaling a heavily blurred element
+   forces the browser to re-rasterise the blur every frame, which was a large
+   part of the scroll jank. Translating a promoted layer is nearly free. */
 @keyframes drift {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.75;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.7;
   }
   50% {
-    transform: translate3d(4%, -6%, 0) scale(1.18);
+    transform: translate3d(5%, -7%, 0);
     opacity: 1;
   }
+}
+.aurora,
+.aurora-slow {
+  will-change: transform, opacity;
+  /* layout+style only — `paint` would clip the glow to its own box. */
+  contain: layout style;
 }
 .aurora {
   animation: drift 18s ease-in-out infinite;
@@ -173,9 +182,19 @@ body {
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
-  animation: spin-angle 8s linear infinite;
   pointer-events: none;
   z-index: -1;
+
+  /* PERF: the ring is a static gold arc at rest and only spins on hover.
+     Animating a conic-gradient repaints the whole border every frame, and
+     with a dozen of these on the page it was the single biggest cause of
+     scroll jank. Idle cards now cost nothing. */
+  animation: spin-angle 8s linear infinite;
+  animation-play-state: paused;
+}
+.ring-anim:hover::before,
+.ring-anim:focus-within::before {
+  animation-play-state: running;
 }
 
 /* Lift + gold bloom on hover. Applied to every card grid. */
@@ -223,6 +242,7 @@ body {
   );
   animation: sweep 9s ease-in-out infinite;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
 /* Faint gold rule grid — gives large dark areas structure */

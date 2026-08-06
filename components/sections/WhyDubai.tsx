@@ -7,8 +7,8 @@ export default function WhyDubai() {
   return (
     <section id="why-dubai" className="relative overflow-hidden py-20 lg:py-24">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="aurora absolute -left-[6%] top-[6%] h-[36vmax] w-[36vmax] rounded-full bg-[radial-gradient(circle,rgba(212,182,120,0.11),transparent_66%)] blur-3xl" />
-        <div className="aurora-slow absolute bottom-[4%] right-[2%] h-[30vmax] w-[30vmax] rounded-full bg-[radial-gradient(circle,rgba(212,182,120,0.09),transparent_66%)] blur-3xl" />
+        <div className="aurora absolute -left-[6%] top-[6%] h-[36vmax] w-[36vmax] rounded-full bg-[radial-gradient(circle,rgba(212,182,120,0.11),transparent_66%)]" />
+        <div className="aurora-slow absolute bottom-[4%] right-[2%] h-[30vmax] w-[30vmax] rounded-full bg-[radial-gradient(circle,rgba(212,182,120,0.09),transparent_66%)]" />
       </div>
 
       <div className="mx-auto max-w-7xl px-6">
@@ -40,7 +40,7 @@ export default function WhyDubai() {
                 fill
                 quality={70}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-                className="object-cover opacity-25 transition-all duration-[900ms] ease-out group-hover:scale-110 group-hover:opacity-55"
+                className="object-cover opacity-25 transition-[transform,opacity] duration-[900ms] ease-out group-hover:scale-110 group-hover:opacity-55"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/90 to-ink-950/65 transition-opacity duration-700 group-hover:opacity-90" />
 

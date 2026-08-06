@@ -59,7 +59,7 @@ export default function Process() {
           The decorative layers are clipped in their own wrapper instead. */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div className="gold-grid absolute inset-0" />
-        <div className="aurora absolute right-[2%] top-1/3 h-[34vmax] w-[34vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.12),transparent_66%)] blur-3xl" />
+        <div className="aurora absolute right-[2%] top-1/3 h-[34vmax] w-[34vmax] rounded-full bg-[radial-gradient(circle,rgba(217,189,128,0.12),transparent_66%)]" />
       </div>
 
       <div className="mx-auto max-w-7xl px-6">
