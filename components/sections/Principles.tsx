@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
-import { principles, whatsappHref } from "@/content/copy";
+import { agent, principles, whatsappHref } from "@/content/copy";
 import { Say } from "@/lib/bi";
 
 /**
@@ -30,6 +31,31 @@ export default function Principles() {
             <p className="mt-5 text-[15px] leading-relaxed text-bone-dim">
               {principles.intro}
             </p>
+
+            {/* Her face against her own promises — the single most personal
+                moment on the page, so it is signed rather than captioned. */}
+            <div className="mt-8 flex items-center gap-4">
+              <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-1 ring-gold-600/50">
+                <Image
+                  src="/images/ann-portrait.jpg"
+                  alt="Ann Fernando"
+                  fill
+                  quality={80}
+                  sizes="64px"
+                  style={{ objectPosition: "52% 28%" }}
+                  className="object-cover"
+                />
+              </span>
+              <span>
+                <span className="block font-display text-lg font-light italic text-gold-400">
+                  {agent.name}
+                </span>
+                <span className="block text-[11px] uppercase tracking-[0.2em] text-bone-faint">
+                  {agent.role}
+                </span>
+              </span>
+            </div>
+
             <a
               href={whatsappHref}
               target="_blank"

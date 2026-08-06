@@ -66,6 +66,28 @@ export default function Contact() {
 
       <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-12 lg:gap-20">
         <Reveal className="lg:col-span-5">
+          {/* A face at the point of enquiry — people message a person, not a
+              form. Highest-intent moment on the page. */}
+          <div className="mb-7 flex items-center gap-4">
+            <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full ring-1 ring-gold-600/50">
+              <Image
+                src="/images/ann-portrait.jpg"
+                alt="Ann Fernando"
+                fill
+                quality={78}
+                sizes="56px"
+                style={{ objectPosition: "52% 28%" }}
+                className="object-cover"
+              />
+            </span>
+            <span>
+              <span className="block text-sm text-bone">{agent.name}</span>
+              <span className="block text-[11px] uppercase tracking-[0.2em] text-gold-500">
+                Replies personally
+              </span>
+            </span>
+          </div>
+
           <p className="mb-4 text-xs uppercase tracking-[0.3em] text-gold-500">
             Get in touch
           </p>

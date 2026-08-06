@@ -150,29 +150,25 @@ export default function Hero() {
             {/* Animated gold ring offset behind the portrait */}
             <div className="ring-anim absolute -inset-3 rounded-[2rem]" />
             <div className="relative h-full w-full overflow-hidden rounded-[1.75rem] bg-ink-900">
-              {/*
-                PORTRAIT SLOT — when Ann's photo arrives, swap the <Image>
-                below for /images/ann.jpg and delete the caption block.
-                4:5 portrait, clean background. Highest-impact asset on the site.
-              */}
               <Image
-                src="/images/city-02.jpg"
-                alt=""
+                src="/images/ann-hero.jpg"
+                alt="Ann Fernando, Property Consultant, in a Dubai villa"
                 fill
                 priority
-                quality={80}
+                quality={88}
                 sizes="(max-width: 1024px) 90vw, 460px"
-                className="object-cover opacity-95"
+                style={{ objectPosition: "50% 32%" }}
+                className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
+              {/* Grounds the portrait into the frame and keeps the caption legible */}
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink-950 via-ink-950/45 to-transparent" />
 
-              <div className="absolute inset-x-0 bottom-0 p-7 text-center">
-                <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full border border-gold-600/50 bg-ink-950/60 backdrop-blur">
-                  <span className="font-display text-lg text-gold-500">AF</span>
-                </div>
-                <p className="text-sm text-bone">Ann&rsquo;s portrait goes here</p>
-                <p className="mx-auto mt-1 max-w-[16rem] text-xs leading-relaxed text-bone-faint">
-                  Placeholder — replace with a 4:5 studio photograph.
+              <div className="absolute inset-x-0 bottom-0 p-7">
+                <p className="font-display text-2xl font-light leading-none text-bone">
+                  {agent.name}
+                </p>
+                <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-gold-500">
+                  {agent.role} · Dubai
                 </p>
               </div>
             </div>

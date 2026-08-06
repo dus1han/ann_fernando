@@ -17,12 +17,13 @@ export default function Shortlist() {
           <Reveal className="lg:col-span-5">
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-ink-900 lg:sticky lg:top-28">
               <Image
-                src="/images/city-02.jpg"
-                alt="Dubai waterfront"
+                src="/images/ann-lobby.jpg"
+                alt="Ann Fernando at a Dubai development"
                 fill
-                quality={78}
+                quality={86}
                 sizes="(max-width: 1024px) 90vw, 480px"
-                className="object-cover opacity-95"
+                style={{ objectPosition: "55% 30%" }}
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/25 to-transparent" />
 

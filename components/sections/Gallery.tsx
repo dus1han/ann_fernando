@@ -22,7 +22,9 @@ const ROW_A = [
 const ROW_B = [
   "/images/int-03.jpg",
   "/images/city-09.jpg",
-  "/images/int-06.jpg",
+  // Ann inside a development's private cinema — the only frame here with a
+  // person in it, which is what stops the eye on an otherwise generic rail.
+  "/images/ann-cinema.jpg",
   "/images/city-01.jpg",
   "/images/int-04.jpg",
   "/images/city-05.jpg",

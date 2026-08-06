@@ -21,25 +21,24 @@ export default function About() {
         {/* Portrait slot */}
         <Reveal className="lg:col-span-5">
           <div className="ring-anim relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-ink-900 lg:sticky lg:top-28">
-            {/*
-              SECOND PORTRAIT SLOT — a working shot reads better here than a
-              second studio headshot. Ann on site, or at a handover.
-              Swap the src below for /images/ann-working.jpg when it arrives.
-            */}
+            {/* On site in a Dubai villa — a working shot reads far better here
+                than a second studio headshot. */}
             <Image
-              src="/images/city-06.jpg"
-              alt=""
+              src="/images/ann-villa.jpg"
+              alt="Ann Fernando on site at a Dubai villa"
               fill
-              quality={80}
+              quality={86}
               sizes="(max-width: 1024px) 90vw, 480px"
+              style={{ objectPosition: "50% 38%" }}
               className="object-cover"
             />
-            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink-950 via-ink-950/60 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-7 text-center">
-              <p className="text-sm text-bone">Second photograph</p>
-              <p className="mx-auto mt-1 max-w-[18rem] text-xs leading-relaxed text-bone-dim">
-                Placeholder — a working shot of Ann on site is more persuasive
-                than a second studio headshot.
+            <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-7">
+              <p className="text-[11px] uppercase tracking-[0.22em] text-gold-500">
+                On site
+              </p>
+              <p className="mt-1.5 text-sm text-bone">
+                Viewing a villa for a client in Dubai
               </p>
             </div>
           </div>
