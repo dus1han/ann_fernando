@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Tab icon: AF monogram, gold on the site's charcoal.
+       Letterforms are drawn as stroked paths rather than <text> so they render
+       identically everywhere — SVG favicons cannot rely on a font being
+       installed on the viewer's machine. -->
+  <rect width="64" height="64" rx="14" fill="#12151c"/>
+  <rect x="1.25" y="1.25" width="61.5" height="61.5" rx="12.75"
+        fill="none" stroke="#b4924f" stroke-opacity="0.55" stroke-width="2.5"/>
+  <g fill="none" stroke="#e3c98d" stroke-width="4.4"
+     stroke-linecap="round" stroke-linejoin="round">
+    <!-- A -->
+    <path d="M12 46 L21 19 L30 46"/>
+    <path d="M15.6 37.5 H26.4"/>
+    <!-- F -->
+    <path d="M39 46 V19 H52"/>
+    <path d="M39 32.5 H49"/>
+  </g>
+</svg>
