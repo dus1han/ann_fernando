@@ -1,26 +1,277 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Base — warm charcoal, lifted well off pure black so photography reads as
+     photography rather than as texture. */
+  --color-ink-950: #12151c;
+  --color-ink-900: #191d26;
+  --color-ink-850: #1f2430;
+  --color-ink-800: #2a3040;
+  --color-ink-700: #3b4354;
+  --color-ink-600: #4e5768;
+
+  /* Light surfaces — the page alternates dark and cream so it never reads as
+     one long dark slab. */
+  --color-cream: #f7f4ed;
+  --color-cream-2: #eee7da;
+  --color-ink-text: #14171f;
+  --color-ink-text-dim: #545b69;
+
+  /* Champagne gold — the accent. Muted, not brassy. */
+  --color-gold-400: #edd9aa;
+  --color-gold-500: #d9bd80;
+  --color-gold-600: #b4924f;
+  --color-gold-700: #8a6d33;
+
+  /* Text on dark */
+  --color-bone: #f8f6f1;
+  --color-bone-dim: #c0bcb3;
+  --color-bone-faint: #8b877f;
+
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-sinhala: var(--font-noto-sinhala), var(--font-inter), sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: auto; /* Lenis owns scrolling */
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink-950);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Sinhala runs need far more vertical room — the loops above and below
+   the baseline collide at Latin line-heights. */
+.si {
+  font-family: var(--font-sinhala);
+  line-height: 1.9;
+  letter-spacing: 0;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-gold-500);
+  color: var(--color-ink-950);
+}
+
+/* Thin gold scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink-950);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-700);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-600);
+}
+
+/* Grain overlay — keeps large dark fields from banding */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Ambient motion ─────────────────────────────────────────────────────── */
+
+/* Slow-drifting gold bloom. Used behind section headings so large dark
+   fields feel lit rather than empty. */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate3d(4%, -6%, 0) scale(1.18);
+    opacity: 1;
+  }
+}
+.aurora {
+  animation: drift 18s ease-in-out infinite;
+}
+.aurora-slow {
+  animation: drift 26s ease-in-out infinite reverse;
+}
+
+/* Gold sweep across text — used sparingly, on one heading per page */
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+.shine {
+  background: linear-gradient(
+    100deg,
+    var(--color-gold-500) 20%,
+    #fff6dd 40%,
+    var(--color-gold-500) 60%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+/* ── Signature effects ──────────────────────────────────────────────────── */
+
+/* Gold halo on key headings and figures. The single most "memorable" effect
+   on the page — used on hero, big numbers, and one line per section. */
+.glow-gold {
+  text-shadow:
+    0 0 24px rgba(217, 189, 128, 0.42),
+    0 0 70px rgba(217, 189, 128, 0.16);
+}
+
+/* Rotating conic border. Needs @property so the angle can be animated. */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+.ring-anim {
+  position: relative;
+  isolation: isolate;
+}
+.ring-anim::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--angle),
+    transparent 0%,
+    rgba(217, 189, 128, 0.7) 12%,
+    transparent 26%,
+    transparent 62%,
+    rgba(217, 189, 128, 0.35) 76%,
+    transparent 90%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: spin-angle 8s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Lift + gold bloom on hover. Applied to every card grid. */
+.lift {
+  transition:
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.5s ease;
+}
+.lift:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 0 1px rgba(217, 189, 128, 0.28),
+    0 26px 60px -24px rgba(217, 189, 128, 0.35),
+    0 18px 50px -30px rgba(0, 0, 0, 0.9);
+}
+
+/* Slow light beam sweeping across a section */
+@keyframes sweep {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.55;
+  }
+  55% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(320%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+.beam::after {
+  content: "";
+  position: absolute;
+  inset-block: -40%;
+  inline-size: 22%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(237, 217, 170, 0.14),
+    transparent
+  );
+  animation: sweep 9s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Faint gold rule grid — gives large dark areas structure */
+.gold-grid {
+  background-image:
+    linear-gradient(rgba(217, 189, 128, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(217, 189, 128, 0.055) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 75% 60% at 50% 40%, #000 30%, transparent 78%);
+}
+
+/* Frosted panel over photography */
+.glass {
+  background: color-mix(in oklab, var(--color-ink-900) 62%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+/* Gradient hairline border, for feature cards */
+.edge-gold {
+  position: relative;
+}
+.edge-gold::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--color-gold-500) 55%, transparent),
+    transparent 42%,
+    transparent 64%,
+    color-mix(in oklab, var(--color-gold-500) 28%, transparent)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
