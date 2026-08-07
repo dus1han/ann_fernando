@@ -167,7 +167,7 @@ export const hero = {
   ),
   sub: t(
     "Buying property abroad is hard, and most of the advice you will get is quietly self-interested. I'm a property consultant with GCC Real Estate, a Sri Lankan-owned and DLD-registered brokerage in Business Bay. Ask me anything before you commit to anything.",
-    "විදේශයක දේපළක් ගන්න එක අමාරු වැඩක්. ඕන දෙයක් අහන්න, කලින් කිසි දෙයක් කරන්න කලින්.",
+    "විදේශයක property එකක් ගන්න එක අමාරු වැඩක්. ඕන දෙයක් අහන්න, කලින් කිසි දෙයක් කරන්න කලින්.",
     "high",
     "Ann speaking in her own voice, offering help rather than claiming a record. Reads warmer in the mother tongue."
   ),
@@ -696,7 +696,7 @@ export const faq = {
     {
       q: t(
         "Do I have to come to Dubai to buy a property?",
-        "දේපළක් ගන්න මම ඩුබායි එන්න ඕනද?",
+        "Property එකක් ගන්න මම ඩුබායි එන්න ඕනද?",
         "high",
         "The number one objection, phrased exactly as it is thought."
       ),
