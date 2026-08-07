@@ -125,8 +125,11 @@ export default function Gallery() {
                 }
           }
         >
-          <Rail images={ROW_A} baseVelocity={-2.2} />
-          <Rail images={ROW_B} baseVelocity={2.8} />
+          {/* Base drift is deliberately slow — the rails should read as
+              ambient, not as a carousel racing past. Scroll velocity is what
+              adds pace when the reader is actually moving. */}
+          <Rail images={ROW_A} baseVelocity={-0.9} />
+          <Rail images={ROW_B} baseVelocity={1.15} />
         </div>
       </div>
     </section>
@@ -150,10 +153,14 @@ function Rail({
     damping: 50,
     stiffness: 380,
   });
-  // Scrolling adds speed; scrolling up flips the rail's direction.
-  const velocityFactor = useTransform(smoothVelocity, [-1600, 0, 1600], [-4, 1, 4], {
-    clamp: false,
-  });
+  // Scrolling adds speed; scrolling up flips the rail's direction. Clamped so
+  // a fast flick nudges the rails rather than launching them.
+  const velocityFactor = useTransform(
+    smoothVelocity,
+    [-2200, 0, 2200],
+    [-1.8, 1, 1.8],
+    { clamp: true }
+  );
 
   // Duplicated once, so wrapping at -50% is seamless.
   const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`);
