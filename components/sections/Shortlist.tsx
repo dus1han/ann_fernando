@@ -20,7 +20,7 @@ export default function Shortlist() {
                 src="/images/ann-lobby.jpg"
                 alt="Ann Fernando at a Dubai development"
                 fill
-                quality={86}
+                quality={78}
                 sizes="(max-width: 1024px) 90vw, 480px"
                 style={{ objectPosition: "55% 30%" }}
                 className="object-cover"

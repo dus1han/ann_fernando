@@ -32,7 +32,7 @@ export default function Statement() {
           src="/images/ann-skyline.jpg"
           alt="Ann Fernando overlooking the Dubai skyline"
           fill
-          quality={86}
+          quality={78}
           sizes="100vw"
           style={{ objectPosition: "72% 42%" }}
           className="object-cover brightness-[1.04] contrast-[1.04] saturate-[1.05]"

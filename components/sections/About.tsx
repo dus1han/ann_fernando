@@ -27,7 +27,7 @@ export default function About() {
               src="/images/ann-villa.jpg"
               alt="Ann Fernando on site at a Dubai villa"
               fill
-              quality={86}
+              quality={78}
               sizes="(max-width: 1024px) 90vw, 480px"
               style={{ objectPosition: "50% 38%" }}
               className="object-cover"

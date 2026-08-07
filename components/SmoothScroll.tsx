@@ -12,6 +12,13 @@ export default function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // Skip on touch devices. Lenis hijacks native momentum scrolling, which on
+    // a phone feels worse than the platform default and costs a rAF loop plus
+    // a transform every frame — straight into Total Blocking Time.
+    const isTouch =
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    if (isTouch) return;
+
     const lenis = new Lenis({
       duration: 1.1,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

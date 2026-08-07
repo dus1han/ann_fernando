@@ -39,7 +39,7 @@ export default function HeroBackdrop() {
           alt=""
           fill
           priority
-          quality={88}
+          quality={80}
           sizes="100vw"
           style={{ objectPosition: "center 58%" }}
           /* PERF: warmth is baked into the image filter rather than applied

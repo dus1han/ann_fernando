@@ -32,7 +32,7 @@ export default function Verify() {
                 src="/images/ann-headshot.jpg"
                 alt="Ann Fernando"
                 fill
-                quality={86}
+                quality={78}
                 sizes="(max-width: 1024px) 80vw, 380px"
                 style={{ objectPosition: "50% 26%" }}
                 className="object-cover"

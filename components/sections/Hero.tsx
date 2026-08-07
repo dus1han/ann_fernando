@@ -131,7 +131,6 @@ export default function Hero() {
                 alt={agent.companyLegal}
                 width={200}
                 height={60}
-                priority
                 className="h-10 w-auto"
               />
             </div>
@@ -150,12 +149,15 @@ export default function Hero() {
             {/* Animated gold ring offset behind the portrait */}
             <div className="ring-anim absolute -inset-3 rounded-[2rem]" />
             <div className="relative h-full w-full overflow-hidden rounded-[1.75rem] bg-ink-900">
+              {/* Deliberately NOT `priority`. On mobile this sits below a tall
+                  copy block, so preloading it only competes for bandwidth with
+                  the backdrop, which is the real LCP element. On desktop it is
+                  in the initial viewport and loads immediately regardless. */}
               <Image
                 src="/images/ann-hero.jpg"
                 alt="Ann Fernando, Property Consultant, in a Dubai villa"
                 fill
-                priority
-                quality={88}
+                quality={80}
                 sizes="(max-width: 1024px) 90vw, 460px"
                 style={{ objectPosition: "50% 32%" }}
                 className="object-cover"

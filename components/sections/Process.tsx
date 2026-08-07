@@ -139,7 +139,7 @@ export default function Process() {
                         src={process.steps[active].img}
                         alt=""
                         fill
-                        quality={82}
+                        quality={78}
                         sizes="560px"
                         className="object-cover"
                       />
