@@ -25,28 +25,47 @@ function useCountdown(endsAt: string) {
     days: number;
     hours: number;
     minutes: number;
+    seconds: number;
     over: boolean;
     ready: boolean;
-  }>({ days: 0, hours: 0, minutes: 0, over: false, ready: false });
+  }>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    over: false,
+    ready: false,
+  });
 
   useEffect(() => {
     const end = new Date(endsAt).getTime();
     const tick = () => {
       const diff = end - Date.now();
       if (diff <= 0) {
-        setState({ days: 0, hours: 0, minutes: 0, over: true, ready: true });
+        setState({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          over: true,
+          ready: true,
+        });
         return;
       }
       setState({
         days: Math.floor(diff / 86_400_000),
         hours: Math.floor((diff / 3_600_000) % 24),
         minutes: Math.floor((diff / 60_000) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
         over: false,
         ready: true,
       });
     };
     tick();
-    const id = setInterval(tick, 30_000);
+    // Ticks every second so the seconds column keeps moving. One setState a
+    // second on four numbers is negligible, and a visibly live clock is what
+    // makes the deadline feel real.
+    const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, [endsAt]);
 
@@ -54,7 +73,9 @@ function useCountdown(endsAt: string) {
 }
 
 export default function Roadshow() {
-  const { days, hours, minutes, over, ready } = useCountdown(roadshow.endsAt);
+  const { days, hours, minutes, seconds, over, ready } = useCountdown(
+    roadshow.endsAt
+  );
 
   if (!roadshow.active) return null;
 
@@ -161,31 +182,44 @@ export default function Roadshow() {
             {/* ── Countdown + facts ─────────────────────────────────── */}
             <Reveal delay={0.1} className="lg:col-span-5">
               <div className="edge-gold rounded-3xl bg-ink-900/70 p-7 backdrop-blur-sm sm:p-8">
-                <p className="text-[11px] uppercase tracking-[0.24em] text-gold-600">
+                <p className="text-center text-[11px] uppercase tracking-[0.24em] text-gold-600">
                   {roadshow.countdownLabel}
                 </p>
 
-                <div className="mt-4 flex items-end gap-5">
+                {/* Centred, and each cell is fixed-width with tabular figures
+                    so the ticking seconds never shift the layout sideways. */}
+                <motion.div
+                  initial={false}
+                  animate={{ opacity: ready ? 1 : 0.3 }}
+                  transition={{ duration: 0.4, ease: EASE }}
+                  className="mt-5 flex items-start justify-center gap-2 sm:gap-3"
+                >
                   {[
                     { n: days, l: "days" },
                     { n: hours, l: "hrs" },
                     { n: minutes, l: "min" },
-                  ].map((u) => (
-                    <div key={u.l}>
-                      <motion.p
-                        initial={false}
-                        animate={{ opacity: ready ? 1 : 0.25 }}
-                        transition={{ duration: 0.4, ease: EASE }}
-                        className="font-display text-[clamp(2.2rem,4.4vw,3rem)] font-light leading-none text-gold-400 tabular-nums"
-                      >
-                        {ready ? String(u.n).padStart(2, "0") : "--"}
-                      </motion.p>
-                      <p className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-bone-faint">
-                        {u.l}
-                      </p>
+                    { n: seconds, l: "sec" },
+                  ].map((u, i) => (
+                    <div key={u.l} className="flex items-start">
+                      <div className="w-[3.6rem] text-center sm:w-[4.2rem]">
+                        <p className="font-display text-[clamp(1.9rem,3.6vw,2.6rem)] font-light leading-none tabular-nums text-gold-400">
+                          {ready ? String(u.n).padStart(2, "0") : "--"}
+                        </p>
+                        <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-bone-faint">
+                          {u.l}
+                        </p>
+                      </div>
+                      {i < 3 && (
+                        <span
+                          aria-hidden
+                          className="font-display text-[clamp(1.9rem,3.6vw,2.6rem)] font-light leading-none text-gold-700"
+                        >
+                          :
+                        </span>
+                      )}
                     </div>
                   ))}
-                </div>
+                </motion.div>
 
                 <dl className="mt-8 space-y-3 border-t border-bone/10 pt-6">
                   {roadshow.facts.map((f) => (
