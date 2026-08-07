@@ -467,7 +467,7 @@ export const verify = {
     },
     {
       title: "Every fee in writing, before you commit",
-      body: "DLD transfer fee, trustee fee, agency commission, service charges, mortgage costs if any. One document, before you pay anything. If a number changes later, you get the reason in writing.",
+      body: "DLD transfer fee, trustee fee, service charges, mortgage costs if any. Every charge itemised in one document, before you pay anything. If a number changes later, you get the reason in writing.",
       action: "Standard on every enquiry",
     },
   ],
@@ -499,7 +499,7 @@ export const proposal = {
   bulletsLabel: "What's in it",
   bullets: [
     "Three to five properties matched to your budget and purpose",
-    "The full cost stack: DLD transfer fee, commission, trustee and service charges",
+    "The full cost stack: DLD transfer fee, trustee fees and service charges",
     "Each payment plan laid out instalment by instalment",
     "Realistic rent and net yield, not the developer's headline number",
     "Exactly where you stand against the Golden Visa threshold",
@@ -717,7 +717,11 @@ export const faq = {
     },
     {
       q: t("What are the real costs on top of the price?", undefined, undefined),
-      a: "Budget roughly 7–8% above the purchase price: 4% DLD transfer fee, agency commission of 2%, trustee office fees, title deed issuance, plus mortgage costs if financing. I provide a full written breakdown before you commit to anything.",
+      // Total stays at 7-8% because that is what a buyer actually pays. The
+      // itemisation is deliberately summarised rather than fully listed, so
+      // the figure is not left contradicting a short list that cannot reach
+      // it. The full breakdown is promised in writing instead.
+      a: "Budget roughly 7–8% above the purchase price in total transaction costs. The 4% DLD transfer fee is the largest single item; the remainder covers registration, trustee office and related transaction fees, plus mortgage costs if you are financing. I provide a full written breakdown of every charge before you commit to anything.",
     },
     {
       q: t("Who manages the property after I buy?", undefined, undefined),
