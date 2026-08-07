@@ -1,56 +1,34 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import {
-  AnimatePresence,
-  motion,
-  useInView,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "motion/react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import Reveal from "@/components/Reveal";
 import { process, whatsappHref } from "@/content/copy";
 import { Say } from "@/lib/bi";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-const THUMB = 68; // px per thumbnail incl. gap — the rail translates by this
+const R = 128; // progress ring radius
+const C = 2 * Math.PI * R;
 
 /**
- * Sticky-visual walkthrough.
+ * Sticky walkthrough with an animated dial rather than a photo panel.
  *
- * The left column pins while the steps scroll past on the right. It is kept
- * deliberately busy so it never reads as dead space: the photograph crossfades
- * and drifts under a slow parallax, a thumbnail rail slides to the active
- * step, the counter flips, and a progress bar fills. Panel height is tied to
- * the viewport so there is no gap above or below it while pinned.
+ * The photographs that used to pin here fought the content — the steps are
+ * about paperwork, escrow and title deeds, and no photograph illustrates
+ * that. A dial does: a gold arc closes as you advance, the numeral flips,
+ * six ticks mark the steps, and the caption crossfades. It reads as progress
+ * through a process, which is exactly what the section is describing.
  *
- * Below lg the pinned column is dropped and each step carries its own image.
+ * Nothing here loads an image, so the section costs no bandwidth at all.
  */
 export default function Process() {
   const [active, setActive] = useState(0);
   const onEnter = useCallback((i: number) => setActive(i), []);
-
-  const sectionRef = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  // Slow continuous drift so the pinned image is never completely still.
-  const drift = useSpring(
-    useTransform(scrollYProgress, [0, 1], reduced ? ["0%", "0%"] : ["-6%", "6%"]),
-    { stiffness: 60, damping: 24, restDelta: 0.001 }
-  );
-
   const total = process.steps.length;
 
   return (
     <section
       id="process"
-      ref={sectionRef}
       className="relative border-t border-ink-800 py-20 lg:py-24"
     >
       {/* ⚠ `overflow-hidden` must NOT go on the <section>. An ancestor with
@@ -78,140 +56,115 @@ export default function Process() {
         </Reveal>
 
         {/* No `items-start` here — the columns must stretch to the row height
-            or the sticky panel below has nothing to travel inside and simply
-            scrolls away with the steps. */}
+            or the sticky dial below has nothing to travel inside. */}
         <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:gap-14">
-          {/* ── Pinned visual ─────────────────────────────────────────── */}
-          <div className="hidden lg:col-span-6 lg:block">
-            {/* Height leaves room under the fixed nav so the panel always
-                fits the viewport — a sticky box taller than the screen
-                cannot pin. */}
-            <div className="sticky top-24 flex h-[min(74vh,42rem)] gap-4">
-              {/* Thumbnail rail — slides so the active step sits centre */}
-              <div className="relative w-14 shrink-0 overflow-hidden">
-                <motion.div
-                  className="absolute inset-x-0 flex flex-col gap-3"
-                  initial={false}
-                  animate={{ y: `calc(50% - ${active * THUMB + THUMB / 2}px)` }}
-                  transition={{ duration: 0.7, ease: EASE }}
-                  style={{ top: "50%" }}
+          {/* ── Pinned dial ───────────────────────────────────────────── */}
+          <div className="hidden lg:col-span-5 lg:block">
+            <div className="sticky top-24 flex h-[min(74vh,40rem)] items-center justify-center">
+              <div className="relative">
+                <svg
+                  viewBox="0 0 320 320"
+                  className="h-[20rem] w-[20rem] -rotate-90"
+                  aria-hidden
                 >
-                  {process.steps.map((s, i) => (
-                    <button
-                      key={s.label.en}
-                      onClick={() => setActive(i)}
-                      aria-label={`Step ${i + 1}`}
-                      className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border transition-all duration-500 ${
-                        i === active
-                          ? "scale-105 border-gold-500 opacity-100"
-                          : "border-ink-700 opacity-40 hover:opacity-70"
-                      }`}
-                    >
-                      <Image
-                        src={s.img}
-                        alt=""
-                        fill
-                        quality={45}
-                        sizes="56px"
-                        className="object-cover"
+                  <defs>
+                    <linearGradient id="dial" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#edd9aa" />
+                      <stop offset="100%" stopColor="#b4924f" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Track */}
+                  <circle
+                    cx="160"
+                    cy="160"
+                    r={R}
+                    fill="none"
+                    stroke="#2a3040"
+                    strokeWidth="1.5"
+                  />
+
+                  {/* Six ticks, one per step */}
+                  {process.steps.map((_, i) => {
+                    const a = (i / total) * 2 * Math.PI;
+                    const inner = R - 9;
+                    const outer = R + 9;
+                    return (
+                      <line
+                        key={i}
+                        x1={160 + Math.cos(a) * inner}
+                        y1={160 + Math.sin(a) * inner}
+                        x2={160 + Math.cos(a) * outer}
+                        y2={160 + Math.sin(a) * outer}
+                        stroke={i <= active ? "#d9bd80" : "#3b4354"}
+                        strokeWidth={i === active ? 2.5 : 1.5}
+                        className="transition-all duration-500"
                       />
-                    </button>
-                  ))}
-                </motion.div>
+                    );
+                  })}
 
-                {/* Centre marker */}
-                <span className="pointer-events-none absolute left-0 top-1/2 h-14 w-full -translate-y-1/2 rounded-xl ring-1 ring-inset ring-gold-500/35" />
-              </div>
-
-              {/* Main frame */}
-              <div className="ring-anim relative flex-1 overflow-hidden rounded-3xl bg-ink-900">
-                <AnimatePresence initial={false}>
-                  <motion.div
-                    key={active}
-                    initial={{ opacity: 0, scale: 1.1 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.03 }}
+                  {/* Filling arc */}
+                  <motion.circle
+                    cx="160"
+                    cy="160"
+                    r={R}
+                    fill="none"
+                    stroke="url(#dial)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeDasharray={C}
+                    initial={false}
+                    animate={{ strokeDashoffset: C - C * ((active + 1) / total) }}
                     transition={{ duration: 0.9, ease: EASE }}
-                    className="absolute inset-0"
-                  >
-                    <motion.div style={{ y: drift }} className="absolute -inset-y-[8%] inset-x-0">
-                      <Image
-                        src={process.steps[active].img}
-                        alt=""
-                        fill
-                        quality={78}
-                        sizes="560px"
-                        className="object-cover"
-                      />
-                    </motion.div>
-                  </motion.div>
-                </AnimatePresence>
+                  />
+                </svg>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/15 to-ink-950/45" />
-
-                {/* Counter */}
-                <div className="absolute left-8 top-8 flex items-baseline gap-2">
-                  <motion.span
-                    key={`n-${active}`}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, ease: EASE }}
-                    className="glow-gold font-display text-7xl font-light leading-none text-gold-400"
-                  >
-                    {String(active + 1).padStart(2, "0")}
-                  </motion.span>
-                  <span className="font-display text-lg text-bone-faint">
-                    / {String(total).padStart(2, "0")}
+                {/* Numeral */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={active}
+                      initial={{ opacity: 0, y: 22, filter: "blur(6px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -22, filter: "blur(6px)" }}
+                      transition={{ duration: 0.45, ease: EASE }}
+                      className="glow-gold font-display text-[7rem] font-light leading-none text-gold-400"
+                    >
+                      {String(active + 1).padStart(2, "0")}
+                    </motion.span>
+                  </AnimatePresence>
+                  <span className="mt-1 font-display text-sm tracking-[0.2em] text-bone-faint">
+                    OF {String(total).padStart(2, "0")}
                   </span>
                 </div>
 
-                {/* Caption */}
-                <div className="absolute inset-x-0 bottom-0 p-8">
+                {/* Caption below the dial */}
+                <div className="absolute inset-x-0 -bottom-4 text-center">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={`c-${active}`}
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 14 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -14 }}
-                      transition={{ duration: 0.45, ease: EASE }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.4, ease: EASE }}
                     >
-                      <p className="text-[11px] uppercase tracking-[0.22em] text-gold-500">
-                        {process.steps[active].meta}
-                      </p>
                       <Say
                         as="p"
                         v={process.steps[active].label}
-                        className="mt-2 font-display text-4xl font-light leading-tight text-bone"
+                        className="font-display text-2xl font-light text-bone"
                       />
-                      <p className="mt-3 max-w-md text-[15px] leading-relaxed text-bone-dim">
-                        {process.steps[active].body}
+                      <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-gold-500">
+                        {process.steps[active].meta}
                       </p>
                     </motion.div>
                   </AnimatePresence>
-
-                  {/* Progress rail */}
-                  <div className="mt-7 flex gap-1.5">
-                    {process.steps.map((_, i) => (
-                      <span
-                        key={i}
-                        className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-bone/15"
-                      >
-                        <motion.span
-                          className="absolute inset-0 origin-left rounded-full bg-gold-500"
-                          initial={false}
-                          animate={{ scaleX: i <= active ? 1 : 0 }}
-                          transition={{ duration: 0.6, ease: EASE }}
-                        />
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* ── Steps ─────────────────────────────────────────────────── */}
-          <ol className="lg:col-span-6">
+          <ol className="lg:col-span-7">
             {process.steps.map((s, i) => (
               <Step
                 key={s.label.en}
@@ -288,45 +241,26 @@ function Step({
           {String(index + 1).padStart(2, "0")}
         </motion.span>
 
-        <div className="flex-1">
-          {/* Mobile-only image — the pinned column is hidden below lg */}
-          <div className="relative mb-5 aspect-[16/10] w-full overflow-hidden rounded-2xl lg:hidden">
-            <Image
-              src={step.img}
-              alt=""
-              fill
-              quality={72}
-              sizes="100vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink-950/85 to-transparent" />
-            <p className="absolute bottom-4 left-5 text-[10px] uppercase tracking-[0.2em] text-gold-400">
-              {step.meta}
-            </p>
-          </div>
-
-          <motion.div
-            initial={false}
-            animate={{ opacity: isActive ? 1 : 0.5 }}
-            transition={{ duration: 0.4 }}
-          >
-            <Say
-              as="h3"
-              v={step.label}
-              className={`font-display text-2xl font-light leading-snug transition-colors duration-500 sm:text-3xl ${
-                isActive ? "text-gold-400" : "text-bone"
-              }`}
-            />
-            {/* Body is shown in the pinned panel on desktop, so it is only
-                repeated here on smaller screens. */}
-            <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-bone-dim lg:hidden">
-              {step.body}
-            </p>
-            <p className="mt-4 hidden text-[11px] uppercase tracking-[0.2em] text-bone-faint lg:block">
-              {step.meta} · step {index + 1} of {total}
-            </p>
-          </motion.div>
-        </div>
+        <motion.div
+          className="flex-1"
+          initial={false}
+          animate={{ opacity: isActive ? 1 : 0.5 }}
+          transition={{ duration: 0.4 }}
+        >
+          <Say
+            as="h3"
+            v={step.label}
+            className={`font-display text-2xl font-light leading-snug transition-colors duration-500 sm:text-3xl ${
+              isActive ? "text-gold-400" : "text-bone"
+            }`}
+          />
+          <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-bone-dim">
+            {step.body}
+          </p>
+          <p className="mt-4 text-[11px] uppercase tracking-[0.2em] text-bone-faint">
+            {step.meta} · step {index + 1} of {total}
+          </p>
+        </motion.div>
       </div>
     </li>
   );
