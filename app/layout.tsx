@@ -31,9 +31,11 @@ const SITE_URL = "https://annfernando.ae"; // TODO: real domain
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: `${agent.name} — ${agent.role}, Dubai | Property investment for Sri Lankans`,
+  // One separator only — two pipes read as clutter in a browser tab. The
+  // Sri Lankan keyword phrase lives in the description instead.
+  title: `${agent.name} | ${agent.role}, Dubai`,
   description:
-    "Buy Dubai property from anywhere in the world. Ann Fernando is a licensed property consultant in Dubai working with Sri Lankan investors — freehold ownership, 6–9% gross yields, and the UAE Golden Visa.",
+    "Buy Dubai property from anywhere in the world. Ann Fernando is a property consultant with GCC Real Estate, a DLD-registered brokerage in Dubai, working with Sri Lankan investors — freehold ownership, 6–9% gross yields, and the UAE Golden Visa.",
   keywords: [
     "Dubai property for Sri Lankans",
     "invest in Dubai real estate",
@@ -46,13 +48,13 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: `${agent.name} · ${agent.company}`,
-    title: `${agent.name} — Dubai property, in your language`,
+    title: `${agent.name} | Dubai property, in your language`,
     description:
-      "Licensed Dubai property consultant helping Sri Lankan families invest — remotely, and without guesswork.",
+      "Dubai property consultant with GCC Real Estate, helping Sri Lankan families invest — remotely, and without guesswork.",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${agent.name} — ${agent.role}, Dubai`,
+    title: `${agent.name} | ${agent.role}, Dubai`,
     description:
       "Dubai property investment guidance for Sri Lankan buyers, at home and abroad.",
   },
