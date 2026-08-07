@@ -60,11 +60,14 @@ export default function Process() {
         <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:gap-14">
           {/* ── Pinned dial ───────────────────────────────────────────── */}
           <div className="hidden lg:col-span-5 lg:block">
-            <div className="sticky top-24 flex h-[min(74vh,40rem)] items-center justify-center">
-              <div className="relative">
+            {/* Column layout, not absolute positioning. The caption used to be
+                pinned below the ring with a negative offset, which laid it
+                over the lower arc. Normal flow guarantees no overlap. */}
+            <div className="sticky top-24 flex h-[min(74vh,40rem)] flex-col items-center justify-center gap-9">
+              <div className="relative shrink-0">
                 <svg
                   viewBox="0 0 320 320"
-                  className="h-[20rem] w-[20rem] -rotate-90"
+                  className="h-[17.5rem] w-[17.5rem] -rotate-90"
                   aria-hidden
                 >
                   <defs>
@@ -128,7 +131,7 @@ export default function Process() {
                       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                       exit={{ opacity: 0, y: -22, filter: "blur(6px)" }}
                       transition={{ duration: 0.45, ease: EASE }}
-                      className="glow-gold font-display text-[7rem] font-light leading-none text-gold-400"
+                      className="glow-gold font-display text-[6rem] font-light leading-none text-gold-400"
                     >
                       {String(active + 1).padStart(2, "0")}
                     </motion.span>
@@ -137,28 +140,29 @@ export default function Process() {
                     OF {String(total).padStart(2, "0")}
                   </span>
                 </div>
+              </div>
 
-                {/* Caption below the dial */}
-                <div className="absolute inset-x-0 -bottom-4 text-center">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={`c-${active}`}
-                      initial={{ opacity: 0, y: 14 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.4, ease: EASE }}
-                    >
-                      <Say
-                        as="p"
-                        v={process.steps[active].label}
-                        className="font-display text-2xl font-light text-bone"
-                      />
-                      <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-gold-500">
-                        {process.steps[active].meta}
-                      </p>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
+              {/* Caption sits in normal flow beneath the dial. Fixed height so
+                  swapping steps never nudges the ring up or down. */}
+              <div className="flex h-20 w-full max-w-xs items-start justify-center text-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`c-${active}`}
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.4, ease: EASE }}
+                  >
+                    <Say
+                      as="p"
+                      v={process.steps[active].label}
+                      className="font-display text-2xl font-light leading-snug text-bone"
+                    />
+                    <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-gold-500">
+                      {process.steps[active].meta}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
           </div>
