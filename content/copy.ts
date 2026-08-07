@@ -132,7 +132,7 @@ export const whatsappHref = `https://wa.me/${agent.whatsapp}?text=${encodeURICom
 
 export const nav = [
   // Gold-highlighted in the nav while the event is live; see Nav.tsx.
-  { label: "Colombo, 5–6 Sept", href: "#roadshow", highlight: true },
+  { label: "Colombo, 5th & 6th Sept", href: "#roadshow", highlight: true },
   { label: "About Ann", href: "#about" },
   { label: "How I work", href: "#principles" },
   { label: "Verify me", href: "#verify" },
