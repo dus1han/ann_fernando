@@ -131,6 +131,8 @@ export const whatsappHref = `https://wa.me/${agent.whatsapp}?text=${encodeURICom
 /* ─── Nav ───────────────────────────────────────────────────────────────── */
 
 export const nav = [
+  // Gold-highlighted in the nav while the event is live; see Nav.tsx.
+  { label: "Colombo, 5–6 Sept", href: "#roadshow", highlight: true },
   { label: "About Ann", href: "#about" },
   { label: "How I work", href: "#principles" },
   { label: "Verify me", href: "#verify" },
@@ -179,6 +181,59 @@ export const hero = {
   ),
   ctaSecondary: t("Get a proposal", undefined, undefined),
   scrollCue: "Scroll",
+};
+
+/* ─── 1b. Roadshow ──────────────────────────────────────────────────────── */
+/**
+ * Time-boxed event band. Sits directly under the trust bar because while it
+ * is running it is the most important thing on the page, and it is where paid
+ * traffic lands.
+ *
+ * `endsAt` drives everything: the countdown, the nav item, and the switch to
+ * the after-the-event message. Change that one date and the whole section
+ * follows. Set `active: false` to remove it entirely once there is no next
+ * event scheduled.
+ */
+export const roadshow = {
+  active: true,
+  /** Sri Lanka is UTC+5:30. Doors close 6pm on the second day. */
+  endsAt: "2026-09-06T18:00:00+05:30",
+
+  eyebrow: "In Sri Lanka",
+  title: t(
+    "Meet me in Colombo.",
+    "කොළඹදී හමුවෙමු.",
+    "high",
+    "An invitation, not an announcement. Warmer in the mother tongue, and the whole point of the event is that she is there in person."
+  ),
+  dates: "5th & 6th September",
+  venue: "Cinnamon Grand, Colombo",
+  time: "10.00 am to 6.00 pm",
+  entry: "Free entry",
+
+  intro:
+    "Two days, in person. Walk in any time between 10am and 6pm, or message me and I'll set aside a time for you.",
+  // The single biggest reason people do not come is fear of a hard sell in a
+  // hotel function room. Say the opposite, plainly, before anything else.
+  reassurance:
+    "Bring a budget figure and a question. Nobody will ask you to sign anything, and there is no presentation to sit through.",
+
+  facts: [
+    { k: "When", v: "5th & 6th September, 10am to 6pm" },
+    { k: "Where", v: "Cinnamon Grand, Colombo" },
+    { k: "Cost", v: "Free, no ticket needed" },
+    { k: "Bring", v: "Your budget and your questions" },
+  ],
+
+  cta: t("Reserve your slot", "වෙලාවක් වෙන් කරන්න", "high"),
+  ctaNote: "Or just walk in. Both work.",
+  countdownLabel: "Until doors open",
+
+  /** Shown automatically once `endsAt` has passed. */
+  afterTitle: "I was in Colombo on the 5th and 6th of September.",
+  afterBody:
+    "If we did not get to meet, message me and we will do it on video instead. Same conversation, same questions, no travel.",
+  afterCta: "Let's talk on video",
 };
 
 /* ─── 2. Trust bar ──────────────────────────────────────────────────────── */

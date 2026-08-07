@@ -57,7 +57,12 @@ export default function Nav() {
               <a
                 key={n.href}
                 href={n.href}
-                className="relative whitespace-nowrap text-[13px] text-bone-dim transition-colors hover:text-bone"
+                className={cn(
+                  "relative whitespace-nowrap text-[13px] transition-colors",
+                  n.highlight
+                    ? "rounded-full border border-gold-600/50 px-3 py-1.5 text-gold-400 hover:bg-gold-500 hover:text-ink-950"
+                    : "text-bone-dim hover:text-bone"
+                )}
               >
                 {n.label}
               </a>

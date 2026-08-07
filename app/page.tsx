@@ -7,6 +7,7 @@ import SlotInspector from "@/components/SlotInspector";
 
 import Hero from "@/components/sections/Hero";
 import TrustBar from "@/components/sections/TrustBar";
+import Roadshow from "@/components/sections/Roadshow";
 import About from "@/components/sections/About";
 import Principles from "@/components/sections/Principles";
 import Verify from "@/components/sections/Verify";
@@ -47,6 +48,9 @@ export default function Page() {
       <main>
         <Hero />
         <TrustBar />
+        {/* Time-boxed. Sits this high because it is where paid traffic lands,
+            and it self-retires once roadshow.endsAt has passed. */}
+        <Roadshow />
         <About />
         <Principles />
         <Verify />
