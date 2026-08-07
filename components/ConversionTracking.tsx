@@ -6,18 +6,18 @@ import { track } from "@vercel/analytics";
 /**
  * One document-level listener that records every contact action on the page.
  *
- * The site has eleven separate contact points — WhatsApp buttons in the hero,
+ * The site has eleven separate contact points - WhatsApp buttons in the hero,
  * affordability, visa, gallery, shortlist, proposal, FAQ and contact, plus the
  * floating button, the tel: links and the mailto: links. Instrumenting each
  * component individually would mean eleven edits now and a forgotten one every
  * time a section is added.
  *
  * Listening on `document` in the capture phase catches all of them, including
- * any added later, and records WHICH section produced the click — so you can
+ * any added later, and records WHICH section produced the click - so you can
  * see whether people convert off the Golden Visa argument or the FAQ.
  *
  * Note: Vercel Web Analytics counts page views on every plan. Custom events
- * like these may require Pro — `track()` fails silently if unsupported, so
+ * like these may require Pro - `track()` fails silently if unsupported, so
  * there is no error either way.
  */
 export default function ConversionTracking() {
@@ -27,7 +27,7 @@ export default function ConversionTracking() {
       if (!link) return;
 
       const href = link.getAttribute("href") ?? "";
-      // Which section did this come from — the whole point of the exercise.
+      // Which section did this come from - the whole point of the exercise.
       const section =
         link.closest("section")?.id ||
         link.closest("footer")?.tagName.toLowerCase() ||

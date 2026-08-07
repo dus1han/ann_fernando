@@ -17,7 +17,7 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Portrait drifts slower than the text — depth without a heavy parallax lib.
+  // Portrait drifts slower than the text - depth without a heavy parallax lib.
   const portraitY = useTransform(scrollYProgress, [0, 1], ["0%", reduced ? "0%" : "14%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", reduced ? "0%" : "-8%"]);
   const fade = useTransform(scrollYProgress, [0, 0.8], [1, reduced ? 1 : 0]);
@@ -55,7 +55,7 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          {/* Her name is the H1 — this is a personal brand, not a listings site. */}
+          {/* Her name is the H1 - this is a personal brand, not a listings site. */}
           <h1 className="glow-gold font-display text-[clamp(3rem,8vw,6rem)] font-light leading-[0.98] tracking-[-0.025em] text-bone">
             {words.map((w, i) => (
               <motion.span
@@ -120,7 +120,7 @@ export default function Hero() {
               </a>
             </div>
 
-            {/* Company endorsement — credibility is attributed to the
+            {/* Company endorsement - credibility is attributed to the
                 brokerage, never claimed personally. */}
             <div className="mt-10 inline-flex flex-wrap items-center gap-x-5 gap-y-3 rounded-2xl border border-ink-700/70 bg-ink-950/50 px-6 py-4 backdrop-blur-sm">
               <span className="text-[11px] uppercase tracking-[0.2em] text-bone-faint">

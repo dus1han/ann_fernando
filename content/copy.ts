@@ -6,9 +6,9 @@
  *  The site ships in ENGLISH today. Every place where Sinhala would genuinely
  *  earn its place is already marked below with a `si` field and a `slot`
  *  priority. Flip SINHALA_ENABLED to true and the marked lines render with a
- *  Sinhala accent — no component changes required.
+ *  Sinhala accent - no component changes required.
  *
- *  SLOT PRIORITY — where Sinhala pays for itself:
+ *  SLOT PRIORITY - where Sinhala pays for itself:
  *
  *   "high"   Emotional / relational moments. Greeting, headlines, CTAs, the
  *            questions a nervous buyer is actually asking, client voices.
@@ -58,11 +58,11 @@ export const agent = {
   address: "1910 Regal Tower, Business Bay, Dubai",
 
   /**
-   * Office location — exact coordinates supplied by the client. Used only for
+   * Office location - exact coordinates supplied by the client. Used only for
    * the "open in Maps" links in the footer and the Verify section; there is
    * no embedded map on the site.
    *
-   * Note: a Google Maps marker cannot be given a custom name through a URL —
+   * Note: a Google Maps marker cannot be given a custom name through a URL -
    * the pin's name comes from Google's own place data, so it will show as
    * coordinates until GCC Real Estate has a Google Business Profile here.
    */
@@ -72,7 +72,7 @@ export const agent = {
     "https://www.google.com/maps/search/?api=1&query=25.186462369792675%2C55.26058220981199",
 
   /**
-   * ⚠ LICENSING — READ BEFORE EDITING.
+   * ⚠ LICENSING - READ BEFORE EDITING.
    *
    * Ann does NOT personally hold a RERA broker number. GCC Real Estate holds
    * the brokerage licence and she works as a consultant under it. Therefore:
@@ -84,14 +84,14 @@ export const agent = {
    * TODO(office): in Dubai, individuals brokering property are generally
    * required to hold their own RERA broker card, and advertising must carry
    * the relevant registration details. Worth confirming Ann's position with
-   * the brokerage's compliance contact — and adding her BRN here once issued.
+   * the brokerage's compliance contact - and adding her BRN here once issued.
    */
-  brn: "", // intentionally empty — see note above
+  brn: "", // intentionally empty; see note above
   // TODO(office): company ORN + trade licence were not published on gccrealestate.co
   orn: "ORN 00000",
   tradeLicense: "Trade Licence 000000",
 
-  /** Ann's direct line — all CTAs route here. */
+  /** Ann's direct line - all CTAs route here. */
   phone: "+971 52 303 3521",
   whatsapp: "971523033521",
   /** Office line, shown in the footer for company verification. */
@@ -110,14 +110,14 @@ export const agent = {
  * Company-level credibility, taken from gccrealestate.co.
  *
  * This is the backbone of the trust argument while Ann is new: the FIRM has
- * the record, and it is attributed to the firm — never silently transferred
+ * the record, and it is attributed to the firm - never silently transferred
  * to her. Read every line below as "GCC has this", not "Ann has this".
  */
 export const company = {
   positioning: "An award-winning Sri Lankan real estate company in Dubai.",
   teamExperience: "30+ years",
   teamExperienceLabel: "Combined team experience in the Dubai market",
-  award: "Top Performing Partner — Azizi Developments",
+  award: "Top Performing Partner, Azizi Developments",
   specialism: "Off-plan and luxury residential",
 };
 
@@ -166,7 +166,7 @@ export const hero = {
     "Mixed-script tagline. The English carries the subject, the Sinhala carries the promise. Strongest single line on the site."
   ),
   sub: t(
-    "Buying property abroad is hard, and most of the advice you will get is quietly self-interested. I'm a property consultant with GCC Real Estate — a Sri Lankan-owned, DLD-registered brokerage in Business Bay. Ask me anything before you commit to anything.",
+    "Buying property abroad is hard, and most of the advice you will get is quietly self-interested. I'm a property consultant with GCC Real Estate, a Sri Lankan-owned and DLD-registered brokerage in Business Bay. Ask me anything before you commit to anything.",
     "විදේශයක දේපළක් ගන්න එක අමාරු වැඩක්. ඕන දෙයක් අහන්න, කලින් කිසි දෙයක් කරන්න කලින්.",
     "high",
     "Ann speaking in her own voice, offering help rather than claiming a record. Reads warmer in the mother tongue."
@@ -187,7 +187,7 @@ export const hero = {
  *
  *  This site must never state or imply a personal track record, tenure, or
  *  transaction volume that is not real and defensible. Inflated experience
- *  claims are (a) a RERA advertising problem and (b) commercially suicidal —
+ *  claims are (a) a RERA advertising problem and (b) commercially suicidal -
  *  the Sri Lankan investor community in Dubai is small and it talks.
  *
  *  So the trust bar carries VERIFIABLE facts rather than achievements.
@@ -202,7 +202,7 @@ export const trustPoints = [
     value: "RERA",
     label: "Registered brokerage",
     detail:
-      "GCC Real Estate is licensed with the Dubai Land Department — verify the company yourself.",
+      "GCC Real Estate is licensed with the Dubai Land Department. Verify the company yourself.",
   },
   {
     value: "30+ yrs",
@@ -212,7 +212,7 @@ export const trustPoints = [
   {
     value: "10",
     label: "Direct developer partnerships",
-    detail: "Emaar, DAMAC, Sobha, Omniyat and more — booked at developer price.",
+    detail: "Emaar, DAMAC, Sobha, Omniyat and more, booked at developer price.",
   },
   {
     value: "Minutes",
@@ -228,10 +228,10 @@ export const whyDubai = {
     "Why Dubai?",
     "ඇයි ඩුබායි?",
     "medium",
-    "Section title. Short, punchy, universally understood — cheap to translate, adds rhythm to the page."
+    "Section title. Short, punchy, universally understood, cheap to translate, adds rhythm to the page."
   ),
   intro:
-    "Not a sales pitch. Here is the actual case, with sources — check every number yourself.",
+    "Not a sales pitch. Here is the actual case, with sources. Check every number yourself.",
   cards: [
     {
       headline: t(
@@ -269,7 +269,7 @@ export const whyDubai = {
     },
     {
       headline: t("You will not be the only one."),
-      body: "The UAE is home to one of the largest Sri Lankan communities outside South Asia. There is an established network here — legal, banking, and social.",
+      body: "The UAE is home to one of the largest Sri Lankan communities outside South Asia. There is an established network here: legal, banking, and social.",
       img: "/images/int-05.jpg",
     },
   ],
@@ -285,13 +285,13 @@ export const afford = {
     "Phrased as the reader's own internal question. Sinhala makes it feel like their thought rather than a sales header."
   ),
   intro:
-    "Entry is lower than most people expect. Off-plan payment plans spread the balance over construction — you do not need the full amount up front.",
+    "Entry is lower than most people expect. Off-plan payment plans spread the balance over construction. You do not need the full amount up front.",
   disclaimer:
     "Indicative figures only. Prices move; payment plans vary by developer and project.",
   tiers: [
     {
       type: "Studio",
-      // No district names here — the right area depends entirely on the
+      // No district names here - the right area depends entirely on the
       // client's requirement, so naming one pre-empts the conversation.
       area: "Lowest entry point",
       priceAed: 650000,
@@ -325,10 +325,10 @@ export const afford = {
 
 export const visa = {
   title: t(
-    "Ten years' residency — with your whole family.",
+    "Ten years' residency, with your whole family.",
     "පවුලම එක්ක, වසර 10ක පදිංචිය.",
     "high",
-    "For this audience the visa often matters more than the yield. Schooling, healthcare, mobility, a plan B. Deeply emotional — belongs in Sinhala."
+    "For this audience the visa often matters more than the yield. Schooling, healthcare, mobility, a plan B. Deeply emotional. Belongs in Sinhala."
   ),
   body: "A property investment of AED 2 million or more qualifies the owner for a renewable 10-year UAE residency visa. It extends to spouse and children, requires no local sponsor, and does not require you to live in the UAE full time.",
   points: [
@@ -365,12 +365,12 @@ export const about = {
   ),
   title: "I'd rather tell you not to buy than sell you the wrong thing.",
   // TODO(Ann): replace paragraphs 1 and 2 with your own words. Keep them
-  // personal and specific — this is the only part of the page that is you
+  // personal and specific - this is the only part of the page that is you
   // rather than the market.
   body: [
     "Most of the advice a Sri Lankan gets about Dubai property is quietly self-interested. I know, because those were the conversations my own family had before anyone in it bought anything.",
     "I know what it feels like to send money somewhere you have never been, and to wonder whether the person on the other end is telling you everything. The questions my clients worry about were mine first.",
-    "Behind me is GCC Real Estate — a Sri Lankan-owned, award-winning brokerage in Business Bay, with more than thirty years of combined experience across the team and direct channel partnerships with Emaar, DAMAC, Sobha, Omniyat and six more. Every transaction I handle is reviewed by that firm.",
+    "Behind me is GCC Real Estate, a Sri Lankan-owned, award-winning brokerage in Business Bay, with more than thirty years of combined experience across the team and direct channel partnerships with Emaar, DAMAC, Sobha, Omniyat and six more. Every transaction I handle is reviewed by that firm.",
     "So this is what I offer: I will tell you when the timing is wrong for you, show you every fee in writing before you commit to anything, and answer the awkward questions properly. Judge me on that rather than on a brochure.",
   ],
   credentials: [
@@ -381,7 +381,7 @@ export const about = {
   ],
 };
 
-/* ─── 6a. How I work — the personal brand promise ───────────────────────── */
+/* ─── 6a. How I work - the personal brand promise ───────────────────────── */
 /*
  *  This is the personal-branding core: four commitments in Ann's own voice.
  *  It is what a client repeats to a friend when recommending her, and it is
@@ -396,7 +396,7 @@ export const principles = {
     "Four things I promise every client.",
     "මම හැම කෙනෙකුටම දෙන පොරොන්දු හතරක්.",
     "high",
-    "Her personal covenant, spoken directly. This is the emotional centre of the personal brand — it belongs in the mother tongue."
+    "Her personal covenant, spoken directly. This is the emotional centre of the personal brand, and it belongs in the mother tongue."
   ),
   intro:
     "Not a service list. These are the rules I hold myself to, and you should hold me to them too.",
@@ -409,12 +409,12 @@ export const principles = {
     {
       no: "02",
       title: t("Every number in writing, first.", undefined, undefined),
-      body: "Full cost breakdown, realistic rent, service charges and net yield — before you commit to anything. If a figure changes later, you get the reason in writing.",
+      body: "Full cost breakdown, realistic rent, service charges and net yield, all before you commit to anything. If a figure changes later, you get the reason in writing.",
     },
     {
       no: "03",
       title: t("Your language, your hours.", "ඔබේ භාෂාවෙන්, ඔබේ වෙලාවට.", "high"),
-      body: "Sinhala, Tamil or English, whichever is easiest for you. And I answer at the times that suit Colombo, Melbourne or Toronto — not only Dubai office hours.",
+      body: "Sinhala, Tamil or English, whichever is easiest for you. And I answer at the times that suit Colombo, Melbourne or Toronto, not only Dubai office hours.",
     },
     {
       no: "04",
@@ -424,12 +424,12 @@ export const principles = {
   ],
 };
 
-/* ─── 6b. Verify — the trust centrepiece ────────────────────────────────── */
+/* ─── 6b. Verify - the trust centrepiece ────────────────────────────────── */
 /*
  *  The strategic move: stop asking to be trusted and start showing the reader
  *  how to check. Every item here can be confirmed without involving Ann at
  *  all. Counter-intuitively this converts better than projected confidence,
- *  because it is what a person with nothing to hide would actually do — and
+ *  because it is what a person with nothing to hide would actually do - and
  *  it builds credibility from verifiable facts rather than from claims.
  */
 
@@ -442,7 +442,7 @@ export const verify = {
     "Disarming, slightly provocative, and the single most trust-building line on the page. Reads as candour in Sinhala rather than as a slogan."
   ),
   intro:
-    "This is a large decision made from a long way away, and you have every reason to be careful with it. So here is exactly how to check me, the company and the property — without taking anything I say on faith.",
+    "This is a large decision made from a long way away, and you have every reason to be careful with it. So here is exactly how to check me, the company and the property, without taking anything I say on faith.",
   items: [
     {
       title: "Check the brokerage on the DLD register",
@@ -467,25 +467,25 @@ export const verify = {
     },
     {
       title: "Every fee in writing, before you commit",
-      body: "DLD transfer fee, trustee fee, agency commission, service charges, mortgage costs if any — one document, before you pay anything. If a number changes later, you get the reason in writing.",
+      body: "DLD transfer fee, trustee fee, agency commission, service charges, mortgage costs if any. One document, before you pay anything. If a number changes later, you get the reason in writing.",
       action: "Standard on every enquiry",
     },
     {
       title: "My commission is paid by the developer",
-      body: "On off-plan launches I am paid by the developer at their published rate. You pay the same price whether you come through me or walk into the sales office — so my incentive is repeat business, not a quick close.",
+      body: "On off-plan launches I am paid by the developer at their published rate. You pay the same price whether you come through me or walk into the sales office, so my incentive is repeat business, not a quick close.",
       action: "Ask me to show you the rate",
     },
   ],
 };
 
-/* ─── 6c. Lead magnet — the personalised proposal ───────────────────────── */
+/* ─── 6c. Lead magnet - the personalised proposal ───────────────────────── */
 /*
  *  There is no generic PDF guide, so the site does not offer one. Instead the
  *  offer is a document Ann genuinely produces: a proposal built around the
  *  client's own budget, timeline and purpose, using what is actually available.
  *
  *  This is the stronger offer anyway. A generic download costs the reader
- *  nothing to ignore; a bespoke document requires a conversation to produce —
+ *  nothing to ignore; a bespoke document requires a conversation to produce -
  *  which is exactly the lead Ann wants, and it arrives qualified.
  */
 
@@ -498,20 +498,20 @@ export const proposal = {
     "The core differentiator, in her voice. 'Made specifically for you' carries real warmth in Sinhala."
   ),
   intro:
-    "Tell me your budget, your timeline and what you want the property to do. I'll put together a document for your situation — using what is genuinely available right now — and send it within two working days.",
+    "Tell me your budget, your timeline and what you want the property to do. I'll put together a document for your situation, using what is genuinely available right now, and send it within two working days.",
   turnaround: "2 working days",
   turnaroundLabel: "Typical turnaround",
   bulletsLabel: "What's in it",
   bullets: [
     "Three to five properties matched to your budget and purpose",
-    "The full cost stack — DLD transfer fee, commission, trustee and service charges",
+    "The full cost stack: DLD transfer fee, commission, trustee and service charges",
     "Each payment plan laid out instalment by instalment",
     "Realistic rent and net yield, not the developer's headline number",
     "Exactly where you stand against the Golden Visa threshold",
     "The risks I see with each option, in writing",
   ],
   cta: "Request your proposal",
-  note: "I'll ask a few questions on WhatsApp first — I can't write anything useful without them. No newsletter, and your number goes nowhere else.",
+  note: "I'll ask a few questions on WhatsApp first. I can't write anything useful without them. No newsletter, and your number goes nowhere else.",
 };
 
 /* ─── 7. Process ────────────────────────────────────────────────────────── */
@@ -527,14 +527,14 @@ export const process = {
     "Every step below can be completed from where you are. Most of my clients have never visited the property before handover.",
   steps: [
     {
-      label: t("Let's talk", "කතා කරමු", "high", "Repeats the primary CTA — consistency reinforces it."),
+      label: t("Let's talk", "කතා කරමු", "high", "Repeats the primary CTA; consistency reinforces it."),
       body: "A 20-minute video call. Budget, timeline, and whether buying now is right for you at all.",
       meta: "20 minutes · video",
       img: "/images/ann-portrait.jpg",
     },
     {
       label: t("Shortlist and virtual tour"),
-      body: "I send three to five options with full financials — service charges, realistic rent, net yield. We walk them on video.",
+      body: "I send three to five options with full financials: service charges, realistic rent, net yield. We walk them on video.",
       meta: "3–5 options · full financials",
       img: "/images/ann-stone.jpg",
     },
@@ -570,7 +570,7 @@ export const process = {
 /**
  * The listings grid was removed at the client's request: a shortlist can only
  * be built once the client's requirement is known, so publishing a fixed
- * selection works against a consultative process. `shortlist` replaces it —
+ * selection works against a consultative process. `shortlist` replaces it -
  * same visual weight, no committed inventory.
  */
 export const shortlist = {
@@ -579,14 +579,14 @@ export const shortlist = {
     "I don't publish a list. I build yours.",
     "මම ලැයිස්තුවක් දාන්නේ නෑ. ඔබට ගැලපෙන එක හොයනවා.",
     "high",
-    "The consultative promise, in her voice. Differentiates her from every portal-style agent site — worth the mother tongue."
+    "The consultative promise, in her voice. Differentiates her from every portal-style agent site. Worth the mother tongue."
   ),
   intro:
     "A studio that suits a first-time investor in Melbourne is the wrong building for a family planning to move here. So the shortlist comes after the conversation, not before it.",
   steps: [
     {
       k: "What it's for",
-      v: "Pure rental yield, a home for later, or a Golden Visa threshold — these lead to genuinely different buildings.",
+      v: "Pure rental yield, a home for later, or a Golden Visa threshold. These lead to genuinely different buildings.",
     },
     {
       k: "What you can commit",
@@ -598,7 +598,7 @@ export const shortlist = {
     },
     {
       k: "What I send back",
-      v: "Three to five options with full financials — price, service charges, realistic rent, net yield, and the risks I see.",
+      v: "Three to five options with full financials: price, service charges, realistic rent, net yield, and the risks I see.",
     },
   ],
   areasLabel: "Areas I work in",
@@ -619,7 +619,7 @@ export const shortlist = {
 };
 
 /* ─── 9. Testimonials ───────────────────────────────────────────────────── */
-/* Client voices. These are the most natural Sinhala on the entire page —
+/* Client voices. These are the most natural Sinhala on the entire page -
    real people would have said these words in Sinhala. */
 
 /**
@@ -629,11 +629,11 @@ export const shortlist = {
  * absent testimonials section is completely unremarkable; an invented one is
  * fraud, and in a community this small it will be found out.
  *
- * Quotes below are SHAPES, not content — they describe the things a client of
+ * Quotes below are SHAPES, not content - they describe the things a client of
  * a careful new agent would actually praise (candour, clarity, responsiveness)
  * rather than a long record. Replace with real, attributable quotes, or delete.
  */
-/** Currently OFF — the section is hidden until real quotes exist. Flip to
+/** Currently OFF - the section is hidden until real quotes exist. Flip to
  *  true once Ann has named, attributable testimonials to put in `items`. */
 export const SHOW_TESTIMONIALS = false;
 
@@ -646,9 +646,9 @@ export const testimonials = {
         "She told me the first building I wanted was a bad buy. That is when I decided to trust her.",
         "මම කැමති වුණු මුල් එක හොඳ නෑ කියලා ඇය කිව්වා. එතකොටයි මම ඇයව විශ්වාස කළේ.",
         "high",
-        "Praise for honesty rather than for track record — the kind of thing a client actually says, and the kind Ann can genuinely earn."
+        "Praise for honesty rather than for track record, the kind of thing a client actually says, and the kind Ann can genuinely earn."
       ),
-      name: "TODO — real client",
+      name: "TODO: real client",
       location: "City, Country",
     },
     {
@@ -657,7 +657,7 @@ export const testimonials = {
         undefined,
         undefined
       ),
-      name: "TODO — real client",
+      name: "TODO: real client",
       location: "City, Country",
     },
     {
@@ -666,7 +666,7 @@ export const testimonials = {
         undefined,
         undefined
       ),
-      name: "TODO — real client",
+      name: "TODO: real client",
       location: "City, Country",
     },
     {
@@ -675,7 +675,7 @@ export const testimonials = {
         undefined,
         undefined
       ),
-      name: "TODO — real client",
+      name: "TODO: real client",
       location: "City, Country",
     },
   ],
@@ -714,7 +714,7 @@ export const faq = {
         "high",
         "The most anxious question on the page. Asking it plainly in Sinhala shows you are not avoiding it."
       ),
-      a: "GCC Real Estate will guide you through it. If you earn abroad, you simply remit from your own bank. If you are resident in Sri Lanka there are Central Bank rules to follow, and we will walk you through the correct route step by step and point you to the right people at your bank. It is a well-trodden path — just ask and we will take you through it.",
+      a: "GCC Real Estate will guide you through it. If you earn abroad, you simply remit from your own bank. If you are resident in Sri Lanka there are Central Bank rules to follow, and we will walk you through the correct route step by step and point you to the right people at your bank. It is a well-trodden path. Just ask and we will take you through it.",
     },
     {
       q: t("Is my ownership actually secure?", undefined, undefined),
@@ -734,11 +734,11 @@ export const faq = {
     },
     {
       q: t("What if the market falls?", undefined, undefined),
-      a: "It can, and it has — Dubai fell significantly in 2009 and again in 2015–2019. Anyone who tells you otherwise is selling. Buy on rental yield rather than on expected capital appreciation, hold for at least five years, and do not over-leverage.",
+      a: "It can, and it has. Dubai fell significantly in 2009 and again in 2015–2019. Anyone who tells you otherwise is selling. Buy on rental yield rather than on expected capital appreciation, hold for at least five years, and do not over-leverage.",
     },
     {
       q: t("Do you work with people outside Sri Lanka?", undefined, undefined),
-      a: "Yes — most of my clients are Sri Lankan but I work with buyers of any nationality. The process described here is the same for everyone.",
+      a: "Yes, most of my clients are Sri Lankan but I work with buyers of any nationality. The process described here is the same for everyone.",
     },
   ],
 };
@@ -747,7 +747,7 @@ export const faq = {
 
 /**
  * Real partnerships, taken from gccrealestate.co. Do not add a developer to
- * this list unless GCC Real Estate genuinely transacts with them — this is
+ * this list unless GCC Real Estate genuinely transacts with them - this is
  * borrowed credibility and it only works while it is true.
  */
 export const partners = {
@@ -759,7 +759,7 @@ export const partners = {
     "Section headline. The developer names carry the meaning in Latin script regardless, so Sinhala here is texture rather than information."
   ),
   intro:
-    "GCC Real Estate is a registered channel partner with each of these developers. You buy at the developer's own launch price — my commission is paid by them, not added to your purchase.",
+    "GCC Real Estate is a registered channel partner with each of these developers. You buy at the developer's own launch price. My commission is paid by them, not added to your purchase.",
   award: company.award,
   items: [
     "EMAAR",
@@ -782,11 +782,11 @@ export const contact = {
     "Let's talk",
     "කතා කරමු",
     "high",
-    "Closing CTA. Same two words as the hero — bookends the page."
+    "Closing CTA. Same two words as the hero; bookends the page."
   ),
   intro:
     "No pressure and no obligation. If buying now is wrong for you, I will say so.",
-  note: "I reply to WhatsApp fastest — usually within a few minutes, Dubai time (GMT+4).",
+  note: "I reply to WhatsApp fastest, usually within a few minutes, Dubai time (GMT+4).",
   fields: {
     name: "Your name",
     phone: "Phone / WhatsApp number",
@@ -804,7 +804,7 @@ export const contact = {
 
 /**
  * The blanket footer disclaimer was removed at the client's request.
- * Contextual disclaimers remain inline where the specific claims are made —
+ * Contextual disclaimers remain inline where the specific claims are made -
  * see `afford.disclaimer`, `visa.disclaimer` and `properties.disclaimer`.
  */
 export const legal = {

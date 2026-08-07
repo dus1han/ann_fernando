@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 /**
  * Live Dubai time. Renders nothing on the server and on first paint, then
- * fills in on the client — the value differs between server and browser, so
+ * fills in on the client - the value differs between server and browser, so
  * mounting it this way avoids a hydration mismatch.
  *
  * Small detail, but it tells an overseas reader when Ann is actually awake.

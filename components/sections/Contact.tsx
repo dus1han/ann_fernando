@@ -12,7 +12,7 @@ import { Say } from "@/lib/bi";
  * Deliberate: in this market WhatsApp converts several times better than
  * email, it needs no API key or deliverability setup, and a lead can never be
  * silently lost to a spam folder. If Ann later wants email copies too, swap
- * `onSubmit` for a Server Action calling Resend — the markup does not change.
+ * `onSubmit` for a Server Action calling Resend - the markup does not change.
  */
 export default function Contact() {
   const [form, setForm] = useState({
@@ -66,7 +66,7 @@ export default function Contact() {
 
       <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-12 lg:gap-20">
         <Reveal className="lg:col-span-5">
-          {/* A face at the point of enquiry — people message a person, not a
+          {/* A face at the point of enquiry - people message a person, not a
               form. Highest-intent moment on the page. */}
           <div className="mb-7 flex items-center gap-4">
             <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full ring-1 ring-gold-600/50">
@@ -112,7 +112,7 @@ export default function Contact() {
                 {agent.phone} →
               </span>
             </a>
-            {/* Same number as WhatsApp — this one dials instead of chatting. */}
+            {/* Same number as WhatsApp - this one dials instead of chatting. */}
             <a
               href={`tel:${agent.phone.replace(/\s/g, "")}`}
               className="group flex items-center justify-between gap-4 rounded-xl border border-ink-800 px-5 py-4 transition-colors hover:border-gold-600/50"
@@ -222,7 +222,7 @@ export default function Contact() {
                 <span className="absolute inset-0 -translate-x-full bg-gold-400 transition-transform duration-500 group-hover:translate-x-0" />
               </button>
               <p className="mt-4 text-xs text-bone-faint">
-                Opens WhatsApp with your details filled in — nothing is sent
+                Opens WhatsApp with your details filled in. Nothing is sent
                 until you press send there.
               </p>
             </div>

@@ -1,4 +1,4 @@
-# Ann Fernando — Property Consultant, Dubai
+# Ann Fernando - Property Consultant, Dubai
 
 Single-page personal branding site for a Dubai property consultant working with
 Sri Lankan investors. Personal brand first: her name leads, the investment case
@@ -25,7 +25,7 @@ npm run build    # production build
 
 **All site copy lives in [`content/copy.ts`](content/copy.ts).** Text changes
 should never require touching a component. Phone numbers, socials, section
-headings, FAQ answers, developer list — all of it is there.
+headings, FAQ answers, developer list - all of it is there.
 
 ```
 content/copy.ts          every string on the site
@@ -39,7 +39,7 @@ app/globals.css          design tokens and the signature effects
 
 ## Ground rules for this site
 
-These are not style preferences — breaking them creates real problems.
+These are not style preferences - breaking them creates real problems.
 
 **1. Never claim a personal track record.**
 No tenure, no units-closed count, no transaction volume, unless it is real and
@@ -60,27 +60,27 @@ attributable quotes.
 **4. `overflow-hidden` must not go on a `<section>` that contains a sticky
 child.** An ancestor with non-visible overflow becomes the sticky element's
 scroll container and it silently stops pinning. Clip decorative layers in
-their own wrapper instead — see `Process.tsx` and `About.tsx`.
+their own wrapper instead - see `Process.tsx` and `About.tsx`.
 
 ## Sinhala
 
 The site ships in English. Every place where Sinhala would genuinely earn its
 place is already marked in `copy.ts` with proposed text, a priority, and a
-written rationale — 17 slots, 12 of them high value.
+written rationale - 17 slots, 12 of them high value.
 
 Load **`/?slots=1`** to see them outlined in place with a review panel.
 
 Set `SINHALA_ENABLED = true` in `copy.ts` to switch them on. Fonts and
 line-height rules are already wired. **All Sinhala is a draft pending
-native-speaker review** — awkward Sinhala does more damage than English-only.
+native-speaker review** - awkward Sinhala does more damage than English-only.
 
 ## Outstanding before launch
 
-- [ ] Ann's photography — hero portrait and a working shot (biggest visual gap)
+- [ ] Ann's photography - hero portrait and a working shot (biggest visual gap)
 - [ ] Real project renders from the developer channel packs, to replace stock
 - [ ] Company ORN and trade licence numbers (currently `00000`)
 - [ ] Confirm the RERA advertising requirements with the brokerage
 - [ ] Native review of the Sinhala strings
-- [ ] Google Business Profile for the office — free, and the highest-return
+- [ ] Google Business Profile for the office - free, and the highest-return
       local SEO action available
 - [ ] Real testimonials, then flip `SHOW_TESTIMONIALS`

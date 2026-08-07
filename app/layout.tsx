@@ -19,7 +19,7 @@ const inter = Inter({
 });
 
 /**
- * Loaded but not preloaded — costs nothing until a Sinhala string actually
+ * Loaded but not preloaded - costs nothing until a Sinhala string actually
  * renders. The moment SINHALA_ENABLED flips to true this is already wired.
  */
 const notoSinhala = Noto_Sans_Sinhala({
@@ -36,10 +36,10 @@ const notoSinhala = Noto_Sans_Sinhala({
  * `metadataBase` is what Next uses to turn the share card into an absolute
  * og:image URL. It was hardcoded to a placeholder domain that does not exist,
  * so Facebook and WhatsApp were being told to fetch the preview image from a
- * dead host — which is why link previews came back blank.
+ * dead host - which is why link previews came back blank.
  *
  * Resolution order:
- *   1. NEXT_PUBLIC_SITE_URL — override in Vercel if the domain ever changes
+ *   1. NEXT_PUBLIC_SITE_URL - override in Vercel if the domain ever changes
  *   2. The live domain
  *   3. localhost, only when running outside a deployment
  */
@@ -51,11 +51,11 @@ const SITE_URL =
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  // One separator only — two pipes read as clutter in a browser tab. The
+  // One separator only - two pipes read as clutter in a browser tab. The
   // Sri Lankan keyword phrase lives in the description instead.
   title: `${agent.name} | ${agent.role}, Dubai`,
   description:
-    "Buy Dubai property from anywhere in the world. Ann Fernando is a property consultant with GCC Real Estate, a DLD-registered brokerage in Dubai, working with Sri Lankan investors — freehold ownership, 6–9% gross yields, and the UAE Golden Visa.",
+    "Buy Dubai property from anywhere in the world. Ann Fernando is a property consultant with GCC Real Estate, a DLD-registered brokerage in Dubai, working with Sri Lankan investors: freehold ownership, 6–9% gross yields, and the UAE Golden Visa.",
   keywords: [
     "Dubai property for Sri Lankans",
     "invest in Dubai real estate",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     siteName: `${agent.name} · ${agent.company}`,
     title: `${agent.name} | Dubai property, in your language`,
     description:
-      "Dubai property consultant with GCC Real Estate, helping Sri Lankan families invest — remotely, and without guesswork.",
+      "Dubai property consultant with GCC Real Estate, helping Sri Lankan families invest remotely, and without guesswork.",
   },
   twitter: {
     card: "summary_large_image",

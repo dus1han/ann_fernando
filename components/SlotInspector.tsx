@@ -14,7 +14,7 @@ type Slot = {
  * and what it would say. Every marked line gets outlined in place and listed
  * in a side panel.
  *
- * This is a review tool for Ann, not a production feature — it renders
+ * This is a review tool for Ann, not a production feature - it renders
  * nothing at all unless the query param is present.
  */
 export default function SlotInspector() {

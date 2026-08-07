@@ -7,7 +7,7 @@ import { Say } from "@/lib/bi";
  * The trust centrepiece.
  *
  * The move is to stop asking to be believed and start showing the reader how
- * to check — every item here is verifiable without involving Ann at all.
+ * to check - every item here is verifiable without involving Ann at all.
  * Counter-intuitively this converts better than projected confidence, because
  * it is what someone with nothing to hide would actually do.
  */
@@ -24,7 +24,7 @@ export default function Verify() {
       <div className="mx-auto max-w-7xl px-6">
         {/* Her looking straight at the reader, next to "don't take my word for
             any of this". A face makes candour read as candour rather than as
-            a slogan — this section was text-only and felt like fine print. */}
+            a slogan - this section was text-only and felt like fine print. */}
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           <Reveal className="lg:col-span-4">
             <div className="ring-anim relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl bg-ink-900">

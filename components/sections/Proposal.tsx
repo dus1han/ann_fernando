@@ -7,7 +7,7 @@ import { Say } from "@/lib/bi";
  * The lead magnet.
  *
  * There is no generic PDF, so none is offered. The deliverable is a document
- * Ann actually produces per client — which converts better than a download
+ * Ann actually produces per client - which converts better than a download
  * because it cannot be obtained without a conversation, and the lead arrives
  * already qualified on budget, timeline and purpose.
  *
@@ -118,7 +118,7 @@ export default function Proposal() {
                     <MockRow label="Purpose" value="Rental yield" />
                     <MockRow label="Options shortlisted" value="4" />
                     <MockRow label="Projected net yield" value="6.8%" gold />
-                    <MockRow label="Golden Visa" value="Not yet — AED 2M" />
+                    <MockRow label="Golden Visa" value="Not yet, AED 2M needed" />
                   </div>
 
                   {/* Skeleton lines suggesting further pages */}

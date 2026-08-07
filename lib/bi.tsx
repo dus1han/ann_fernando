@@ -9,7 +9,7 @@ export function say(v: Bi): string {
 /**
  * Renders a bilingual line.
  *
- * While SINHALA_ENABLED is false this is a plain English span — but it still
+ * While SINHALA_ENABLED is false this is a plain English span - but it still
  * stamps `data-si-slot` onto the element, so the slot inspector (append
  * ?slots=1 to the URL) can show exactly where Sinhala is waiting to go.
  */

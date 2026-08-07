@@ -3,7 +3,7 @@ import DubaiClock from "@/components/DubaiClock";
 import { SOCIAL_ICONS } from "@/components/Socials";
 import { agent, legal, nav, whatsappHref } from "@/content/copy";
 
-/** Row glyphs — the social marks are shared with the Socials component so the
+/** Row glyphs - the social marks are shared with the Socials component so the
  *  footer rows and the icon buttons elsewhere never drift apart. */
 const ROW_ICONS = {
   ...SOCIAL_ICONS,
@@ -26,7 +26,7 @@ const ROW_ICONS = {
 
 /**
  * Licensing is attributed to the brokerage, never to Ann. No personal BRN is
- * printed here — see the note above `agent.brn` in copy.ts.
+ * printed here - see the note above `agent.brn` in copy.ts.
  *
  * The oversized wordmark at the base is the signature element: it closes the
  * page on her name rather than on small print, which is the point of a
@@ -51,7 +51,7 @@ export default function Footer() {
               {agent.role} · {agent.company}
             </p>
             <p className="mt-4 max-w-xs text-[15px] leading-relaxed text-bone-dim">
-              Helping Sri Lankan families buy in Dubai — remotely, and without
+              Helping Sri Lankan families buy in Dubai, remotely and without
               guesswork.
             </p>
 
@@ -99,9 +99,9 @@ export default function Footer() {
               Reach me
             </p>
             {/* Socials live inside this list rather than floating as a
-                detached icon strip — same row rhythm as phone and email. */}
+                detached icon strip - same row rhythm as phone and email. */}
             <ul className="space-y-2.5">
-              {/* Same number for both — WhatsApp opens the chat, Call dials. */}
+              {/* Same number for both - WhatsApp opens the chat, Call dials. */}
               <ContactRow
                 icon="whatsapp"
                 label="WhatsApp"
@@ -192,7 +192,7 @@ export default function Footer() {
 
 /**
  * One row of the "Reach me" list. Icon + label on the left, value on the
- * right, hairline underneath — phone, email and socials all share this shape
+ * right, hairline underneath - phone, email and socials all share this shape
  * so nothing in the column reads as a detached element.
  */
 function ContactRow({

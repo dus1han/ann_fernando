@@ -5,7 +5,7 @@ import { Say } from "@/lib/bi";
 
 /**
  * Replaces the old listings grid. A published selection works against a
- * consultative process — and this converts better, because it ends in a
+ * consultative process - and this converts better, because it ends in a
  * question the reader wants to answer rather than a set of units to browse.
  */
 export default function Shortlist() {

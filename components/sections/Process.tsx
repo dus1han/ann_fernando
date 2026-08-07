@@ -13,7 +13,7 @@ const C = 2 * Math.PI * R;
 /**
  * Sticky walkthrough with an animated dial rather than a photo panel.
  *
- * The photographs that used to pin here fought the content — the steps are
+ * The photographs that used to pin here fought the content - the steps are
  * about paperwork, escrow and title deeds, and no photograph illustrates
  * that. A dial does: a gold arc closes as you advance, the numeral flips,
  * six ticks mark the steps, and the caption crossfades. It reads as progress
@@ -55,7 +55,7 @@ export default function Process() {
           </p>
         </Reveal>
 
-        {/* No `items-start` here — the columns must stretch to the row height
+        {/* No `items-start` here - the columns must stretch to the row height
             or the sticky dial below has nothing to travel inside. */}
         <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:gap-14">
           {/* ── Pinned dial ───────────────────────────────────────────── */}

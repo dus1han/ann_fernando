@@ -36,7 +36,7 @@ import Footer from "@/components/sections/Footer";
  *   Proposal → Faq         Three conversion points at increasing intent.
  *   → Contact
  *
- * Every section ends in a way to contact her — the objective is enquiries.
+ * Every section ends in a way to contact her - the objective is enquiries.
  */
 export default function Page() {
   return (
@@ -67,7 +67,7 @@ export default function Page() {
       <Footer />
       <WhatsAppFab />
 
-      {/* Review tool — renders only with ?slots=1 in the URL */}
+      {/* Review tool - renders only with ?slots=1 in the URL */}
       <Suspense fallback={null}>
         <SlotInspector />
       </Suspense>

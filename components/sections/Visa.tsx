@@ -10,7 +10,7 @@ import { Say } from "@/lib/bi";
  * The earlier 4/8 split put a short portrait beside a very tall column of
  * copy plus card, which left a large dead gap under the photo. Pairing the
  * photo with the copy alone keeps both columns roughly the same height, and
- * the card reads better wide anyway — the big number gets its own space
+ * the card reads better wide anyway - the big number gets its own space
  * instead of sitting on top of a cramped bullet list.
  */
 export default function Visa() {

@@ -10,7 +10,7 @@ export default function About() {
       id="about"
       className="relative border-t border-ink-800 py-20 lg:py-24"
     >
-      {/* ⚠ Clipping lives here, not on the <section> — overflow on an ancestor
+      {/* ⚠ Clipping lives here, not on the <section> - overflow on an ancestor
           would stop the sticky portrait below from pinning. */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div className="gold-grid absolute inset-0" />
@@ -21,7 +21,7 @@ export default function About() {
         {/* Portrait slot */}
         <Reveal className="lg:col-span-5">
           <div className="ring-anim relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-ink-900 lg:sticky lg:top-28">
-            {/* On site in a Dubai villa — a working shot reads far better here
+            {/* On site in a Dubai villa - a working shot reads far better here
                 than a second studio headshot. */}
             <Image
               src="/images/ann-villa.jpg"

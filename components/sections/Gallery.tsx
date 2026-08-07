@@ -16,7 +16,7 @@ import Reveal from "@/components/Reveal";
 import { whatsappHref } from "@/content/copy";
 
 /**
- * "The market" — a 3D perspective wall rather than a flat card rail.
+ * "The market" - a 3D perspective wall rather than a flat card rail.
  *
  * Three things are happening at once:
  *
@@ -30,9 +30,9 @@ import { whatsappHref } from "@/content/copy";
  *     playing a loop at them.
  *
  *  3. Z-LIFT ON HOVER. A tile pulls forward out of the wall on hover with a
- *     gold sheen sweeping across it — real depth, not a scale transform.
+ *     gold sheen sweeping across it - real depth, not a scale transform.
  *
- * ⚠ PROPERTY AND REAL ESTATE ONLY. No photographs of Ann belong here — she
+ * ⚠ PROPERTY AND REAL ESTATE ONLY. No photographs of Ann belong here - she
  * carries eight other placements across the page, and a person in these tiles
  * pulls the eye away from the thing being sold. Buildings, views, rooms.
  *
@@ -41,7 +41,7 @@ import { whatsappHref } from "@/content/copy";
  * The whole rig flattens and stops under prefers-reduced-motion.
  *
  * Stock stand-ins for now. Replace with real project renders from the
- * developer channel packs — those are far stronger and cost nothing.
+ * developer channel packs - those are far stronger and cost nothing.
  */
 const ROW_A = [
   "/images/city-04.jpg", // Downtown + Burj Khalifa
@@ -125,7 +125,7 @@ export default function Gallery() {
                 }
           }
         >
-          {/* Base drift is deliberately slow — the rails should read as
+          {/* Base drift is deliberately slow - the rails should read as
               ambient, not as a carousel racing past. Scroll velocity is what
               adds pace when the reader is actually moving. */}
           <Rail images={ROW_A} baseVelocity={-0.9} />
@@ -196,7 +196,7 @@ function Tile({ src }: { src: string }) {
     <figure
       tabIndex={0}
       /* The Z-lift is pure CSS so it costs no React work and also fires on
-         keyboard focus. `translateZ` pulls the tile forward out of the wall —
+         keyboard focus. `translateZ` pulls the tile forward out of the wall -
          real depth, not a scale. */
       className="group relative h-56 w-80 shrink-0 overflow-hidden rounded-2xl border border-ink-700/70 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.95)] outline-none transition-[transform,border-color,box-shadow] duration-[600ms] ease-out [transform:translateZ(0)] [transform-style:preserve-3d] sm:h-72 sm:w-[28rem]
                  hover:z-10 hover:border-gold-600/60 hover:shadow-[0_40px_80px_-30px_rgba(217,189,128,0.35)] hover:[transform:translateZ(90px)]
@@ -211,7 +211,7 @@ function Tile({ src }: { src: string }) {
         className="object-cover transition-transform duration-[1400ms] ease-out will-change-transform group-hover:scale-[1.08]"
       />
 
-      {/* Base grade — lifts off on hover so the tile brightens as it comes forward */}
+      {/* Base grade - lifts off on hover so the tile brightens as it comes forward */}
       <div className="absolute inset-0 bg-gradient-to-t from-ink-950/75 via-ink-950/10 to-transparent transition-opacity duration-[600ms] group-hover:opacity-25" />
 
       {/* Gold sheen sweeping across the glass */}

@@ -5,7 +5,7 @@ import Lenis from "lenis";
 
 /**
  * Momentum scrolling. This single component is responsible for most of the
- * "expensive agency site" feel — it is disabled entirely for users who have
+ * "expensive agency site" feel - it is disabled entirely for users who have
  * asked for reduced motion.
  */
 export default function SmoothScroll() {
@@ -14,7 +14,7 @@ export default function SmoothScroll() {
 
     // Skip on touch devices. Lenis hijacks native momentum scrolling, which on
     // a phone feels worse than the platform default and costs a rAF loop plus
-    // a transform every frame — straight into Total Blocking Time.
+    // a transform every frame - straight into Total Blocking Time.
     const isTouch =
       window.matchMedia("(hover: none) and (pointer: coarse)").matches;
     if (isTouch) return;

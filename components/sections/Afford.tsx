@@ -51,7 +51,7 @@ export default function Afford() {
                       : "border-ink-800 bg-ink-950 hover:border-ink-700"
                   }`}
                 >
-                  {/* Photography header — full colour, no murk. */}
+                  {/* Photography header - full colour, no murk. */}
                   <span className="relative block h-48 overflow-hidden">
                     <Image
                       src={tier.img}

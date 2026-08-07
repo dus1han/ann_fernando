@@ -4,7 +4,7 @@ import { agent, principles, whatsappHref } from "@/content/copy";
 import { Say } from "@/lib/bi";
 
 /**
- * The personal-brand core — four commitments in Ann's own voice. This is the
+ * The personal-brand core - four commitments in Ann's own voice. This is the
  * part of the site a client repeats when recommending her, so it gets the
  * strongest treatment on the page: oversized gold numerals, animated ring
  * borders and a light beam sweeping the section.
@@ -32,7 +32,7 @@ export default function Principles() {
               {principles.intro}
             </p>
 
-            {/* Her face against her own promises — the single most personal
+            {/* Her face against her own promises - the single most personal
                 moment on the page, so it is signed rather than captioned. */}
             <div className="mt-8 flex items-center gap-4">
               <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-1 ring-gold-600/50">
@@ -76,7 +76,7 @@ export default function Principles() {
                 delay={(i % 2) * 0.08}
                 className="ring-anim lift group relative overflow-hidden rounded-2xl border border-ink-800 bg-ink-950/80 p-7"
               >
-                {/* Oversized ghost numeral — the memorable bit */}
+                {/* Oversized ghost numeral - the memorable bit */}
                 <span
                   aria-hidden
                   className="pointer-events-none absolute -right-2 -top-6 select-none font-display text-[6rem] leading-none text-gold-500/[0.07] transition-all duration-700 group-hover:text-gold-500/[0.14]"

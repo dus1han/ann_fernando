@@ -6,7 +6,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { whatsappHref } from "@/content/copy";
 
 /**
- * Full-bleed parallax band. Its job is purely rhythmic — it breaks up a long
+ * Full-bleed parallax band. Its job is purely rhythmic - it breaks up a long
  * run of card grids, gives the eye a large photograph to rest on, and carries
  * one line of copy plus a CTA at the point where scroll fatigue sets in.
  */
@@ -26,7 +26,7 @@ export default function Statement() {
     >
       <motion.div style={{ y }} className="absolute inset-0 -z-10 h-[124%]">
         {/* Ann in a high-floor lounge above Sheikh Zayed Road. The line is
-            about people who moved early — putting her, looking out over the
+            about people who moved early - putting her, looking out over the
             city, behind it makes the point far better than a bare skyline. */}
         <Image
           src="/images/ann-skyline.jpg"
@@ -39,7 +39,7 @@ export default function Statement() {
         />
       </motion.div>
 
-      {/* Overlays kept light — the photograph carries this band, so the
+      {/* Overlays kept light - the photograph carries this band, so the
           gradients only need to protect the text on the left and keep Ann
           clear of it on the right. */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink-950 via-ink-950/72 to-transparent" />

@@ -30,7 +30,7 @@ export default function Counter({
     const start = performance.now();
     const tick = (now: number) => {
       const p = Math.min(1, (now - start) / duration);
-      // easeOutExpo — fast start, long settle. Reads as precision, not spin.
+      // easeOutExpo - fast start, long settle. Reads as precision, not spin.
       const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
       setDisplay(Math.round(value * eased));
       if (p < 1) frame = requestAnimationFrame(tick);

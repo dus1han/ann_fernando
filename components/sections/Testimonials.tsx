@@ -4,7 +4,7 @@ import { Say } from "@/lib/bi";
 
 /**
  * Gated by SHOW_TESTIMONIALS. If there are no real, attributable quotes yet,
- * set that flag to false — a missing testimonials section is unremarkable,
+ * set that flag to false - a missing testimonials section is unremarkable,
  * an invented one is fraud and this community is small enough to find out.
  */
 export default function Testimonials() {

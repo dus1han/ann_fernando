@@ -2,7 +2,7 @@ import Reveal from "@/components/Reveal";
 import { trustPoints } from "@/content/copy";
 
 /**
- * Verifiable facts, not achievement statistics — every figure here is
+ * Verifiable facts, not achievement statistics - every figure here is
  * something a reader could independently check today. Licensing claims belong
  * to the brokerage, never to Ann personally. See the notes above `trustPoints`
  * and `agent.brn` in copy.ts before changing any of it.
