@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_Sinhala, Playfair_Display } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import ConversionTracking from "@/components/ConversionTracking";
 import { agent } from "@/content/copy";
 import "./globals.css";
 
@@ -27,7 +30,24 @@ const notoSinhala = Noto_Sans_Sinhala({
   preload: false,
 });
 
-const SITE_URL = "https://annfernando.ae"; // TODO: real domain
+/**
+ * ⚠ This must resolve to a URL that is actually reachable.
+ *
+ * `metadataBase` is what Next uses to turn the share card into an absolute
+ * og:image URL. It was hardcoded to a placeholder domain that does not exist,
+ * so Facebook and WhatsApp were being told to fetch the preview image from a
+ * dead host — which is why link previews came back blank.
+ *
+ * Resolution order:
+ *   1. NEXT_PUBLIC_SITE_URL — override in Vercel if the domain ever changes
+ *   2. The live domain
+ *   3. localhost, only when running outside a deployment
+ */
+const PRODUCTION_URL = "https://annfernando.com";
+
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL ? PRODUCTION_URL : "http://localhost:3000");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -94,6 +114,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+
+        {/* Traffic and Core Web Vitals, straight from Vercel. No cookies, so
+            no consent banner is required. */}
+        <Analytics />
+        <SpeedInsights />
+        <ConversionTracking />
       </body>
     </html>
   );
