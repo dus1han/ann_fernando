@@ -3,6 +3,7 @@ import { Inter, Noto_Sans_Sinhala, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ConversionTracking from "@/components/ConversionTracking";
+import { SITE_URL } from "@/lib/site";
 import { agent } from "@/content/copy";
 import "./globals.css";
 
@@ -30,32 +31,16 @@ const notoSinhala = Noto_Sans_Sinhala({
   preload: false,
 });
 
-/**
- * ⚠ This must resolve to a URL that is actually reachable.
- *
- * `metadataBase` is what Next uses to turn the share card into an absolute
- * og:image URL. It was hardcoded to a placeholder domain that does not exist,
- * so Facebook and WhatsApp were being told to fetch the preview image from a
- * dead host - which is why link previews came back blank.
- *
- * Resolution order:
- *   1. NEXT_PUBLIC_SITE_URL - override in Vercel if the domain ever changes
- *   2. The live domain
- *   3. localhost, only when running outside a deployment
- */
-const PRODUCTION_URL = "https://annfernando.com";
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL ? PRODUCTION_URL : "http://localhost:3000");
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   // One separator only - two pipes read as clutter in a browser tab. The
   // Sri Lankan keyword phrase lives in the description instead.
   title: `${agent.name} | ${agent.role}, Dubai`,
+  // Kept under ~155 characters. The previous version ran to 242 and Google
+  // simply truncated it mid-sentence in the results page.
   description:
-    "Buy Dubai property from anywhere in the world. Ann Fernando is a property consultant with GCC Real Estate, a DLD-registered brokerage in Dubai, working with Sri Lankan investors: freehold ownership, 6–9% gross yields, and the UAE Golden Visa.",
+    "Dubai property for Sri Lankan investors. Ann Fernando, Property Consultant at GCC Real Estate: freehold ownership, strong yields, and the UAE Golden Visa.",
+  alternates: { canonical: "/" },
   keywords: [
     "Dubai property for Sri Lankans",
     "invest in Dubai real estate",
