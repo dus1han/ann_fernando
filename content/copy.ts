@@ -404,7 +404,7 @@ export const principles = {
     {
       no: "01",
       title: t("I'll tell you when not to buy.", "ගන්න එපා කියලත් මම කියනවා.", "high"),
-      body: "If the timing, the building or the budget is wrong for you, you will hear it from me plainly. A commission is not worth a bad outcome you remember for ten years.",
+      body: "If the timing, the building or the budget is wrong for you, you will hear it from me plainly. No sale is worth a bad outcome you remember for ten years.",
     },
     {
       no: "02",
@@ -469,11 +469,6 @@ export const verify = {
       title: "Every fee in writing, before you commit",
       body: "DLD transfer fee, trustee fee, agency commission, service charges, mortgage costs if any. One document, before you pay anything. If a number changes later, you get the reason in writing.",
       action: "Standard on every enquiry",
-    },
-    {
-      title: "My commission is paid by the developer",
-      body: "On off-plan launches I am paid by the developer at their published rate. You pay the same price whether you come through me or walk into the sales office, so my incentive is repeat business, not a quick close.",
-      action: "Ask me to show you the rate",
     },
   ],
 };
@@ -696,7 +691,7 @@ export const faq = {
         "high",
         "Invites the sceptical question rather than waiting for it to be asked privately. In Sinhala it reads as openness instead of defensiveness."
       ),
-      a: "Attention, mostly. A consultant carrying forty clients cannot answer your fifth question about service charges at 9pm your time; I can. Beyond that: GCC Real Estate is a Sri Lankan-owned, DLD-registered brokerage with thirty-plus years of combined experience across the team, and every transaction I handle is reviewed by that firm. And because the developer pays my commission on off-plan launches, telling you honestly that something is a bad buy costs me nothing.",
+      a: "Attention, mostly. A consultant carrying forty clients cannot answer your fifth question about service charges at 9pm your time; I can. Beyond that: GCC Real Estate is a Sri Lankan-owned, DLD-registered brokerage with thirty-plus years of combined experience across the team, and every transaction I handle is reviewed by that firm. You also get a straight answer about whether something is a bad buy, which is worth more to you than a fast one.",
     },
     {
       q: t(
@@ -759,7 +754,7 @@ export const partners = {
     "Section headline. The developer names carry the meaning in Latin script regardless, so Sinhala here is texture rather than information."
   ),
   intro:
-    "GCC Real Estate is a registered channel partner with each of these developers. You buy at the developer's own launch price. My commission is paid by them, not added to your purchase.",
+    "GCC Real Estate is a registered channel partner with each of these developers, so you buy at the developer's own launch price rather than through a chain of intermediaries.",
   award: company.award,
   items: [
     "EMAAR",
