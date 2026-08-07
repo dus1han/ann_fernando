@@ -15,27 +15,30 @@ export default function Shortlist() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Visual */}
           <Reveal className="lg:col-span-5">
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-ink-900 lg:sticky lg:top-28">
+            {/* No frame — masked edges, breaking left out of the column. */}
+            <div className="relative aspect-[4/5] w-full lg:sticky lg:top-28 lg:-ml-12 lg:w-[calc(100%+3rem)]">
+              <div className="aurora pointer-events-none absolute inset-[-14%] -z-10 rounded-full bg-[radial-gradient(ellipse_56%_58%_at_50%_44%,rgba(217,189,128,0.15),transparent_70%)]" />
+
               <Image
                 src="/images/ann-lobby.jpg"
                 alt="Ann Fernando at a Dubai development"
                 fill
                 quality={78}
-                sizes="(max-width: 1024px) 90vw, 480px"
-                style={{ objectPosition: "55% 30%" }}
-                className="object-cover"
+                sizes="(max-width: 1024px) 90vw, 540px"
+                style={{ objectPosition: "55% 26%" }}
+                className="feather-br object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/25 to-transparent" />
+              <div className="feather-br pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_56%_58%_at_48%_38%,transparent_40%,rgba(18,21,28,0.74)_80%,#12151c_100%)]" />
 
-              <div className="absolute inset-x-0 bottom-0 p-7">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-gold-500">
+              <div className="absolute inset-x-0 bottom-0 lg:pl-12">
+                <p className="text-[10px] uppercase tracking-[0.22em] text-gold-500">
                   {shortlist.areasLabel}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {shortlist.areas.map((a) => (
                     <span
                       key={a}
-                      className="rounded-full border border-bone/15 bg-ink-950/60 px-3 py-1 text-xs text-bone-dim backdrop-blur"
+                      className="rounded-full border border-bone/15 bg-ink-950/70 px-3 py-1 text-xs text-bone-dim backdrop-blur"
                     >
                       {a}
                     </span>

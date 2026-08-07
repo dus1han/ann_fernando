@@ -254,6 +254,68 @@ body {
   mask-image: radial-gradient(ellipse 75% 60% at 50% 40%, #000 30%, transparent 78%);
 }
 
+/* ── Feathered photography ──────────────────────────────────────────────
+   A border around a portrait reads as "photo inserted here". Masking the
+   edges instead makes the photograph dissolve into the page, so Ann appears
+   to be standing in the design rather than pasted into a box. */
+
+/* Bottom edge dissolves — used where a figure stands on the section floor */
+.feather-b {
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+}
+
+/* Bottom + inner edge dissolve, for a figure set beside a column of text */
+.feather-bl {
+  -webkit-mask-image: linear-gradient(to bottom, #000 64%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 22%);
+  mask-image: linear-gradient(to bottom, #000 64%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 22%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.feather-br {
+  -webkit-mask-image: linear-gradient(to bottom, #000 64%, transparent 100%),
+    linear-gradient(to left, transparent 0%, #000 22%);
+  mask-image: linear-gradient(to bottom, #000 64%, transparent 100%),
+    linear-gradient(to left, transparent 0%, #000 22%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+/* Near cut-out. A tall ellipse centred on the figure, so the room falls away
+   and only she remains. This is NOT true segmentation — pair it with a radial
+   darkening overlay (see Hero) or a bright interior leaves a glowing halo
+   where it meets the dark page. Swap for a real transparent PNG when one
+   exists and this class can come off. */
+.feather-figure {
+  -webkit-mask-image: radial-gradient(
+    ellipse 62% 70% at 50% 40%,
+    #000 42%,
+    transparent 82%
+  );
+  mask-image: radial-gradient(
+    ellipse 62% 70% at 50% 40%,
+    #000 42%,
+    transparent 82%
+  );
+}
+
+/* All four edges fall away — a figure floating free of any frame */
+.feather-all {
+  -webkit-mask-image: radial-gradient(
+    ellipse 78% 76% at 50% 44%,
+    #000 52%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 78% 76% at 50% 44%,
+    #000 52%,
+    transparent 100%
+  );
+}
+
 /* Frosted panel over photography */
 .glass {
   background: color-mix(in oklab, var(--color-ink-900) 62%, transparent);

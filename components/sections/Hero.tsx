@@ -145,48 +145,53 @@ export default function Hero() {
           transition={{ duration: 1.2, delay: 0.3, ease: EASE }}
           className="relative lg:col-span-5"
         >
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-md">
-            {/* Animated gold ring offset behind the portrait */}
-            <div className="ring-anim absolute -inset-3 rounded-[2rem]" />
-            <div className="relative h-full w-full overflow-hidden rounded-[1.75rem] bg-ink-900">
+          {/*
+            NO FRAME. She breaks out of her column (-mr/-mt on large screens)
+            and her edges are masked away, so she reads as standing in the page
+            rather than sitting in a card.
+
+            When a real transparent PNG of her exists, swap the src, drop
+            `feather-figure` and the darkening overlay, and this becomes a true
+            cut-out with no further layout change.
+          */}
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-md lg:-mr-16 lg:-mt-10 lg:max-w-none lg:scale-[1.14] xl:-mr-28">
+            {/* Gold bloom behind her, so she is lit from the page not framed by it */}
+            <div className="aurora pointer-events-none absolute inset-[-18%] -z-10 rounded-full bg-[radial-gradient(ellipse_54%_58%_at_50%_44%,rgba(217,189,128,0.20),transparent_70%)]" />
+
+            <div className="relative h-full w-full">
               {/* Deliberately NOT `priority`. On mobile this sits below a tall
                   copy block, so preloading it only competes for bandwidth with
-                  the backdrop, which is the real LCP element. On desktop it is
-                  in the initial viewport and loads immediately regardless. */}
+                  the backdrop, which is the real LCP element. */}
               <Image
                 src="/images/ann-hero.jpg"
                 alt="Ann Fernando, Property Consultant, in a Dubai villa"
                 fill
                 quality={80}
-                sizes="(max-width: 1024px) 90vw, 460px"
-                style={{ objectPosition: "50% 32%" }}
-                className="object-cover"
+                sizes="(max-width: 1024px) 90vw, 560px"
+                style={{ objectPosition: "50% 30%" }}
+                className="feather-figure object-cover"
               />
-              {/* Grounds the portrait into the frame and keeps the caption legible */}
-              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink-950 via-ink-950/45 to-transparent" />
 
-              <div className="absolute inset-x-0 bottom-0 p-7">
-                <p className="font-display text-2xl font-light leading-none text-bone">
-                  {agent.name}
-                </p>
-                <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-gold-500">
-                  {agent.role} · Dubai
-                </p>
-              </div>
+              {/* Darkens the room from the middle outwards BEFORE the mask
+                  fades it, so a bright interior does not leave a glowing halo
+                  against the dark page. This is what sells the cut-out. */}
+              <div className="feather-figure pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_52%_56%_at_50%_38%,transparent_38%,rgba(18,21,28,0.80)_78%,#12151c_100%)]" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink-950 via-ink-950/55 to-transparent" />
             </div>
 
-            {/* Floating credential chip */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 1.1, ease: EASE }}
-              className="absolute -left-4 bottom-10 rounded-xl border border-ink-700 bg-ink-900/90 px-4 py-3 backdrop-blur-md sm:-left-8"
-            >
-              <p className="text-[10px] uppercase tracking-[0.2em] text-bone-faint">
-                DLD-registered brokerage
+            {/* Name floats on the page — no panel, no border */}
+            <div className="absolute inset-x-0 bottom-2 text-center lg:bottom-6">
+              <p className="glow-gold font-display text-3xl font-light leading-none text-bone">
+                {agent.name}
               </p>
-              <p className="text-sm text-bone">{agent.companyLegal}</p>
-            </motion.div>
+              <p className="mt-2.5 text-[11px] uppercase tracking-[0.26em] text-gold-500">
+                {agent.role} · Dubai
+              </p>
+              <span className="mx-auto mt-4 block h-px w-16 bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
+              <p className="mt-4 text-[10px] uppercase tracking-[0.2em] text-bone-faint">
+                {agent.companyLegal} · DLD registered
+              </p>
+            </div>
           </div>
         </motion.div>
       </motion.div>
