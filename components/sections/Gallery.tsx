@@ -7,27 +7,33 @@ import { whatsappHref } from "@/content/copy";
  * page unmistakably a property site at a glance, and to break the run of text
  * sections between the investment case and the process walkthrough.
  *
+ * ⚠ PROPERTY AND REAL ESTATE ONLY. No photographs of Ann belong in this
+ * section — she carries eight other placements across the page, and a person
+ * in these rails pulls the eye away from the thing being sold. Every frame
+ * here should be a building, a view, or a room.
+ *
+ * Rails alternate landmark exteriors with styled interiors so the eye gets a
+ * change of scale every tile rather than six rooms in a row.
+ *
  * Stock stand-ins for now. Replace with real project renders from the
  * developer channel packs — those are far stronger and cost nothing.
  */
 const ROW_A = [
-  "/images/city-04.jpg",
-  "/images/int-01.jpg",
-  "/images/city-08.jpg",
-  "/images/int-05.jpg",
+  "/images/city-04.jpg", // Downtown + Burj Khalifa
+  "/images/g-03.jpg", // styled show apartment, dining through to lounge
+  "/images/city-02.jpg", // Burj Al Arab from the air
+  "/images/int-05.jpg", // high-rise living room
   "/images/city-03.jpg",
-  "/images/int-02.jpg",
+  "/images/g-05.jpg", // show apartment, arched screen and art
 ];
 
 const ROW_B = [
+  "/images/city-06.jpg", // Marina towers from the beach
+  "/images/int-01.jpg",
+  "/images/city-08.jpg",
   "/images/int-03.jpg",
   "/images/city-09.jpg",
-  // Ann inside a development's private cinema — the only frame here with a
-  // person in it, which is what stops the eye on an otherwise generic rail.
-  "/images/ann-cinema.jpg",
   "/images/city-01.jpg",
-  "/images/int-04.jpg",
-  "/images/city-05.jpg",
 ];
 
 export default function Gallery() {
