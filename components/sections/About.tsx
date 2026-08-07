@@ -20,24 +20,21 @@ export default function About() {
       <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-12 lg:gap-16">
         {/* Portrait slot */}
         <Reveal className="lg:col-span-5">
-          {/* No frame — she breaks left out of the grid and her edges dissolve
-              into the section. */}
-          <div className="relative aspect-[4/5] w-full lg:sticky lg:top-28 lg:-ml-12 lg:w-[calc(100%+3rem)] xl:-ml-20 xl:w-[calc(100%+5rem)]">
-            <div className="aurora pointer-events-none absolute inset-[-14%] -z-10 rounded-full bg-[radial-gradient(ellipse_56%_58%_at_50%_46%,rgba(217,189,128,0.16),transparent_70%)]" />
-
+          <div className="ring-anim relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-ink-900 lg:sticky lg:top-28">
+            {/* On site in a Dubai villa — a working shot reads far better here
+                than a second studio headshot. */}
             <Image
               src="/images/ann-villa.jpg"
               alt="Ann Fernando on site at a Dubai villa"
               fill
               quality={78}
-              sizes="(max-width: 1024px) 90vw, 560px"
-              style={{ objectPosition: "50% 36%" }}
-              className="feather-br object-cover"
+              sizes="(max-width: 1024px) 90vw, 480px"
+              style={{ objectPosition: "50% 38%" }}
+              className="object-cover"
             />
-            <div className="feather-br pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_58%_60%_at_46%_42%,transparent_42%,rgba(18,21,28,0.72)_82%,#12151c_100%)]" />
-
-            <div className="absolute inset-x-0 bottom-0 pb-2 text-center lg:text-left lg:pl-14">
-              <p className="text-[11px] uppercase tracking-[0.24em] text-gold-500">
+            <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-7">
+              <p className="text-[11px] uppercase tracking-[0.22em] text-gold-500">
                 On site
               </p>
               <p className="mt-1.5 text-sm text-bone">

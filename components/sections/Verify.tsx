@@ -27,22 +27,18 @@ export default function Verify() {
             a slogan — this section was text-only and felt like fine print. */}
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           <Reveal className="lg:col-span-4">
-            {/* No frame — masked edges, breaking left out of the column. */}
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-sm lg:-ml-10 lg:max-w-none lg:scale-105">
-              <div className="aurora pointer-events-none absolute inset-[-16%] -z-10 rounded-full bg-[radial-gradient(ellipse_54%_58%_at_50%_44%,rgba(217,189,128,0.17),transparent_70%)]" />
-
+            <div className="ring-anim relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl bg-ink-900">
               <Image
                 src="/images/ann-headshot.jpg"
                 alt="Ann Fernando"
                 fill
                 quality={78}
-                sizes="(max-width: 1024px) 80vw, 420px"
-                style={{ objectPosition: "50% 24%" }}
-                className="feather-figure object-cover"
+                sizes="(max-width: 1024px) 80vw, 380px"
+                style={{ objectPosition: "50% 26%" }}
+                className="object-cover"
               />
-              <div className="feather-figure pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_54%_58%_at_50%_38%,transparent_40%,rgba(18,21,28,0.76)_80%,#12151c_100%)]" />
-
-              <p className="absolute inset-x-0 bottom-0 pb-1 text-center text-[11px] uppercase tracking-[0.24em] text-gold-400">
+              <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink-950 via-ink-950/35 to-transparent" />
+              <p className="absolute inset-x-0 bottom-0 p-6 text-[11px] uppercase tracking-[0.22em] text-gold-400">
                 Check everything
               </p>
             </div>
