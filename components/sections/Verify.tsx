@@ -56,6 +56,49 @@ export default function Verify() {
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-bone-dim">
               {verify.intro}
             </p>
+
+            {/* Directly under the intro rather than at the foot of the
+                section, which gives this column enough height to balance the
+                portrait beside it. Not a sixth grid cell either: a QR has to
+                hold a fixed size to stay scannable, so as a cell it dragged
+                the whole row up with it and the five cards stopped matching.
+
+                Plain div, not a Reveal. The column already animates and
+                nesting a second one would stagger it against its own parent. */}
+            <div className="mt-8 flex flex-col items-start gap-6 rounded-2xl border border-gold-600/40 bg-ink-900/60 p-6 sm:flex-row sm:items-center sm:gap-8">
+              <div className="shrink-0 rounded-xl bg-bone p-2.5">
+                <Image
+                  src="/brand/gcc-dld-qr.png"
+                  alt={verify.qr.alt}
+                  width={124}
+                  height={124}
+                  quality={100}
+                  className="h-31 w-31"
+                />
+              </div>
+
+              <div className="min-w-0">
+                <h3 className="font-display text-xl font-light leading-snug text-bone">
+                  {verify.qr.title}
+                </h3>
+
+                <p className="mt-2.5 text-[15px] leading-relaxed text-bone-dim">
+                  {verify.qr.body}
+                </p>
+
+                <a
+                  href={verify.qr.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-4 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-gold-500 transition-colors hover:text-gold-400"
+                >
+                  {verify.qr.action}
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </a>
+              </div>
+            </div>
           </Reveal>
         </div>
 
@@ -108,46 +151,6 @@ export default function Verify() {
             </Reveal>
           ))}
         </div>
-
-        {/* Deliberately NOT a sixth grid cell. A 148px QR in a cell drags the
-            whole row up to its height and the five cards stop matching, so it
-            gets its own band. Full width also suits it better: the code needs
-            a fixed size to stay scannable, and a wide band gives the copy
-            somewhere to go instead of stacking under it. */}
-        <Reveal className="mt-5 flex flex-col items-start gap-7 rounded-2xl border border-gold-600/40 bg-ink-900/60 p-7 sm:flex-row sm:items-center sm:gap-9 sm:p-8">
-          <div className="shrink-0 rounded-xl bg-bone p-2.5">
-            <Image
-              src="/brand/gcc-dld-qr.png"
-              alt={verify.qr.alt}
-              width={128}
-              height={128}
-              quality={100}
-              className="h-32 w-32"
-            />
-          </div>
-
-          <div className="min-w-0">
-            <h3 className="font-display text-xl font-light leading-snug text-bone">
-              {verify.qr.title}
-            </h3>
-
-            <p className="mt-2.5 max-w-2xl text-[15px] leading-relaxed text-bone-dim">
-              {verify.qr.body}
-            </p>
-
-            <a
-              href={verify.qr.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group mt-4 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-gold-500 transition-colors hover:text-gold-400"
-            >
-              {verify.qr.action}
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </a>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
