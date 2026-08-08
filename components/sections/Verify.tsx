@@ -107,6 +107,39 @@ export default function Verify() {
               )}
             </Reveal>
           ))}
+
+          {/* Sixth cell. With five text cards and three columns the grid
+              leaves a hole here, and the strongest thing this section can
+              put in it is something the reader can actually scan. Gold
+              border rather than ink-800 so it reads as the payoff of the
+              five cards, not a sixth one. */}
+          <Reveal
+            delay={0.16}
+            className="lift group flex h-full flex-col rounded-2xl border border-gold-600/40 bg-ink-900/60 p-7 hover:border-gold-500/70"
+          >
+            <div className="mb-5 w-fit rounded-xl bg-bone p-2.5">
+              <Image
+                src="/brand/gcc-dld-qr.png"
+                alt={verify.qr.alt}
+                width={148}
+                height={148}
+                quality={100}
+                className="h-37 w-37"
+              />
+            </div>
+
+            <h3 className="font-display text-xl font-light leading-snug text-bone">
+              {verify.qr.title}
+            </h3>
+
+            <p className="mt-3 flex-1 text-[15px] leading-relaxed text-bone-dim">
+              {verify.qr.body}
+            </p>
+
+            <p className="mt-6 border-t border-gold-600/25 pt-4 text-[11px] uppercase tracking-[0.14em] text-gold-500">
+              {verify.qr.action}
+            </p>
+          </Reveal>
         </div>
 
       </div>

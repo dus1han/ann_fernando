@@ -526,6 +526,25 @@ export const verify = {
       action: "Standard on every enquiry",
     },
   ],
+
+  /**
+   * The company's DLD registration QR, supplied by GCC.
+   *
+   * It sits as the sixth cell of the verification grid, which is otherwise
+   * empty at three columns. A thing the reader can scan closes this section
+   * better than a sixth paragraph does.
+   *
+   * The wording deliberately says what the code IS, not what page it opens,
+   * because that has not been confirmed. If the destination is checked and
+   * it does land on the DLD's own record, this can say so, and it will be a
+   * stronger line for it.
+   */
+  qr: {
+    title: "Scan the DLD registration",
+    body: `This code is ${agent.companyLegal}'s Dubai Land Department registration. Point your phone at it before you deal with anyone here, including me. Confirming the brokerage is registered takes about ten seconds, and it is the first thing a careful buyer does.`,
+    action: "Dubai Land Department",
+    alt: `${agent.companyLegal} Dubai Land Department registration QR code`,
+  },
 };
 
 /* ─── 6c. Lead magnet - the personalised proposal ───────────────────────── */
