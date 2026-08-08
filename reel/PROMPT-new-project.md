@@ -34,6 +34,29 @@ These reels exist to make Sri Lankan investors **contact Ann**. Not to look nice
 not to inform. A beautiful reel that produces no enquiries has failed. Every
 decision below serves that.
 
+## Every reel is a property reel
+
+Ann is a property consultant. The location is somewhere to **own**, never
+somewhere to visit.
+
+**The test: if the reel would work unchanged for a tourism board, it is wrong.**
+A gorgeous Dubai travel film is a failure here, however good it looks.
+
+- Every reel answers two questions. What can I own here, and why is owning it a
+  good idea? If neither is answered, rebuild it.
+- **At least two beats must be ownership or investment claims** from the approved
+  list. The place sells the feeling; those beats sell the decision.
+- Choose the property shots. Buildings, interiors, balconies, residential
+  towers, waterfront apartments, lobbies, show homes, the skyline as a market
+  rather than a postcard. Prefer these over food, beaches, desert, souks and
+  general lifestyle even when the lifestyle shot is prettier.
+- Landmarks are context, not subject. Burj Al Arab behind a residential tower
+  says location. Burj Al Arab alone says holiday.
+- Write about the place the way an owner thinks: what is around it, who rents
+  there, what it is near, how it holds value. Not what a visitor would do there.
+- If a folder genuinely contains nothing but scenery, say so and ask me for
+  property images rather than making a travel reel out of it.
+
 ## Who it is for
 
 Ann Fernando, Property Consultant at GCC Real Estate, Dubai. The audience is
@@ -124,7 +147,23 @@ Her tagline, use as hook or closer: **"Dubai property, in your language."**
 
 Describing how a place feels is yours to write. Stating what it yields is not.
 
-## Making them contact her
+## Make them want it, then make messaging her easy
+
+Every reel runs the same three moves in order. A reel that skips one does not
+produce leads.
+
+**1. Create the want.** Show something ownable and make it feel within reach.
+The strongest lever for this audience is not luxury, it is **the cost of doing
+nothing**: their savings are sitting in a currency that keeps falling while a
+dollar-linked asset does not. Lead the desire with the place, close it with that.
+
+**2. Take the fear away.** These are people wiring large sums somewhere they have
+never been, and most of them have heard a story about someone who got burned. So
+name the protections: DLD-supervised escrow, a title deed in their own name, a
+DLD-registered brokerage, "your money never comes to me". Trust is the actual
+bottleneck, not interest.
+
+**3. Make contacting her trivial.** One action, and no thinking required.
 
 - **One action, repeated.** Message her on WhatsApp. Not "visit the site and also
   follow and also DM". One.
@@ -133,11 +172,11 @@ Describing how a place feels is yours to write. Stating what it yields is not.
 - **Tell them what to say, not just to get in touch.** "Send me the word
   <place>" or "Ask me what it rents for" converts far better than "contact me",
   because it removes the work of composing a first message.
-- **Lower the stakes.** The audience is cautious. "Ask me anything before you
-  commit to anything" outperforms "book a consultation".
-- Give a reason to act now when there is a genuine one, an event or a launch.
-  Never manufacture urgency.
-- Her face belongs in the reel. People message a person, not a brochure.
+- **Lower the stakes.** "Ask me anything before you commit to anything"
+  outperforms "book a consultation" every time with a cautious buyer.
+- Give a reason to act now only when there is a genuine one, an event or a
+  launch. Never manufacture urgency; this audience is alert to being sold.
+- Her face belongs in every reel. People message a person, not a brochure.
 
 ## Standing rules, non-negotiable
 
@@ -291,6 +330,25 @@ what you see and render again. For video beats sample two frames from each, star
 and end, because a clip can be fine at one and useless at the other. Crop a QR at
 1:1 and confirm the modules are square before claiming it scans. Expect at least
 one round of "this frame is wrong, here is why, fixed."
+
+## Before you call a reel done
+
+Run this list and tell me the answers. If any answer is no, fix it and re-render
+rather than shipping it and mentioning the gap.
+
+1. Would this reel work unchanged for a tourism board? If yes, it is not a
+   property reel. Rebuild it.
+2. Does it answer what I could own here, and why owning it is a good idea?
+3. Are there at least two ownership or investment beats from the approved list?
+4. Does it address the fear, not just the opportunity? Escrow, title, registered
+   brokerage.
+5. Is there one single action, asked twice, and does it tell the viewer what to
+   say rather than just to get in touch?
+6. Is Ann's face in it, and is her QR scannable and still?
+7. Is every frame moving, with at least two elements at different rates?
+8. Does any number on screen come from me or the approved list? Name any that
+   does not.
+9. Is the footage still colourful, or has the grade flattened it to grey?
 
 ## Audio
 
