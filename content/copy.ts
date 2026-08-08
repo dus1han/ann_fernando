@@ -534,15 +534,19 @@ export const verify = {
    * empty at three columns. A thing the reader can scan closes this section
    * better than a sixth paragraph does.
    *
-   * The wording deliberately says what the code IS, not what page it opens,
-   * because that has not been confirmed. If the destination is checked and
-   * it does land on the DLD's own record, this can say so, and it will be a
-   * stronger line for it.
+   * It resolves to trakheesi.dubailand.gov.ae, the DLD's own permit system.
+   * Naming that domain is the whole value of this card: the reader lands on
+   * a government record rather than on anything we control. Say the domain,
+   * not just "the DLD", so it is checkable at a glance.
+   *
+   * Also linked, not only scannable. Nobody scans a QR off the screen they
+   * are already reading, so desktop needs a way through.
    */
   qr: {
     title: "Scan the DLD registration",
-    body: `This code is ${agent.companyLegal}'s Dubai Land Department registration. Point your phone at it before you deal with anyone here, including me. Confirming the brokerage is registered takes about ten seconds, and it is the first thing a careful buyer does.`,
-    action: "Dubai Land Department",
+    body: `This code is ${agent.companyLegal}'s registration in Trakheesi, the Dubai Land Department's own permit system. It opens on dubailand.gov.ae, not on a page we control. Check the brokerage before you deal with anyone here, including me.`,
+    action: "Open on dubailand.gov.ae",
+    href: "https://trakheesi.dubailand.gov.ae/rev/m3xctf5b5h/f9zb41pjrb?cegaakad6n=MzQ1NjE%3d",
     alt: `${agent.companyLegal} Dubai Land Department registration QR code`,
   },
 };

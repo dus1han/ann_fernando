@@ -136,9 +136,17 @@ export default function Verify() {
               {verify.qr.body}
             </p>
 
-            <p className="mt-6 border-t border-gold-600/25 pt-4 text-[11px] uppercase tracking-[0.14em] text-gold-500">
+            <a
+              href={verify.qr.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 border-t border-gold-600/25 pt-4 text-[11px] uppercase tracking-[0.14em] text-gold-500 transition-colors hover:text-gold-400"
+            >
               {verify.qr.action}
-            </p>
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </a>
           </Reveal>
         </div>
 
