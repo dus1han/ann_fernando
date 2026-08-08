@@ -197,6 +197,13 @@ export const KenBurns: React.FC<{
    * video. Pull saturation and brightness down on those.
    */
   filter?: string;
+  /**
+   * Gold wash on soft-light. Her portraits were shot in white marble interiors
+   * against bright sheer curtains, and desaturating alone leaves them cold grey
+   * next to the dusk skylines. Soft-light warms the midtones back toward the
+   * palette without lifting the blacks the way a normal overlay would.
+   */
+  tint?: number;
 }> = ({
   src,
   from,
@@ -206,6 +213,7 @@ export const KenBurns: React.FC<{
   grade = 0.3,
   pan = 0,
   filter,
+  tint,
 }) => {
   const frame = useCurrentFrame();
   const scale = interpolate(frame, [0, durationInFrames], [from, to], {
@@ -233,6 +241,15 @@ export const KenBurns: React.FC<{
       <AbsoluteFill
         style={{ backgroundColor: ink, opacity: grade, mixBlendMode: "multiply" }}
       />
+      {tint ? (
+        <AbsoluteFill
+          style={{
+            backgroundColor: gold,
+            opacity: tint,
+            mixBlendMode: "soft-light",
+          }}
+        />
+      ) : null}
     </AbsoluteFill>
   );
 };

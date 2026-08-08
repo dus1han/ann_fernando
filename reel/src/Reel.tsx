@@ -1,12 +1,24 @@
 import React from "react";
-import { AbsoluteFill, Img, Sequence } from "remotion";
+import { AbsoluteFill, Sequence } from "remotion";
 import { loadFont as loadPlayfair } from "@remotion/google-fonts/PlayfairDisplay";
 import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
 
 import { agent, roadshow } from "../../content/copy";
 import { PRODUCTION_URL } from "../../lib/site";
 
-import figure from "../assets/ann-figure.png";
+/**
+ * Her three frames, cut 9:16 from the full-resolution originals in
+ * `Ann Photos` rather than from public/images. The site copies are downscaled
+ * to a 1600px long edge, and a 9:16 crop plus a Ken Burns push would have
+ * upscaled them about 1.4x. These are 1296x2304, which is 1.2x the output, so
+ * the zoom never runs out of pixels.
+ *
+ * One frame each, deliberately: the close portrait to introduce her, the navy
+ * suit for the event she is inviting people to, the gold panel to close on.
+ */
+import annPortrait from "../assets/ann-portrait.jpg";
+import annSuit from "../assets/ann-suit.jpg";
+import annStone from "../assets/ann-stone.jpg";
 import annQr from "../assets/ann-qr.png";
 import logo from "../../public/brand/gcc-logo-light.png";
 import city08 from "../../public/images/city-08.jpg";
@@ -214,22 +226,19 @@ export const Reel: React.FC = () => {
       {/* 2. Who. Straight after the hook, before any argument is made. */}
       <Sequence {...at(1)} name="Ann">
         <Scene durationInFrames={SCENES[1].d}>
-          <Grid />
-          <Bloom x="-22%" y="-16%" size="1100px" opacity={0.3} />
-          <Bloom x="6%" y="4%" size="960px" opacity={0.2} />
-          <AbsoluteFill style={{ alignItems: "center" }}>
-            <Rise delay={0} y={44} blur={0} style={{ marginTop: 120 }}>
-              <Img src={figure} style={{ width: 840, objectFit: "contain" }} />
-            </Rise>
-          </AbsoluteFill>
-          {/* One pass of light across her, so the beat is not a static cut-out */}
-          <LightPass start={10} duration={58} />
-          <AbsoluteFill
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(18,21,28,0) 44%, rgba(18,21,28,1) 60%)",
-            }}
+          <KenBurns
+            src={annPortrait}
+            from={1.0}
+            to={1.1}
+            durationInFrames={SCENES[1].d}
+            grade={0.44}
+            filter="saturate(0.78) brightness(0.86) contrast(1.05)"
+            tint={0.16}
+            pan={-14}
           />
+          {/* One pass of light across her, so the beat is not a static hold */}
+          <LightPass start={10} duration={58} />
+          <Scrim from="34%" />
           <Block bottom={340}>
             <TrackIn delay={4}>
               <Eyebrow>Property Consultant · Dubai</Eyebrow>
@@ -333,41 +342,63 @@ export const Reel: React.FC = () => {
       {/* 7. The live, time-boxed reason to act now, with a way to act on it. */}
       <Sequence {...at(6)} name="Roadshow">
         <Scene durationInFrames={SCENES[6].d}>
+          {/* She is in this frame because the line is "meet me". You should see
+              who you would be meeting. Her navy suit is also the darkest of the
+              three frames, which lets the gold panel sit on top of it. */}
+          <KenBurns
+            src={annSuit}
+            from={1.04}
+            to={1.13}
+            durationInFrames={SCENES[6].d}
+            // Lighter than the other corrections. A navy suit in a doorway is
+            // already the darkest frame in the reel, and grading it like the
+            // skylines lost her against the background.
+            grade={0.38}
+            filter="saturate(0.76) brightness(0.94) contrast(1.04)"
+            tint={0.16}
+          />
+          <AbsoluteFill
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(18,21,28,0) 20%, rgba(18,21,28,0.94) 42%, rgba(18,21,28,1) 50%)",
+            }}
+          />
           <Grid />
-          <Bloom x="-20%" y="8%" size="1200px" opacity={0.34} />
-          <Bloom x="42%" y="52%" size="1000px" opacity={0.2} />
-          {/* Held inside the site's own edge-gold panel. Centred type alone
-              left the top half of the frame dead, and a bordered card is also
-              how this event is presented on the site itself. */}
-          <AbsoluteFill style={{ justifyContent: "center", padding: "0 68px" }}>
+          <Bloom x="-20%" y="42%" size="1100px" opacity={0.26} />
+          {/* Held inside the site's own edge-gold panel, which is how the event
+              is presented on the site itself. Sitting it in the lower half lets
+              her occupy the upper half instead of leaving it dead. */}
+          <AbsoluteFill
+            style={{ justifyContent: "flex-end", padding: "0 68px 74px 68px" }}
+          >
             <Rise delay={2} y={30} blur={6}>
               <div
                 style={{
                   border: "1px solid rgba(217,189,128,0.42)",
                   borderRadius: 30,
-                  backgroundColor: "rgba(23,27,36,0.55)",
-                  padding: "80px 58px 72px 58px",
+                  backgroundColor: "rgba(23,27,36,0.62)",
+                  padding: "56px 54px 52px 54px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 24,
+                  gap: 22,
                 }}
               >
                 <TrackIn delay={8}>
                   <Eyebrow>{roadshow.eyebrow}</Eyebrow>
                 </TrackIn>
                 <Wipe delay={14}>
-                  <div style={display(88)}>
+                  <div style={display(76)}>
                     Meet me
                     <br />
                     in Colombo.
                   </div>
                 </Wipe>
-                <Rise delay={26} y={22} blur={5} style={{ marginTop: 20 }}>
+                <Rise delay={26} y={22} blur={5} style={{ marginTop: 16 }}>
                   <div
-                    style={{ display: "flex", flexDirection: "column", gap: 18 }}
+                    style={{ display: "flex", flexDirection: "column", gap: 16 }}
                   >
                     <Rule delay={28} />
-                    <div style={{ ...display(68), color: goldHi, lineHeight: 1 }}>
+                    <div style={{ ...display(62), color: goldHi, lineHeight: 1 }}>
                       {roadshow.dates}
                     </div>
                     <Body>{roadshow.venue}</Body>
@@ -381,15 +412,15 @@ export const Reel: React.FC = () => {
                     most likely to act on. */}
                 <div
                   style={{
-                    marginTop: 34,
-                    paddingTop: 30,
+                    marginTop: 26,
+                    paddingTop: 26,
                     borderTop: "1px solid rgba(217,189,128,0.25)",
                     display: "flex",
                     alignItems: "center",
                     gap: 26,
                   }}
                 >
-                  <QrPlate src={annQr} size={124} delay={40} />
+                  <QrPlate src={annQr} size={112} delay={40} />
                   <div
                     style={{ display: "flex", flexDirection: "column", gap: 10 }}
                   >
@@ -410,22 +441,28 @@ export const Reel: React.FC = () => {
       {/* 8. End card. The QR is the largest single element on it. */}
       <Sequence {...at(7)} name="End">
         <Scene durationInFrames={SCENES[7].d}>
-          <Grid />
-          <Bloom x="-20%" y="-14%" size="1100px" opacity={0.28} />
-          <Bloom x="18%" y="12%" size="900px" opacity={0.2} />
-          <AbsoluteFill style={{ alignItems: "center" }}>
-            <Img
-              src={figure}
-              style={{ width: 800, marginTop: 88, objectFit: "contain" }}
-            />
-          </AbsoluteFill>
+          {/* Closing on the gold carved panel, which is the only frame in the
+              library whose own background is already the palette. */}
+          <KenBurns
+            src={annStone}
+            from={1.0}
+            to={1.08}
+            durationInFrames={SCENES[7].d}
+            grade={0.46}
+            filter="saturate(0.8) brightness(0.84) contrast(1.04)"
+            tint={0.2}
+            pan={10}
+          />
           <LightPass start={8} duration={64} />
+          {/* Starts at 42%, not 30%. Her face reaches to about 45% here, and
+              the earlier ramp put the fade across her mouth. */}
           <AbsoluteFill
             style={{
               background:
-                "linear-gradient(to bottom, rgba(18,21,28,0) 34%, rgba(18,21,28,1) 50%)",
+                "linear-gradient(to bottom, rgba(18,21,28,0) 42%, rgba(18,21,28,0.94) 56%, rgba(18,21,28,1) 62%)",
             }}
           />
+          <Grid />
           <AbsoluteFill
             style={{
               justifyContent: "flex-end",

@@ -25,8 +25,25 @@ copy in git history on every re-render.
 
 - Copy, dates and contact details come from `../content/copy.ts`
 - The URL comes from `../lib/site.ts`
-- Photography is imported from `../public/images`, not duplicated
+- Property photography is imported from `../public/images`, not duplicated
 - Colours in `src/theme.ts` mirror `app/globals.css`
+
+Her three frames are the exception and live in `assets/`. They are cut 9:16 from
+the full-resolution originals in `Ann Photos`, because the `public/images`
+copies are downscaled to a 1600px long edge and a 9:16 crop plus a Ken Burns
+push would have upscaled them about 1.4x. The crops are 1296x2304, which is
+1.2x the output, so the zoom never runs out of pixels.
+
+One frame each, chosen so no two adjacent beats repeat a framing:
+
+| Asset | Beat | Why |
+| --- | --- | --- |
+| `ann-portrait.jpg` | Who she is | Close, straight to camera. Introduces her as a person before any argument is made. |
+| `ann-suit.jpg` | Roadshow | The line is "meet me", so you should see who you would be meeting. Also the darkest of the three, which lets the gold panel sit on top of it. |
+| `ann-stone.jpg` | End card | The only frame whose own background is already the palette, a gold carved panel. |
+
+Each crop is framed around where that scene's gradient reaches solid ink. Change
+a gradient stop and the crop needs revisiting, or it will cut across her face.
 
 So **changing the roadshow date in `content/copy.ts` and re-rendering updates the
 reel**. Nothing here restates a fact the site does not already state.
