@@ -40,6 +40,42 @@ Every claim in the reel is lifted verbatim from `content/copy.ts`. In particular
 - No commission or agency-fee figure
 - No em dashes
 
+## Brand marks are persistent, not per-scene
+
+`<Brand>` renders the GCC logo top-right and the URL top-left **above every
+scene and outside their dissolves**, so both are on screen for the full 22
+seconds. They used to appear on the last two beats only. A reel gets one muted,
+fast viewing, so the mark has to be there the whole time.
+
+The WhatsApp QR appears twice: inside the roadshow panel, and large on the end
+card.
+
+## ⚠ Never animate the QR after it lands
+
+`<QrPlate>` wipes the code in once and then holds it **absolutely still**, and
+drops its transform entirely once settled so the modules stay pixel-aligned. A
+QR that is still moving, scaling, or sitting on a fractional transform cannot be
+scanned. Only the conic gold ring around it rotates.
+
+The end card is the longest beat (138 frames) for the same reason: the code needs
+roughly four still seconds for someone to raise a phone.
+
+## Motion vocabulary
+
+| Component | What it does |
+| --- | --- |
+| `Wipe` | Headline reveal, left to right, with a gold edge riding the wipe. Optional `drift` keeps a line moving after it lands. |
+| `Rise` | Rise, fade and defocus. The blur is what makes type read as shot rather than animated. |
+| `TrackIn` | Letter-spacing tightens as a label lands. |
+| `Rule` | Gold rule draws itself outward instead of fading. |
+| `Sweep` | Gold bar crosses the frame on every cut, giving each beat a leading edge. |
+| `LightPass` | One band of light travels across her portrait, so a static cut-out is not static. |
+| `KenBurns` | Zoom plus lateral drift, direction alternating between beats, with per-shot colour correction. |
+| `Grain` | Reseeded film grain, generated small and stretched because grain wants to be soft. |
+
+`Wipe`'s `drift` is used once, on "The rupee falls." The line keeps falling while
+"The dirham holds." does not move at all.
+
 ## Audio
 
 There is none, deliberately. Upload it and add a track from Instagram's or

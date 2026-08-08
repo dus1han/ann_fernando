@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Img, Sequence, staticFile } from "remotion";
+import { AbsoluteFill, Img, Sequence } from "remotion";
 import { loadFont as loadPlayfair } from "@remotion/google-fonts/PlayfairDisplay";
 import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
 
@@ -18,15 +18,21 @@ import int01 from "../../public/images/int-01.jpg";
 import {
   Bloom,
   Body,
+  Brand,
   Eyebrow,
+  Grain,
   Grid,
   KenBurns,
+  LightPass,
   Progress,
+  QrPlate,
   Rise,
   Rule,
   Scene,
   Scrim,
   Source,
+  TrackIn,
+  Wipe,
 } from "./components";
 import { bone, gold, goldHi, ink, XFADE } from "./theme";
 
@@ -76,12 +82,12 @@ const Block: React.FC<{ children: React.ReactNode; bottom?: number }> = ({
 );
 
 /**
- * A single claim over a photograph: two lines of Playfair and a source.
+ * A single claim over a photograph: two wiped lines of Playfair and a source.
  *
- * Every line below is lifted verbatim from content/copy.ts. Nothing is
- * asserted here that the site does not already say, and per the standing
- * rules there is no timeline, no tenure, no commission figure, and no
- * licensing claim attached to Ann rather than to GCC.
+ * Every line is lifted verbatim from content/copy.ts. Nothing is asserted here
+ * that the site does not already say, and per the standing rules there is no
+ * timeline, no tenure, no commission figure, and no licensing claim attached
+ * to Ann rather than to GCC.
  */
 const Claim: React.FC<{
   img: string;
@@ -96,6 +102,9 @@ const Claim: React.FC<{
   size?: number;
   grade?: number;
   filter?: string;
+  pan?: number;
+  /** Slow downward drift on the first line, once it has landed. */
+  drift?: number;
 }> = ({
   img,
   from,
@@ -109,6 +118,8 @@ const Claim: React.FC<{
   size = 78,
   grade,
   filter,
+  pan = 0,
+  drift = 0,
 }) => (
   <>
     <KenBurns
@@ -119,19 +130,20 @@ const Claim: React.FC<{
       durationInFrames={durationInFrames}
       grade={grade}
       filter={filter}
+      pan={pan}
     />
     <Scrim />
     <Block>
-      <Rise delay={4}>
+      <Wipe delay={4} drift={drift} durationInFrames={durationInFrames}>
         <div style={display(size)}>{l1}</div>
-      </Rise>
-      <Rise delay={12}>
+      </Wipe>
+      <Wipe delay={13}>
         <div style={{ ...display(size), color: accent }}>{l2}</div>
-      </Rise>
+      </Wipe>
       {source ? (
-        <Rise delay={24} y={20} blur={5} style={{ marginTop: 16 }}>
+        <Rise delay={26} y={20} blur={5} style={{ marginTop: 16 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <Rule width={72} />
+            <Rule width={72} delay={28} />
             <Source>{source}</Source>
           </div>
         </Rise>
@@ -147,8 +159,10 @@ const SCENES = [
   { id: "tax", d: 81 },
   { id: "freehold", d: 81 },
   { id: "visa", d: 84 },
-  { id: "roadshow", d: 96 },
-  { id: "end", d: 114 },
+  { id: "roadshow", d: 102 },
+  // Longest beat on purpose. The QR needs roughly four still seconds after it
+  // lands for someone to actually raise a phone and scan it.
+  { id: "end", d: 138 },
 ] as const;
 
 /** Overlapping starts, so Scene's fade in and fade out become a dissolve. */
@@ -157,8 +171,7 @@ export const starts = SCENES.reduce<number[]>((acc, s, i) => {
   return acc;
 }, []);
 
-export const TOTAL =
-  starts[starts.length - 1] + SCENES[SCENES.length - 1].d;
+export const TOTAL = starts[starts.length - 1] + SCENES[SCENES.length - 1].d;
 
 export const Reel: React.FC = () => {
   const at = (i: number) => ({
@@ -175,20 +188,24 @@ export const Reel: React.FC = () => {
           <KenBurns
             src={city08}
             from={1.02}
-            to={1.16}
+            to={1.18}
             focus="50% 45%"
             durationInFrames={SCENES[0].d}
             grade={0.34}
+            pan={-26}
           />
           <Scrim from="30%" />
           <Block bottom={330}>
-            <Rise delay={6} y={46}>
+            <Wipe delay={6}>
               <div style={display(104)}>Dubai property,</div>
-            </Rise>
-            <Rise delay={18} y={46}>
+            </Wipe>
+            <Wipe delay={17}>
               <div style={{ ...display(104), color: goldHi }}>
                 in your language.
               </div>
+            </Wipe>
+            <Rise delay={32} y={16} blur={4} style={{ marginTop: 22 }}>
+              <Rule width={120} delay={34} />
             </Rise>
           </Block>
         </Scene>
@@ -200,7 +217,13 @@ export const Reel: React.FC = () => {
           <Grid />
           <Bloom x="-22%" y="-16%" size="1100px" opacity={0.3} />
           <Bloom x="6%" y="4%" size="960px" opacity={0.2} />
-          <FigureRise />
+          <AbsoluteFill style={{ alignItems: "center" }}>
+            <Rise delay={0} y={44} blur={0} style={{ marginTop: 120 }}>
+              <Img src={figure} style={{ width: 840, objectFit: "contain" }} />
+            </Rise>
+          </AbsoluteFill>
+          {/* One pass of light across her, so the beat is not a static cut-out */}
+          <LightPass start={10} duration={58} />
           <AbsoluteFill
             style={{
               background:
@@ -208,15 +231,15 @@ export const Reel: React.FC = () => {
             }}
           />
           <Block bottom={340}>
-            <Rise delay={4} y={18} blur={4}>
+            <TrackIn delay={4}>
               <Eyebrow>Property Consultant · Dubai</Eyebrow>
-            </Rise>
-            <Rise delay={12} y={34}>
+            </TrackIn>
+            <Wipe delay={12}>
               <div style={display(88)}>{agent.name}</div>
-            </Rise>
-            <Rise delay={24} y={20} blur={5} style={{ marginTop: 14 }}>
+            </Wipe>
+            <Rise delay={26} y={20} blur={5} style={{ marginTop: 14 }}>
               <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                <Rule />
+                <Rule delay={28} />
                 <Body color="rgba(248,246,241,0.72)">
                   GCC Real Estate. Sri Lankan-owned,
                   <br />
@@ -228,7 +251,8 @@ export const Reel: React.FC = () => {
         </Scene>
       </Sequence>
 
-      {/* 3. The emotional core of the whole argument for this audience. */}
+      {/* 3. The emotional core of the whole argument for this audience. The
+             falling line keeps falling, the holding line does not move. */}
       <Sequence {...at(2)} name="Currency">
         <Scene durationInFrames={SCENES[2].d}>
           <Claim
@@ -240,6 +264,8 @@ export const Reel: React.FC = () => {
             l1="The rupee falls."
             l2="The dirham holds."
             source="Pegged to the US dollar at 3.6725 since 1997"
+            drift={26}
+            pan={18}
           />
         </Scene>
       </Sequence>
@@ -261,6 +287,7 @@ export const Reel: React.FC = () => {
             size={76}
             grade={0.34}
             filter="saturate(0.92)"
+            pan={-20}
           />
         </Scene>
       </Sequence>
@@ -278,6 +305,7 @@ export const Reel: React.FC = () => {
             source="Title deed issued by the Dubai Land Department"
             grade={0.5}
             filter="saturate(0.68) brightness(0.84)"
+            pan={22}
           />
         </Scene>
       </Sequence>
@@ -297,54 +325,49 @@ export const Reel: React.FC = () => {
             size={74}
             grade={0.5}
             filter="saturate(0.64) brightness(0.8)"
+            pan={-18}
           />
         </Scene>
       </Sequence>
 
-      {/* 7. The live, time-boxed reason to act now. */}
+      {/* 7. The live, time-boxed reason to act now, with a way to act on it. */}
       <Sequence {...at(6)} name="Roadshow">
         <Scene durationInFrames={SCENES[6].d}>
           <Grid />
           <Bloom x="-20%" y="8%" size="1200px" opacity={0.34} />
           <Bloom x="42%" y="52%" size="1000px" opacity={0.2} />
-          <Img
-            src={logo}
-            style={{ position: "absolute", top: 96, right: 76, width: 210 }}
-          />
           {/* Held inside the site's own edge-gold panel. Centred type alone
               left the top half of the frame dead, and a bordered card is also
               how this event is presented on the site itself. */}
-          <AbsoluteFill
-            style={{ justifyContent: "center", padding: "0 68px" }}
-          >
+          <AbsoluteFill style={{ justifyContent: "center", padding: "0 68px" }}>
             <Rise delay={2} y={30} blur={6}>
               <div
                 style={{
                   border: "1px solid rgba(217,189,128,0.42)",
                   borderRadius: 30,
                   backgroundColor: "rgba(23,27,36,0.55)",
-                  padding: "104px 62px 96px 62px",
+                  padding: "80px 58px 72px 58px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 26,
+                  gap: 24,
                 }}
               >
-                <Rise delay={8} y={14} blur={3}>
+                <TrackIn delay={8}>
                   <Eyebrow>{roadshow.eyebrow}</Eyebrow>
-                </Rise>
-                <Rise delay={14} y={34}>
-                  <div style={display(90)}>
+                </TrackIn>
+                <Wipe delay={14}>
+                  <div style={display(88)}>
                     Meet me
                     <br />
                     in Colombo.
                   </div>
-                </Rise>
-                <Rise delay={28} y={22} blur={5} style={{ marginTop: 24 }}>
+                </Wipe>
+                <Rise delay={26} y={22} blur={5} style={{ marginTop: 20 }}>
                   <div
-                    style={{ display: "flex", flexDirection: "column", gap: 20 }}
+                    style={{ display: "flex", flexDirection: "column", gap: 18 }}
                   >
-                    <Rule />
-                    <div style={{ ...display(70), color: goldHi, lineHeight: 1 }}>
+                    <Rule delay={28} />
+                    <div style={{ ...display(68), color: goldHi, lineHeight: 1 }}>
                       {roadshow.dates}
                     </div>
                     <Body>{roadshow.venue}</Body>
@@ -353,55 +376,72 @@ export const Reel: React.FC = () => {
                     </Body>
                   </div>
                 </Rise>
-                <Rise delay={46} y={14} blur={3} style={{ marginTop: 30 }}>
-                  <Eyebrow size={21}>{SITE}</Eyebrow>
-                </Rise>
+                {/* Scannable here too, not only on the end card. This is the
+                    beat with a deadline attached, so it is the one people are
+                    most likely to act on. */}
+                <div
+                  style={{
+                    marginTop: 34,
+                    paddingTop: 30,
+                    borderTop: "1px solid rgba(217,189,128,0.25)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 26,
+                  }}
+                >
+                  <QrPlate src={annQr} size={124} delay={40} />
+                  <div
+                    style={{ display: "flex", flexDirection: "column", gap: 10 }}
+                  >
+                    <Rise delay={46} y={14} blur={3}>
+                      <Eyebrow size={19}>Scan to WhatsApp me</Eyebrow>
+                    </Rise>
+                    <Rise delay={52} y={14} blur={3}>
+                      <Body color="rgba(248,246,241,0.72)">{agent.phone}</Body>
+                    </Rise>
+                  </div>
+                </div>
               </div>
             </Rise>
           </AbsoluteFill>
         </Scene>
       </Sequence>
 
-      {/* 8. End card. One scannable route and one typed route out. */}
+      {/* 8. End card. The QR is the largest single element on it. */}
       <Sequence {...at(7)} name="End">
         <Scene durationInFrames={SCENES[7].d}>
           <Grid />
           <Bloom x="-20%" y="-14%" size="1100px" opacity={0.28} />
           <Bloom x="18%" y="12%" size="900px" opacity={0.2} />
-          {/* Larger and higher than before. At 690px she left a band of dead
-              charcoal between her and the type. */}
           <AbsoluteFill style={{ alignItems: "center" }}>
             <Img
               src={figure}
               style={{ width: 800, marginTop: 88, objectFit: "contain" }}
             />
           </AbsoluteFill>
+          <LightPass start={8} duration={64} />
           <AbsoluteFill
             style={{
               background:
-                "linear-gradient(to bottom, rgba(18,21,28,0) 36%, rgba(18,21,28,1) 52%)",
+                "linear-gradient(to bottom, rgba(18,21,28,0) 34%, rgba(18,21,28,1) 50%)",
             }}
-          />
-          <Img
-            src={logo}
-            style={{ position: "absolute", top: 96, right: 76, width: 210 }}
           />
           <AbsoluteFill
             style={{
               justifyContent: "flex-end",
-              padding: "0 76px 120px 76px",
+              padding: "0 76px 108px 76px",
               gap: 18,
             }}
           >
-            <Rise delay={3} y={16} blur={4}>
+            <TrackIn delay={3}>
               <Eyebrow>Property Consultant · Dubai</Eyebrow>
-            </Rise>
-            <Rise delay={10} y={32}>
+            </TrackIn>
+            <Wipe delay={10}>
               <div style={display(84)}>{agent.name}</div>
-            </Rise>
+            </Wipe>
             <Rise delay={20} y={20} blur={5} style={{ marginTop: 12 }}>
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                <Rule />
+                <Rule delay={22} />
                 <div
                   style={{
                     fontFamily: playfair,
@@ -414,42 +454,42 @@ export const Reel: React.FC = () => {
                 </div>
               </div>
             </Rise>
-            <Rise delay={32} y={24} blur={6} style={{ marginTop: 34 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 34 }}>
-                <div
-                  style={{
-                    backgroundColor: bone,
-                    padding: 12,
-                    borderRadius: 14,
-                    lineHeight: 0,
-                  }}
-                >
-                  <Img src={annQr} style={{ width: 176, height: 176 }} />
-                </div>
-                <div
-                  style={{ display: "flex", flexDirection: "column", gap: 12 }}
-                >
+            <div
+              style={{
+                marginTop: 34,
+                display: "flex",
+                alignItems: "center",
+                gap: 34,
+              }}
+            >
+              <QrPlate src={annQr} size={204} delay={30} />
+              <div
+                style={{ display: "flex", flexDirection: "column", gap: 12 }}
+              >
+                <Rise delay={38} y={16} blur={4}>
                   <Eyebrow size={19}>Scan to WhatsApp</Eyebrow>
+                </Rise>
+                <Rise delay={44} y={16} blur={4}>
                   <Body>{agent.phone}</Body>
+                </Rise>
+                <Rise delay={50} y={16} blur={4}>
                   <Body color="rgba(248,246,241,0.72)">{SITE}</Body>
+                </Rise>
+                <Rise delay={56} y={16} blur={4}>
                   <Body color="rgba(248,246,241,0.55)">{agent.email}</Body>
-                </div>
+                </Rise>
               </div>
-            </Rise>
+            </div>
           </AbsoluteFill>
         </Scene>
       </Sequence>
 
+      {/* Above every scene and outside their dissolves, so the company mark and
+          the URL are on screen for the whole reel rather than the last two
+          beats. A reel gets one muted, fast viewing. */}
+      <Brand logo={logo} site={SITE} />
+      <Grain />
       <Progress total={TOTAL} />
     </AbsoluteFill>
   );
 };
-
-/** Her cut-out settling into frame over the whole beat, never quite still. */
-const FigureRise: React.FC = () => (
-  <AbsoluteFill style={{ alignItems: "center" }}>
-    <Rise delay={0} y={44} blur={0} style={{ marginTop: 120 }}>
-      <Img src={figure} style={{ width: 840, objectFit: "contain" }} />
-    </Rise>
-  </AbsoluteFill>
-);
