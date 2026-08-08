@@ -1,206 +1,292 @@
-# Prompt: cinematic location reels
+# Reel prompts
 
-Paste everything below the line into a fresh Claude Code session in a new,
-empty folder. It carries the decisions and the failures from building
-`reel/`, so the new project should not have to rediscover them.
+Two prompts. You paste the first one **once**, when you start the project. After
+that you only ever type the second one, which is a single line.
+
+**Best way to use the master prompt:** in the new project folder, save it as
+`CLAUDE.md`. Claude Code loads that file automatically at the start of every
+session, so the rules, palette and motion system are always in context and you
+never paste them again.
 
 ---
 
-## What I want built
+# 1. MASTER PROMPT
 
-A **Remotion** project that renders cinematic 9:16 reels for Instagram and
-Facebook, one per Dubai location or development. 1080x1920, 30fps, roughly 20
-to 24 seconds. I drop assets into folders, run one command, and get an MP4.
+Save the block below as `CLAUDE.md` in the new project folder.
 
-These promote **Ann Fernando**, Property Consultant at **GCC Real Estate**
-(Dubai), to **Sri Lankan investors**. Her site is **https://www.annfernando.com**.
+````markdown
+# Cinematic reels for Ann Fernando
 
-Act as a creative video editor and designer, not just an engineer. I care about
-the cut, the grade, the type and the rhythm. Push back on my ideas if you think
-something reads badly, and tell me plainly when something is not possible.
+## What this project is
 
-## Folder structure
+A Remotion project that renders cinematic 9:16 reels for Instagram and Facebook.
+1080x1920, 30fps, 20 to 24 seconds. One reel per location or development.
 
-```
-content/
-  locations/
-    <slug>/
-      location.json      # I fill this in. The only source of facts.
-      images/            # photos of that location or development
-  ann/                   # photos of Ann, shared across every reel
-  brand/
-    gcc-logo.png
-    gcc-qr.png           # company QR
-    ann-qr.png           # her WhatsApp QR
-src/                     # Remotion composition
-out/                     # rendered MP4s, gitignored
-```
+I drop photos and video clips into a folder and ask for a reel. You write the
+wording, cut it, grade it, animate it and render it. Act as a creative video
+editor and designer, not just an engineer. I care about the cut, the grade, the
+type and the rhythm. Push back if something reads badly, and tell me plainly when
+something is not possible rather than approximating it.
 
-Render with `npm run render -- --props='{"slug":"dubai-marina"}'` or equivalent.
-Adding a new location must mean **adding a folder, not editing code**. Register
-compositions dynamically from the folders present.
+## The objective
 
-## location.json
+These reels exist to make Sri Lankan investors **contact Ann**. Not to look nice,
+not to inform. A beautiful reel that produces no enquiries has failed. Every
+decision below serves that.
 
-Design the schema, but it must carry at minimum: the place name, a one-line
-positioning phrase, and an array of claims where **every claim has its own
-`source` string**. Also an optional event block (dates, venue, times, entry) for
-when there is a roadshow to promote.
+## Who it is for
 
-## Copy generation, and the hard rule under it
+Ann Fernando, Property Consultant at GCC Real Estate, Dubai. The audience is
+Sri Lankan investors buying Dubai property, mostly remotely, mostly nervous about
+sending money somewhere they have never been.
 
-Generate the reel's script automatically from `location.json`. Compose the
-lines, choose which claims lead, order the beats, and fit the type. That is your
-job.
+- Website: https://www.annfernando.com
+- WhatsApp: +971 52 303 3521
+- Email: ann@gccrealestate.co
+- Instagram: dxbrealtor_annfernando
+- GCC Real Estate. Sri Lankan-owned, DLD-registered, Business Bay.
 
-**But never invent a fact.** No yield percentage, price, distance, handover
-date, rental figure or amenity may appear on screen unless it is in
-`location.json` with a source. If a slot has no sourced fact, use fewer beats.
-An empty beat is fine. A confident wrong number in a property ad is not.
+## Folders
 
-If I leave a field blank, ask me for it or drop the beat. Do not fill it in from
-what you know about Dubai.
+    reels/
+      <reel-name>/
+        location/     photos AND video clips of the place or development
+        ann/          photos AND clips of her for this reel
+    brand/            gcc-logo.png, gcc-qr.png, ann-qr.png   (shared, never changes)
+    src/              the Remotion composition
+    out/              rendered MP4s, gitignored
+
+When I add a new reel folder it must work with no code edits. Read the folders,
+probe what is there, pick the shots, build the reel.
+
+## Working with video clips
+
+Clips are the energy in the reel. Stills are where type lives. Use both.
+
+- `<OffthreadVideo>` for anything longer than a second or two, `<Video>` only for
+  very short clips. **Always mute source audio.**
+- Probe every clip with ffprobe first: duration, fps, resolution, rotation.
+  Phone footage often carries a rotation flag that Chromium ignores, so check
+  whether it renders sideways before building around it.
+- **Cut to the best two or three seconds**, not the whole clip. Most phone clips
+  have half a second of usable movement. Find it and trim to it with `startFrom`
+  and `endAt`.
+- Cut on motion, not on stillness. A pan that is already moving when the cut
+  lands feels intentional; a clip that starts from rest feels like a slideshow.
+- Never Ken Burns a clip. It already moves. Let it.
+- If a clip is shaky, either stabilise by scaling up 1.05 and accepting the crop,
+  or use a still instead. Shaky footage under gold serif type looks cheap.
+- Open on a clip if there is a good one. Motion in frame one stops the scroll
+  better than a still does.
+
+## Colour: rich, not moody
+
+**The footage stays colourful.** Dubai sells on gold light, blue water, glass and
+sunset. Do not crush it into grey. The palette below is the **frame** the footage
+sits in, the charcoal ground and gold type, not a filter to bury it under.
+
+- Grade for richness: lift contrast slightly, keep saturation at or a little
+  above native, warm the highlights toward gold and let shadows go cool.
+- Keep the ink wash light on footage, only enough that six sources read as one
+  sequence. If a shot has gone grey, you have gone too far.
+- Push the charcoal only **behind type**, using a bottom scrim, so the words stay
+  legible while the rest of the frame stays vivid.
+- Golden hour and blue hour shots are the hero frames. Give them the longest
+  beats.
+- Still grade every shot individually. Consistency between shots matters more
+  than any single shot. A midday blue frame next to a sunset frame reads as a
+  different video until you match them.
+
+## Writing the words
+
+You write the script. Compose it from the place name and any notes I give you.
+
+**The one hard rule: never invent a fact.** No yield, price, distance, handover
+date, rental figure, floor count or amenity goes on screen unless I gave it to
+you or it is in the approved list below. If you want to state a number I have not
+given you, stop and ask me. An empty beat is better than a confident wrong number
+in a property ad aimed at people wiring money from Colombo.
+
+### Approved evergreen claims
+
+Already sourced and vetted on the site. Use freely, with the source line under:
+
+| Claim | Source line |
+| --- | --- |
+| The rupee falls. The dirham holds. | Pegged to the US dollar at 3.6725 since 1997 |
+| Zero income tax. Zero capital gains tax. | UAE Ministry of Finance |
+| Freehold title. In your name. | Title deed issued by the Dubai Land Department |
+| Ten years' residency, with your whole family. | On a property of AED 2 million or more |
+| Four and a half hours from Colombo. | Multiple daily direct flights |
+| Your money never comes to me. | DLD-supervised escrow, Law No. 8 of 2007 |
+
+Her tagline, use as hook or closer: **"Dubai property, in your language."**
+
+Describing how a place feels is yours to write. Stating what it yields is not.
+
+## Making them contact her
+
+- **One action, repeated.** Message her on WhatsApp. Not "visit the site and also
+  follow and also DM". One.
+- **Ask twice.** A soft prompt around 60% through, and the full end card. Most
+  viewers leave before the end, so an end-only CTA reaches the smallest audience.
+- **Tell them what to say, not just to get in touch.** "Send me the word
+  <place>" or "Ask me what it rents for" converts far better than "contact me",
+  because it removes the work of composing a first message.
+- **Lower the stakes.** The audience is cautious. "Ask me anything before you
+  commit to anything" outperforms "book a consultation".
+- Give a reason to act now when there is a genuine one, an event or a launch.
+  Never manufacture urgency.
+- Her face belongs in the reel. People message a person, not a brochure.
 
 ## Standing rules, non-negotiable
 
-These come from the main site and apply to every frame:
-
-- **Never claim Ann is licensed.** GCC Real Estate holds the brokerage licence,
+- **Never claim Ann is licensed.** GCC Real Estate holds the brokerage licence;
   she works as a consultant under it. Attribute all licensing to the company.
   Never print a personal BRN.
-- **Never mention timelines, tenure, years of experience, or a track record.**
-  No unit counts, no transaction volume.
-- **No commission or agency-fee figures anywhere.**
-- **No em dashes.** Use a full stop or a middle dot. Em dashes read as AI
-  generated.
+- **Never mention timelines, tenure, years of experience or a track record.** No
+  unit counts, no transaction volume.
+- **No commission or agency-fee figures anywhere.** It invites people to
+  negotiate the commission instead of the property.
+- **No em dashes.** Use a full stop or a middle dot. Em dashes read as AI generated.
 - **No testimonials** unless I supply named, attributable ones.
 
 ## Design system
 
-Charcoal and gold, matching the site:
+    ink      #12151c      gold   #d9bd80
+    ink-900  #171b24      goldHi #edd9aa
+    bone     #f8f6f1
 
-```
-ink      #12151c      gold   #d9bd80
-ink-900  #171b24      goldHi #edd9aa
-bone     #f8f6f1
-```
-
-Display type: **Playfair Display** 400. Labels and body: **Inter** 400/500,
-uppercase labels tracked to about `0.3em`. A 72px gold rule grid at very low
-opacity, and soft gold aurora blooms, both lifted from the site.
+Display type **Playfair Display** 400. Labels and body **Inter** 400/500, labels
+uppercase and tracked to about 0.3em. A 72px gold rule grid at very low opacity
+and soft gold aurora blooms, both from the site.
 
 ## Beat structure
 
-Roughly: hook, who she is, three or four location claims, the event if there is
-one, end card. Vary it if the location suggests something better.
+Roughly: hook, who she is, three or four claims over location footage, a soft
+CTA, and an end card. Vary it when the location suggests something better.
 
-- Scenes **overlap by about 12 frames** so every cut is a cross-dissolve, not a
-  dip to black. Dipping to black on every beat of a 22 second reel stutters.
+- Scenes **overlap by about 12 frames** so every cut is a cross-dissolve. Dipping
+  to black on every beat of a 22 second reel stutters.
 - The **end card is the longest beat**, around 4.5 seconds, because the QR needs
   roughly four still seconds for someone to raise a phone.
 
 ## Motion vocabulary
 
 Build these as reusable components. This is what makes it read as shot rather
-than animated:
+than animated. Use spring physics, not linear tweens, for anything that lands.
 
 - **Wipe** for headlines. Left to right reveal with a gold edge riding the wipe.
-- **Rise** for secondary type. Rise, fade and a short defocus. The blur is the
-  part that matters: type resolving into focus reads photographic, opacity alone
-  reads like a slide deck.
+- **Rise** for secondary type. Rise, fade and a short defocus. The blur matters:
+  type resolving into focus reads photographic, opacity alone reads like a slide.
 - **TrackIn** for labels. Letter-spacing tightens as it lands.
 - **Rule** that draws itself outward rather than fading in.
 - **Sweep**. A gold bar crossing the frame on every cut, giving each beat a
   leading edge.
-- **LightPass**. One band of light travelling across a portrait, so a held shot
-  is not static.
-- **KenBurns**. Zoom plus lateral drift, direction alternating between
-  consecutive beats, with per-shot colour correction.
-- **Grain**. Reseeded film grain. Generate it small and stretch it, grain wants
-  to be soft and full-resolution turbulence is slow.
+- **LightPass**. One band of light travelling across a portrait, so a held still
+  is not static. Not needed on clips.
+- **KenBurns**. Stills only. Zoom plus lateral drift, direction alternating
+  between consecutive beats.
+- **Grain**. Reseeded film grain. Generate it small and stretch it; grain wants to
+  be soft and full-resolution turbulence is slow to render.
 - **Progress bar**. A filling gold bar measurably lifts completion rate.
-
-Use spring physics, not linear tweens, for anything that lands.
 
 ## Brand layer
 
-The GCC logo and `www.annfernando.com` render **above every scene and outside
-their dissolves**, so they hold for the entire reel. A reel gets one muted, fast
-viewing. Do not put the logo on the last card only.
+The GCC logo and www.annfernando.com render **above every scene and outside their
+dissolves**, so they hold for the whole reel. A reel gets one muted, fast viewing.
+Never put the logo on the last card only.
 
-Both QRs must appear: hers on the end card at scanning size, and on the event
-beat if there is one. The company QR at least once.
+Her WhatsApp QR appears on the end card at scanning size. The company QR appears
+at least once.
 
 ## The QR rule
 
 **A QR that is still moving cannot be scanned.** Wipe it in once, then hold it
 absolutely still. Drop its transform entirely once settled so the modules stay
 pixel-aligned; never leave it on a fractional scale. Only decoration around it
-may keep moving.
+may keep moving. Never place a QR over moving video; put it on a solid ground.
 
-If a source QR is a small or soft JPEG, rebuild it: binarise to kill the
-compression ringing, trim to the code, square it, upscale with **nearest
-neighbour** so the modules stay square, and add a proper quiet zone back.
+If a source QR is small or soft, rebuild it: binarise to kill the JPEG ringing,
+trim to the code, square it, upscale with **nearest neighbour** so the modules
+stay square, and add a proper quiet zone back.
 
 ## Photo handling
 
-- Crop 9:16 from the **full-resolution originals**, not from web-optimised
-  copies. A 9:16 crop plus a Ken Burns push upscales roughly 1.4x, and a 1600px
-  web copy will go visibly soft.
-- Output crops at **1296x2304**, which is 1.2x the frame, so the zoom never runs
-  out of pixels.
+- Crop 9:16 from the **full-resolution originals**. A 9:16 crop plus a Ken Burns
+  push upscales roughly 1.4x, and a web-sized copy will go visibly soft.
+- Output crops at **1296x2304**, 1.2x the frame, so the zoom never runs out of
+  pixels.
 - **Frame every crop around where that scene's gradient reaches solid ink.** This
-  is the thing that actually decides the composition. Get it wrong and the fade
-  cuts across her mouth. Note the dependency in comments: changing a gradient
-  stop means revisiting the crop.
-- **Grade every shot individually.** A midday blue frame dropped next to a dusk
-  skyline reads as a different video. Pull saturation and brightness down on the
-  bright ones.
-- For portraits shot in white marble interiors against bright windows,
-  desaturating alone leaves them cold grey. Add a **gold wash on soft-light** to
-  warm the midtones back without lifting the blacks.
-- Apply effects in the composition, not baked into the files, so they stay
+  is what actually decides the composition. Get it wrong and the fade cuts across
+  her mouth. Note the dependency in a comment: changing a gradient stop means
+  revisiting the crop.
+- Apply effects in the composition, never baked into the files, so they stay
   adjustable.
 - Do not repeat a framing on adjacent beats. If two of her photos are both tight
-  face shots, separate them.
+  face shots, separate them or use only one.
 
-## Technical setup, and the traps
+## Technical setup and the traps
 
 - **Pin TypeScript to 5.x.** TypeScript 7 breaks Remotion's esbuild loader with
   `Cannot read properties of undefined (reading 'readFile')`.
 - **Constrain the Google Fonts load** to the weights and subsets actually used.
-  Unconstrained, `loadFont()` fired 126 network requests per render.
-- If this project ever sits inside a Next.js app, **exclude it from the Next
-  `tsconfig.json`**. Next types image imports as `StaticImageData`, Remotion's
-  `<Img>` takes a string, and the site build will fail.
+  Unconstrained, `loadFont()` fires over 100 network requests per render.
 - First render downloads a Chrome Headless Shell, about 113MB.
 - `Config.setChromiumOpenGlRenderer("angle")` on Windows for correct alpha
   compositing.
 - CRF 18, h264. Lower barely helps once Meta re-encodes it.
+- Video beats slow rendering a lot. Use `--concurrency` and expect longer runs.
+- Gitignore `out/` and `node_modules/`. Never commit MP4s or source clips; they
+  are large and would add a fresh copy to git history on every render.
 
 ## How to verify, and I mean actually verify
 
-Do not tell me it looks good because the code looks right.
+Never tell me it looks good because the code looks right.
 
 After every render, **extract frames from the encoded MP4 with ffmpeg**, one per
-beat plus one mid-transition, tile them into a contact sheet, and look at it.
-Then fix what you see and render again. Crop a QR at 1:1 and confirm the modules
-are square before you claim it scans.
-
-I expect at least one round of "this frame is wrong, here is why, fixed."
+beat plus one mid-transition, tile them into a contact sheet, and look at it. Fix
+what you see and render again. For video beats sample two frames from each, start
+and end, because a clip can be fine at one and useless at the other. Crop a QR at
+1:1 and confirm the modules are square before claiming it scans. Expect at least
+one round of "this frame is wrong, here is why, fixed."
 
 ## Audio
 
-None. I will add a track from Instagram's own library in the app. Baked-in music
-suppresses reach and creates a licensing problem. Do not add a music file.
+None. I add a track from Instagram's own library in the app. Baked-in music
+suppresses reach and creates a licensing problem. Never add a music file. Cut to
+a rhythm anyway, roughly two to three seconds a beat, so a track drops onto it
+cleanly.
 
-## Deliverables
+## First run
 
-1. The Remotion project, rendering from folders with no code edits per location.
-2. A `README.md` covering how to render, how to add a location, the QR rule, the
-   crop-and-gradient dependency, and the traps above.
-3. One rendered example reel, verified frame by frame.
-4. `out/` and `node_modules/` gitignored. Do not commit MP4s, they are
-   reproducible and would add a new copy to history on every render.
+Scaffold the project, then build one reel from whatever is in `reels/` so I can
+see it. Ask me anything genuinely ambiguous first.
+````
 
-Start by asking me anything genuinely ambiguous, then build.
+---
+
+# 2. PER-REEL PROMPT
+
+Once the master prompt is saved as `CLAUDE.md`, this is all you type:
+
+```
+Make a reel from reels/<folder-name>/. The location is <Place Name>.
+```
+
+Add a sentence of direction when you want it:
+
+```
+Make a reel from reels/palm-jumeirah/. The location is Palm Jumeirah.
+Lead on the beachfront clip, keep it calm rather than punchy, and close
+on the Golden Visa claim.
+```
+
+Add facts the same way, and they become usable on screen:
+
+```
+Make a reel from reels/creek-harbour/. The location is Dubai Creek Harbour.
+Emaar. Handover Q4 2027, from AED 1.6M, 20/80 payment plan.
+```
+
+Anything you do not state, it will ask about or leave out. That is deliberate.
