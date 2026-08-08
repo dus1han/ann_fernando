@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Remotion reel project (its own dependency tree)
+reel/node_modules
+reel/out

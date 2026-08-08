@@ -1,0 +1,22 @@
+{
+  "name": "ann-fernando-reel",
+  "private": true,
+  "version": "1.0.0",
+  "description": "9:16 social reel, rendered from the site's own copy and palette",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render Reel out/ann-reel.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.507",
+    "@remotion/google-fonts": "^4.0.507",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "remotion": "^4.0.507"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "typescript": "^5.9.3"
+  }
+}

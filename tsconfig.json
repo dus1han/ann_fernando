@@ -30,5 +30,6 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "//": "reel/ is a separate Remotion project with its own tsconfig and its own dependency tree. Left in, Next type-checks it and fails: next-env.d.ts types image imports as StaticImageData, while Remotion's <Img> takes a plain string src. Run `npx tsc --noEmit` inside reel/ to check that project.",
+  "exclude": ["node_modules", "reel"]
 }
