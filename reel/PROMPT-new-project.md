@@ -171,10 +171,18 @@ CTA, and an end card. Vary it when the location suggests something better.
 - The **end card is the longest beat**, around 4.5 seconds, because the QR needs
   roughly four still seconds for someone to raise a phone.
 
-## Motion vocabulary
+## Animation, and the standard to hit
 
-Build these as reusable components. This is what makes it read as shot rather
-than animated. Use spring physics, not linear tweens, for anything that lands.
+This must look like it was cut by an editor with taste, not assembled. The bar is
+a brand film, not a slideshow with fades. If a frame could be a static poster,
+it is wrong.
+
+**The rule that governs everything here: nothing is ever still.** Every single
+beat has at least two elements moving at different rates. A photo pushing in
+while type drifts the other way is a shot. A photo pushing in alone is a
+screensaver.
+
+### Core components, build these as reusables
 
 - **Wipe** for headlines. Left to right reveal with a gold edge riding the wipe.
 - **Rise** for secondary type. Rise, fade and a short defocus. The blur matters:
@@ -190,6 +198,39 @@ than animated. Use spring physics, not linear tweens, for anything that lands.
 - **Grain**. Reseeded film grain. Generate it small and stretch it; grain wants to
   be soft and full-resolution turbulence is slow to render.
 - **Progress bar**. A filling gold bar measurably lifts completion rate.
+
+### Cinematic technique, use these liberally
+
+- **Parallax.** Move type and image at different speeds and directions. If you can
+  separate a subject from its background, move them at different rates for real
+  depth.
+- **Punch-in on the accent.** When the gold word lands, push the whole frame 2 or
+  3 percent. Small, felt rather than seen.
+- **Speed ramp** clips. Ease into slow on the beautiful moment, snap back out.
+- **Match cuts.** Carry a shape, a direction of motion or a colour across a cut.
+  Water to glass, a pan left into a pan left. This is what makes a sequence feel
+  authored.
+- **Mask reveals.** Reveal footage through an expanding gold rule or a growing
+  shape, not only through opacity.
+- **Whip transitions** on high-energy cuts: a fast directional blur into the next
+  beat. Reserve for one or two, they get tiring.
+- **Kinetic type.** Land words individually on the beat rather than whole lines
+  at once when a line is short and punchy.
+- **Handheld drift.** A tiny, slow, irregular offset on otherwise locked frames.
+  Perfectly linear motion is the tell that something was generated.
+- **Depth of field.** A soft out-of-focus gold element in the foreground gives a
+  flat photo a lens.
+- **Light leaks and flares** in gold, crossing the frame on the biggest beats.
+
+### Timing
+
+- Two to three seconds per beat. Nothing sits longer than three and a half
+  seconds without a change of state.
+- **Never use linear easing.** Spring for anything that lands, a custom bezier for
+  anything continuous.
+- Vary the rhythm. Three identical-length beats in a row flatten the reel. Let
+  the hero shot breathe and cut the supporting ones faster.
+- Front-load the motion. The first 15 frames decide whether the rest is watched.
 
 ## Brand layer
 
