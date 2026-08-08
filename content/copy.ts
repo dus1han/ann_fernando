@@ -530,9 +530,9 @@ export const verify = {
   /**
    * The company's DLD registration QR, supplied by GCC.
    *
-   * It sits as the sixth cell of the verification grid, which is otherwise
-   * empty at three columns. A thing the reader can scan closes this section
-   * better than a sixth paragraph does.
+   * It sits in its own band under the verification grid, not inside it. A QR
+   * has to hold a fixed size to stay scannable, and as a grid cell that size
+   * dragged the whole row up with it and broke the card rhythm.
    *
    * It resolves to trakheesi.dubailand.gov.ae, the DLD's own permit system.
    * Naming that domain is the whole value of this card: the reader lands on

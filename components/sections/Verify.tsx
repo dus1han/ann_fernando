@@ -107,32 +107,31 @@ export default function Verify() {
               )}
             </Reveal>
           ))}
+        </div>
 
-          {/* Sixth cell. With five text cards and three columns the grid
-              leaves a hole here, and the strongest thing this section can
-              put in it is something the reader can actually scan. Gold
-              border rather than ink-800 so it reads as the payoff of the
-              five cards, not a sixth one. */}
-          <Reveal
-            delay={0.16}
-            className="lift group flex h-full flex-col rounded-2xl border border-gold-600/40 bg-ink-900/60 p-7 hover:border-gold-500/70"
-          >
-            <div className="mb-5 w-fit rounded-xl bg-bone p-2.5">
-              <Image
-                src="/brand/gcc-dld-qr.png"
-                alt={verify.qr.alt}
-                width={148}
-                height={148}
-                quality={100}
-                className="h-37 w-37"
-              />
-            </div>
+        {/* Deliberately NOT a sixth grid cell. A 148px QR in a cell drags the
+            whole row up to its height and the five cards stop matching, so it
+            gets its own band. Full width also suits it better: the code needs
+            a fixed size to stay scannable, and a wide band gives the copy
+            somewhere to go instead of stacking under it. */}
+        <Reveal className="mt-5 flex flex-col items-start gap-7 rounded-2xl border border-gold-600/40 bg-ink-900/60 p-7 sm:flex-row sm:items-center sm:gap-9 sm:p-8">
+          <div className="shrink-0 rounded-xl bg-bone p-2.5">
+            <Image
+              src="/brand/gcc-dld-qr.png"
+              alt={verify.qr.alt}
+              width={128}
+              height={128}
+              quality={100}
+              className="h-32 w-32"
+            />
+          </div>
 
+          <div className="min-w-0">
             <h3 className="font-display text-xl font-light leading-snug text-bone">
               {verify.qr.title}
             </h3>
 
-            <p className="mt-3 flex-1 text-[15px] leading-relaxed text-bone-dim">
+            <p className="mt-2.5 max-w-2xl text-[15px] leading-relaxed text-bone-dim">
               {verify.qr.body}
             </p>
 
@@ -140,16 +139,15 @@ export default function Verify() {
               href={verify.qr.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 border-t border-gold-600/25 pt-4 text-[11px] uppercase tracking-[0.14em] text-gold-500 transition-colors hover:text-gold-400"
+              className="group mt-4 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-gold-500 transition-colors hover:text-gold-400"
             >
               {verify.qr.action}
               <span className="transition-transform duration-300 group-hover:translate-x-1">
                 →
               </span>
             </a>
-          </Reveal>
-        </div>
-
+          </div>
+        </Reveal>
       </div>
     </section>
   );
