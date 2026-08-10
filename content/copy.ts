@@ -260,12 +260,21 @@ export const trustPoints = [
       "GCC Real Estate is licensed with the Dubai Land Department. Verify the company yourself.",
   },
   {
+    // Verified against gccrealestate.co, 10 Aug 2026: "Our team comprises
+    // experts with more than 30 years of experience in dubai real estate
+    // market." Their sentence is ambiguous between the team totalling 30 years
+    // and individual experts each having 30. "Combined" claims the smaller of
+    // the two readings deliberately.
     value: "30+ yrs",
     label: "GCC Real Estate team experience",
     detail: "Combined experience of the brokerage standing behind every deal.",
   },
   {
-    value: "10",
+    // Confirmed by Ann, 10 Aug 2026. Note gccrealestate.co displays only nine
+    // partner logos plus a separate Azizi recognition, so this figure is NOT
+    // checkable from their website. The `partners` list below is therefore a
+    // selection and must stay worded as one.
+    value: "30+",
     label: "Direct developer partnerships",
     detail: "Emaar, DAMAC, Sobha, Omniyat and more, booked at developer price.",
   },
@@ -827,6 +836,12 @@ export const faq = {
  * Real partnerships, taken from gccrealestate.co. Do not add a developer to
  * this list unless GCC Real Estate genuinely transacts with them - this is
  * borrowed credibility and it only works while it is true.
+ *
+ * GCC works with 30+ developers (per Ann, 10 Aug 2026) but their own site shows
+ * only these. So this is a SELECTION, and `intro` says so. Never let the copy
+ * imply the list is complete while the trust bar claims a larger number: a
+ * reader who counts the logos would catch the contradiction, on the one page
+ * that asks to be checked.
  */
 export const partners = {
   eyebrow: "Direct partnerships",
@@ -837,7 +852,7 @@ export const partners = {
     "Section headline. The developer names carry the meaning in Latin script regardless, so Sinhala here is texture rather than information."
   ),
   intro:
-    "GCC Real Estate is a registered channel partner with each of these developers, so you buy at the developer's own launch price rather than through a chain of intermediaries.",
+    "GCC Real Estate books directly with more than thirty Dubai developers, including these, so you buy at the developer's own launch price rather than through a chain of intermediaries.",
   award: company.award,
   items: [
     "EMAAR",
@@ -849,7 +864,8 @@ export const partners = {
     "DANUBE",
     "SAMANA",
     "AZIZI",
-    "FAKHRUDDIN",
+    // gccrealestate.co spells this "Fakhrudin", one D.
+    "FAKHRUDIN",
   ],
 };
 
