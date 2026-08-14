@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import { agent, contact, whatsappHref } from "@/content/copy";
@@ -26,6 +26,34 @@ export default function Contact() {
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  const nameRef = useRef<HTMLInputElement>(null);
+
+  /**
+   * Every WhatsApp button on the page scrolls here instead of opening WhatsApp
+   * (see WhatsAppToForm) and hands over the prefilled text it was carrying, so
+   * someone arriving from the Golden Visa section starts with that question
+   * rather than a blank box.
+   *
+   * An existing message is never overwritten: they may have typed already and
+   * then clicked another button on the way past.
+   */
+  useEffect(() => {
+    const onPrefill = (e: Event) => {
+      const detail = (e as CustomEvent<{ message?: string }>).detail;
+      if (detail?.message) {
+        setForm((f) => (f.message ? f : { ...f, message: detail.message! }));
+      }
+      // preventScroll matters: without it the browser jumps straight to the
+      // field and cancels the smooth scroll that is still running.
+      window.setTimeout(
+        () => nameRef.current?.focus({ preventScroll: true }),
+        750
+      );
+    };
+    window.addEventListener("enquiry:prefill", onPrefill);
+    return () => window.removeEventListener("enquiry:prefill", onPrefill);
+  }, []);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -155,6 +183,7 @@ export default function Contact() {
             <Field label={contact.fields.name}>
               <input
                 required
+                ref={nameRef}
                 value={form.name}
                 onChange={set("name")}
                 className={inputCls}

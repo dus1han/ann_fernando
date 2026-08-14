@@ -26,6 +26,11 @@ export default function SmoothScroll() {
       touchMultiplier: 1.6,
     });
 
+    // Published so other components can scroll through Lenis instead of
+    // fighting it. WhatsAppToForm uses this to reach the enquiry form; a native
+    // smooth scroll would be overridden by the rAF loop below on the next tick.
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+
     let frame = 0;
     const raf = (time: number) => {
       lenis.raf(time);
@@ -50,6 +55,7 @@ export default function SmoothScroll() {
       document.removeEventListener("click", onClick);
       cancelAnimationFrame(frame);
       lenis.destroy();
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
     };
   }, []);
 

@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import Nav from "@/components/Nav";
 import SmoothScroll from "@/components/SmoothScroll";
 import WhatsAppFab from "@/components/WhatsAppFab";
-import LeadDialog from "@/components/LeadDialog";
+import WhatsAppToForm from "@/components/WhatsAppToForm";
 import SlotInspector from "@/components/SlotInspector";
 
 import Hero from "@/components/sections/Hero";
@@ -72,10 +72,10 @@ export default function Page() {
       <Footer />
       <WhatsAppFab />
 
-      {/* Intercepts every WhatsApp link on the page except the floating button
-          and puts a short qualifying form in front of it. Mounted once; no
-          section component knows it exists. */}
-      <LeadDialog />
+      {/* Sends every WhatsApp button except the floating one to the enquiry
+          form in the Contact section, which then composes the WhatsApp message
+          on submit. Mounted once; no section component knows it exists. */}
+      <WhatsAppToForm />
 
       {/* Review tool - renders only with ?slots=1 in the URL */}
       <Suspense fallback={null}>
