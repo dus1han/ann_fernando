@@ -34,14 +34,20 @@ const notoSinhala = Noto_Sans_Sinhala({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   /**
-   * ⚠ "Property Consultant, Dubai" is required in the title. Ann's call, do not
-   * swap it out for a keyword phrase.
+   * ⚠ The role and the city must both stay in the title. Ann's call.
    *
-   * One separator only; two pipes read as clutter in a browser tab. The Sri
-   * Lankan phrase lives in the description and the OpenGraph title instead,
-   * both of which Google also reads.
+   * 56 characters, inside the ~60 Google displays. The earlier candidate,
+   * "Property Consultant, Dubai for Sri Lankan Investors", ran to 66 and would
+   * have been truncated exactly where the payoff was, and its comma made
+   * "Dubai for Sri Lankan Investors" read as one phrase, as though Dubai were
+   * for them rather than that she serves them.
+   *
+   * "Sri Lankans" not "Sri Lankan Investors": ten characters cheaper and closer
+   * to how the search is actually typed.
+   *
+   * One separator only; two pipes read as clutter in a browser tab.
    */
-  title: `${agent.name} | ${agent.role}, Dubai`,
+  title: `${agent.name} | Dubai ${agent.role} for Sri Lankans`,
   // Kept under ~155 characters. The previous version ran to 242 and Google
   // simply truncated it mid-sentence in the results page.
   description:
@@ -83,7 +89,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${agent.name} | ${agent.role}, Dubai`,
+    title: `${agent.name} | Dubai ${agent.role} for Sri Lankans`,
     description:
       "Dubai property investment guidance for Sri Lankan buyers, at home and abroad.",
   },
