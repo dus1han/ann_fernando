@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Nav from "@/components/Nav";
 import SmoothScroll from "@/components/SmoothScroll";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import LeadDialog from "@/components/LeadDialog";
 import SlotInspector from "@/components/SlotInspector";
 
 import Hero from "@/components/sections/Hero";
@@ -70,6 +71,11 @@ export default function Page() {
 
       <Footer />
       <WhatsAppFab />
+
+      {/* Intercepts every WhatsApp link on the page except the floating button
+          and puts a short qualifying form in front of it. Mounted once; no
+          section component knows it exists. */}
+      <LeadDialog />
 
       {/* Review tool - renders only with ?slots=1 in the URL */}
       <Suspense fallback={null}>

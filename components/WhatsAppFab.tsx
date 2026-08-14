@@ -7,6 +7,12 @@ import { whatsappHref } from "@/content/copy";
 /**
  * In this market WhatsApp converts several times better than a form.
  * It appears once the hero is out of the way so it never covers the portrait.
+ *
+ * ⚠ `data-wa-direct` is what keeps LeadDialog's interceptor off this one link.
+ * Every other WhatsApp button on the site now opens a short qualifying form
+ * first; this is the escape hatch for someone who has already decided and just
+ * wants to type. Removing that attribute puts a form in front of the last
+ * friction-free route to her.
  */
 export default function WhatsAppFab() {
   const [show, setShow] = useState(false);
@@ -25,6 +31,7 @@ export default function WhatsAppFab() {
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
+          data-wa-direct
           aria-label="Message Ann on WhatsApp"
           initial={{ opacity: 0, scale: 0.6, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
