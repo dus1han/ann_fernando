@@ -34,13 +34,14 @@ const notoSinhala = Noto_Sans_Sinhala({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   /**
-   * Her name stays first, so branded search is unaffected, but the rest of the
-   * title now carries the query that actually matters commercially. A title of
-   * "Property Consultant, Dubai" competes with every broker in the city and
-   * says nothing about who this site is for. 54 characters, inside the ~60 that
-   * Google shows.
+   * ⚠ "Property Consultant, Dubai" is required in the title. Ann's call, do not
+   * swap it out for a keyword phrase.
+   *
+   * One separator only; two pipes read as clutter in a browser tab. The Sri
+   * Lankan phrase lives in the description and the OpenGraph title instead,
+   * both of which Google also reads.
    */
-  title: `${agent.name} | Dubai Property for Sri Lankan Investors`,
+  title: `${agent.name} | ${agent.role}, Dubai`,
   // Kept under ~155 characters. The previous version ran to 242 and Google
   // simply truncated it mid-sentence in the results page.
   description:
@@ -82,7 +83,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${agent.name} | Dubai Property for Sri Lankan Investors`,
+    title: `${agent.name} | ${agent.role}, Dubai`,
     description:
       "Dubai property investment guidance for Sri Lankan buyers, at home and abroad.",
   },
