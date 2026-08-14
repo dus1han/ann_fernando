@@ -181,7 +181,17 @@ export default function Roadshow() {
 
             {/* ── Countdown + facts ─────────────────────────────────── */}
             <Reveal delay={0.1} className="lg:col-span-5">
-              <div className="edge-gold rounded-3xl bg-ink-900/70 p-7 backdrop-blur-sm sm:p-8">
+              {/* data-nosnippet, because Google was assembling a search snippet
+                  out of this block: it stitched "10am and 6pm" from the intro
+                  onto "Until doors open" and then the live countdown digits, so
+                  the result read "open 28 days : 12 hrs : 29 min". Ticking
+                  numbers are meaningless in a search result and they crowded out
+                  the meta description. This attribute makes the subtree
+                  ineligible for snippets without hiding it from indexing. */}
+              <div
+                data-nosnippet
+                className="edge-gold rounded-3xl bg-ink-900/70 p-7 backdrop-blur-sm sm:p-8"
+              >
                 <p className="text-center text-[11px] uppercase tracking-[0.24em] text-gold-600">
                   {roadshow.countdownLabel}
                 </p>
