@@ -2,8 +2,6 @@
 
 import { useEffect } from "react";
 import { track } from "@vercel/analytics";
-import { fbTrack } from "@/lib/pixel";
-import { captureAttribution } from "@/lib/attribution";
 
 /**
  * One document-level listener that records every contact action on the page.
@@ -23,15 +21,6 @@ import { captureAttribution } from "@/lib/attribution";
  * there is no error either way.
  */
 export default function ConversionTracking() {
-  /**
-   * First thing, before any click can happen: remember which ad sent them.
-   * Runs on every load, but only writes when the URL actually carries campaign
-   * parameters, so it is nearly always a no-op.
-   */
-  useEffect(() => {
-    captureAttribution();
-  }, []);
-
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const link = (e.target as HTMLElement | null)?.closest?.("a");
@@ -46,28 +35,10 @@ export default function ConversionTracking() {
 
       if (href.includes("wa.me")) {
         track("whatsapp_click", { section });
-        /**
-         * Only the DIRECT WhatsApp links are a contact attempt. Every other
-         * wa.me button on the page is intercepted by WhatsAppToForm and turned
-         * into a scroll to the enquiry form, which fires its own pixel event
-         * and then Lead on submit. Counting those here too would report one
-         * person three times to Meta and inflate the conversion rate an ad is
-         * optimised against.
-         *
-         * Testing the attribute rather than `e.defaultPrevented` is
-         * deliberate: it is the same condition WhatsAppToForm itself branches
-         * on, so the two cannot drift, and it does not depend on which
-         * listener happens to have been registered first.
-         */
-        if (link.hasAttribute("data-wa-direct")) {
-          fbTrack("Contact", { method: "whatsapp", section });
-        }
       } else if (href.startsWith("tel:")) {
         track("call_click", { section });
-        fbTrack("Contact", { method: "phone", section });
       } else if (href.startsWith("mailto:")) {
         track("email_click", { section });
-        fbTrack("Contact", { method: "email", section });
       } else if (href.includes("instagram.com")) {
         track("social_click", { section, network: "instagram" });
       } else if (href.includes("facebook.com")) {

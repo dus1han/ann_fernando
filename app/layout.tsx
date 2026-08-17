@@ -3,7 +3,6 @@ import { Inter, Noto_Sans_Sinhala, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ConversionTracking from "@/components/ConversionTracking";
-import MetaPixel from "@/components/MetaPixel";
 import { SITE_URL } from "@/lib/site";
 import { agent, faq } from "@/content/copy";
 import "./globals.css";
@@ -32,31 +31,8 @@ const notoSinhala = Noto_Sans_Sinhala({
   preload: false,
 });
 
-/**
- * Meta's domain verification token. Paste the value from the `content="..."`
- * attribute Meta shows you — the token only, not the whole <meta> tag.
- *
- *   Business Settings → Brand safety and suitability → Domains → annfernando.com
- *
- * ⚠ Once verified, this must stay on the site permanently. Meta re-checks it,
- * and losing it un-verifies the domain — which silently breaks the iOS event
- * prioritisation (Aggregated Event Measurement) that the ad campaigns depend
- * on. Nothing visibly fails; the leads just stop being attributed.
- *
- * Empty emits no tag at all. An empty `content` would fail verification in a
- * more confusing way than an absent tag, which at least says "not set up yet".
- */
-const FB_DOMAIN_VERIFICATION: string = "zrcojzqxvtwqwicnc8xvqh4clmdxun";
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  ...(FB_DOMAIN_VERIFICATION
-    ? {
-        verification: {
-          other: { "facebook-domain-verification": FB_DOMAIN_VERIFICATION },
-        },
-      }
-    : {}),
   /**
    * ⚠ The role and the city must both stay in the title. Ann's call.
    *
@@ -203,17 +179,11 @@ export default function RootLayout({
         />
         {children}
 
-        {/* Traffic and Core Web Vitals, straight from Vercel. Cookieless. */}
+        {/* Traffic and Core Web Vitals, straight from Vercel. No cookies, so
+            no consent banner is required. */}
         <Analytics />
         <SpeedInsights />
         <ConversionTracking />
-
-        {/* ⚠ Unlike the Vercel tags above, the Meta Pixel DOES set cookies
-            (_fbp) and sends data to Meta. It renders only when
-            NEXT_PUBLIC_META_PIXEL_ID is set. If the site ever needs to serve
-            EU visitors under GDPR, this is the tag that requires a consent
-            banner — gate MetaPixel on consent rather than removing it. */}
-        <MetaPixel />
       </body>
     </html>
   );
