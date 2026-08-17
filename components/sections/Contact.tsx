@@ -2,9 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { track } from "@vercel/analytics";
 import Reveal from "@/components/Reveal";
 import { agent, contact, whatsappHref } from "@/content/copy";
 import { Say } from "@/lib/bi";
+import { fbTrack } from "@/lib/pixel";
+import { attributionLabel, readAttribution } from "@/lib/attribution";
 
 /**
  * The form composes a WhatsApp message rather than posting to a backend.
@@ -57,6 +60,13 @@ export default function Contact() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    /**
+     * Read at submit time, never during render — localStorage does not exist
+     * on the server and touching it in render would be a hydration mismatch.
+     */
+    const source = attributionLabel(readAttribution());
+
     const body = [
       `Hi Ann, I'd like to talk about Dubai property.`,
       ``,
@@ -66,9 +76,44 @@ export default function Contact() {
       `Budget: ${form.budget}`,
       form.message && ``,
       form.message && form.message,
+      /**
+       * The line that closes the loop. WhatsApp is invisible to Meta and to
+       * Vercel, so without this there is no way to know which ad produced a
+       * conversation — only that some ad produced some form submits.
+       *
+       * Appears ONLY for someone who arrived from a campaign. Organic visitors
+       * send exactly the message they always did, which is most of them.
+       */
+      source && ``,
+      source && `Ref: ${source}`,
     ]
       .filter(Boolean)
       .join("\n");
+
+    /**
+     * THE conversion event. This is what a Meta campaign should be optimised
+     * for, and the only place on the site that fires it.
+     *
+     * Fired before window.open because opening a tab can suspend this one on
+     * some mobile browsers; fbq queues and beacons out either way, but the
+     * ordering removes the question.
+     *
+     * Interest and budget only. The name, phone, email and message in `body`
+     * are personal data and must never be handed to the pixel — see lib/pixel.
+     */
+    fbTrack("Lead", {
+      content_category: form.interest,
+      content_name: form.budget,
+    });
+
+    // The same conversion in Vercel Analytics, where the campaign can be
+    // broken out. Meta reports its own attributed leads but will only ever
+    // show you the ones IT takes credit for; this counts every one.
+    track("lead_submit", {
+      interest: form.interest,
+      budget: form.budget,
+      source: source ?? "organic",
+    });
 
     window.open(
       `https://wa.me/${agent.whatsapp}?text=${encodeURIComponent(body)}`,
