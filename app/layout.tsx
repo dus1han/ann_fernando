@@ -32,8 +32,31 @@ const notoSinhala = Noto_Sans_Sinhala({
   preload: false,
 });
 
+/**
+ * Meta's domain verification token. Paste the value from the `content="..."`
+ * attribute Meta shows you — the token only, not the whole <meta> tag.
+ *
+ *   Business Settings → Brand safety and suitability → Domains → annfernando.com
+ *
+ * ⚠ Once verified, this must stay on the site permanently. Meta re-checks it,
+ * and losing it un-verifies the domain — which silently breaks the iOS event
+ * prioritisation (Aggregated Event Measurement) that the ad campaigns depend
+ * on. Nothing visibly fails; the leads just stop being attributed.
+ *
+ * Empty emits no tag at all. An empty `content` would fail verification in a
+ * more confusing way than an absent tag, which at least says "not set up yet".
+ */
+const FB_DOMAIN_VERIFICATION: string = "zrcojzqxvtwqwicnc8xvqh4clmdxun";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  ...(FB_DOMAIN_VERIFICATION
+    ? {
+        verification: {
+          other: { "facebook-domain-verification": FB_DOMAIN_VERIFICATION },
+        },
+      }
+    : {}),
   /**
    * ⚠ The role and the city must both stay in the title. Ann's call.
    *
