@@ -5,6 +5,7 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import { agent, contact, whatsappHref } from "@/content/copy";
 import { Say } from "@/lib/bi";
+import { recordLead } from "@/lib/leads";
 
 /**
  * The form composes a WhatsApp message rather than posting to a backend.
@@ -69,6 +70,16 @@ export default function Contact() {
     ]
       .filter(Boolean)
       .join("\n");
+
+    /**
+     * Copy the enquiry to Ann's sheet before handing over to WhatsApp.
+     *
+     * ⚠ Do NOT await this. window.open() is only permitted while the click
+     * that triggered it is still being handled; awaiting anything first ends
+     * that window and hands the WhatsApp tab to the popup blocker. The helper
+     * is deliberately fire-and-forget for exactly this reason.
+     */
+    recordLead(form);
 
     window.open(
       `https://wa.me/${agent.whatsapp}?text=${encodeURIComponent(body)}`,
