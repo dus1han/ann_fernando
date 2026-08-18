@@ -21,6 +21,89 @@ npm run dev      # http://localhost:3000
 npm run build    # production build
 ```
 
+## Lead capture (email)
+
+The enquiry form's real job is to open WhatsApp with the details filled in.
+But the person still has to press send there, and some never do - they
+hesitate, or they are on a desktop not logged into WhatsApp Web. Those leads
+vanish, even though they typed a name, a phone number and a budget a second
+earlier.
+
+So every submission is also emailed. WhatsApp stays the primary path; the
+email is the safety net.
+
+```
+form submit
+  |-- recordLead()        lib/leads.ts   fire-and-forget, never awaited
+  |     `-> POST /api/lead              validates, then Resend's REST API
+  `-- window.open(wa.me)  unchanged, still the primary path
+```
+
+### Setup
+
+1. Sign up at **resend.com**. **Register with the address you want the leads
+   sent to** - see the sender note below; this saves a DNS step.
+2. **API Keys -> Create API Key**. Copy it; it starts `re_` and is shown once.
+3. Vercel -> Settings -> Environment Variables, for **Production**:
+
+| Variable | Required | Default |
+|---|---|---|
+| `RESEND_API_KEY` | yes | - |
+| `LEAD_EMAIL_TO` | no | `dus1han@gmail.com` |
+| `LEAD_EMAIL_FROM` | no | Resend's shared sender |
+
+4. Redeploy. Environment variables are read at build time.
+
+`LEAD_EMAIL_TO` accepts a comma-separated list, so Ann can be added later
+without touching code.
+
+### The sender, and why it matters
+
+By default mail goes out through Resend's shared sender,
+`onboarding@resend.dev`. That needs no DNS setup at all, but it can **only
+deliver to the address the Resend account was registered with**. That is the
+one real constraint, and it is why step 1 says to register with the
+destination address.
+
+To send anywhere else - Ann's own inbox, a second recipient - verify
+annfernando.com in Resend (it gives you the DNS records) and set
+`LEAD_EMAIL_FROM` to something like `Ann Fernando <leads@annfernando.com>`.
+Mail from your own domain also reaches the inbox far more reliably.
+
+### Checking it
+
+`GET /api/lead` reports the configuration without revealing the key:
+
+```bash
+curl -s https://www.annfernando.com/api/lead
+```
+
+Add the key as a header to send a real test email and see Resend's reply:
+
+```bash
+curl -s -H "x-diagnose: re_your_key" https://www.annfernando.com/api/lead
+```
+
+The POST path swallows every failure on purpose, so this is the only way to
+find out why an email did not arrive. Verdicts distinguish a missing key, a
+rejected key, and a sender the account is not allowed to use.
+
+### Notes
+
+- **An unset key is a normal state.** Without it the route returns 204 and
+  skips the email, so local runs and previews send nothing. The form still
+  works.
+- **A dead mail provider cannot break an enquiry.** Every failure is
+  swallowed and WhatsApp still opens.
+- **Never await `recordLead`.** `window.open` is only allowed while the click
+  is still being handled; awaiting first hands the WhatsApp tab to the popup
+  blocker. See the warning in [`lib/leads.ts`](lib/leads.ts).
+- The email sets `reply_to` to the enquirer's address when they gave one, so
+  hitting reply writes straight back to them.
+- Enquirer text is HTML-escaped before it goes into the email body.
+- Fields are collapsed to single spaces and capped at 900 characters.
+  Submissions with no name or no phone are dropped without an email.
+
 ## Where to edit things
 
 **All site copy lives in [`content/copy.ts`](content/copy.ts).** Text changes
