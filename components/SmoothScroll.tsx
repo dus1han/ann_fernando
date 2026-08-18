@@ -59,5 +59,69 @@ export default function SmoothScroll() {
     };
   }, []);
 
+  /**
+   * Lands a URL opened directly at a hash - /#contact from a Facebook ad - in
+   * the right place.
+   *
+   * The browser makes its own jump on load, but it does so before the imagery
+   * above has finished loading, and the page height keeps changing underneath
+   * it. By the time everything settles, the target has moved and the visitor is
+   * looking at the wrong section. This re-runs the scroll once the page is
+   * genuinely finished, and goes through Lenis where Lenis exists so the two do
+   * not fight over the scroll position.
+   *
+   * Deliberately a separate effect from the one above, which returns early on
+   * touch devices and for reduced motion. A hash landing has to work in both.
+   */
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash || hash === "#") return;
+
+    let cancelled = false;
+
+    const land = () => {
+      if (cancelled) return;
+
+      let target: Element | null = null;
+      try {
+        target = document.querySelector(hash);
+      } catch {
+        return; // a hash that is not a valid CSS selector, e.g. #1abc
+      }
+      if (!target) return;
+
+      const lenis = (
+        window as unknown as {
+          __lenis?: {
+            scrollTo: (
+              t: HTMLElement,
+              o?: { offset?: number; immediate?: boolean }
+            ) => void;
+          };
+        }
+      ).__lenis;
+
+      if (lenis) {
+        // immediate, not animated: someone who asked for #contact expects to
+        // be there, not to watch the page scroll past everything first.
+        lenis.scrollTo(target as HTMLElement, { offset: -72, immediate: true });
+      } else {
+        // scroll-margin-top in globals.css supplies the nav offset here.
+        target.scrollIntoView({ block: "start" });
+      }
+    };
+
+    if (document.readyState === "complete") {
+      requestAnimationFrame(land);
+    } else {
+      window.addEventListener("load", () => requestAnimationFrame(land), {
+        once: true,
+      });
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   return null;
 }

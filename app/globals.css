@@ -40,6 +40,19 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+/**
+ * Keeps an anchored section clear of the fixed nav.
+ *
+ * SmoothScroll already offsets anchor CLICKS by -72px, but that handler does
+ * not exist on touch devices and never runs for a URL opened directly at a
+ * hash - so /#contact from a Facebook ad used to land with the heading tucked
+ * under the nav bar. scroll-margin-top is honoured by the browser's own jump,
+ * by scrollIntoView and by native anchor clicks, so it fixes all three at once.
+ */
+section[id] {
+  scroll-margin-top: 72px;
+}
+
 body {
   background: var(--color-ink-950);
   color: var(--color-bone);
