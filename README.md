@@ -21,7 +21,7 @@ npm run dev      # http://localhost:3000
 npm run build    # production build
 ```
 
-## Lead capture (email)
+## Lead capture (Telegram)
 
 The enquiry form's real job is to open WhatsApp with the details filled in.
 But the person still has to press send there, and some never do - they
@@ -29,80 +29,83 @@ hesitate, or they are on a desktop not logged into WhatsApp Web. Those leads
 vanish, even though they typed a name, a phone number and a budget a second
 earlier.
 
-So every submission is also emailed. WhatsApp stays the primary path; the
-email is the safety net.
+So every submission also fires a Telegram notification. WhatsApp stays the
+primary path; Telegram is the safety net.
+
+**Why Telegram and not email.** It is one HTTPS call that either succeeds or
+returns a clear error. No deliverability, no spam folder, no domain
+verification, no sending reputation - the things that make email from a small
+site unreliable. It also arrives as a phone notification, which is what you
+want for a lead.
 
 ```
 form submit
   |-- recordLead()        lib/leads.ts   fire-and-forget, never awaited
-  |     `-> POST /api/lead              validates, then Resend's REST API
+  |     `-> POST /api/lead              validates, then the Telegram API
   `-- window.open(wa.me)  unchanged, still the primary path
 ```
 
 ### Setup
 
-1. Sign up at **resend.com**. **Register with the address you want the leads
-   sent to** - see the sender note below; this saves a DNS step.
-2. **API Keys -> Create API Key**. Copy it; it starts `re_` and is shown once.
-3. Vercel -> Settings -> Environment Variables, for **Production**:
+1. In Telegram, message **@BotFather** and send `/newbot`. Pick a display
+   name and a username ending in `bot`. It replies with a token that looks
+   like `123456789:AAH...`.
+2. Add `TELEGRAM_BOT_TOKEN` in Vercel -> Settings -> Environment Variables,
+   for **Production**. Redeploy.
+3. **Open a chat with your new bot and press Start.** A bot cannot message
+   you first, so this step is what creates the chat.
+4. Ask the site for the chat id:
 
-| Variable | Required | Default |
-|---|---|---|
-| `RESEND_API_KEY` | yes | - |
-| `LEAD_EMAIL_TO` | no | `dus1han@gmail.com` |
-| `LEAD_EMAIL_FROM` | no | Resend's shared sender |
+```bash
+curl -s -H "x-diagnose: YOUR_BOT_TOKEN" https://www.annfernando.com/api/lead
+```
 
-4. Redeploy. Environment variables are read at build time.
+   It returns `foundChats` with the id. No need to hand-read getUpdates.
 
-`LEAD_EMAIL_TO` accepts a comma-separated list, so Ann can be added later
-without touching code.
+5. Add `TELEGRAM_CHAT_ID` in Vercel with that id, and redeploy.
+6. Run the same curl again. It now posts a real test message to your
+   Telegram and reports `WORKING`.
 
-### The sender, and why it matters
+| Variable | Required |
+|---|---|
+| `TELEGRAM_BOT_TOKEN` | yes |
+| `TELEGRAM_CHAT_ID` | yes |
 
-By default mail goes out through Resend's shared sender,
-`onboarding@resend.dev`. That needs no DNS setup at all, but it can **only
-deliver to the address the Resend account was registered with**. That is the
-one real constraint, and it is why step 1 says to register with the
-destination address.
+### Sending to more than one person
 
-To send anywhere else - Ann's own inbox, a second recipient - verify
-annfernando.com in Resend (it gives you the DNS records) and set
-`LEAD_EMAIL_FROM` to something like `Ann Fernando <leads@annfernando.com>`.
-Mail from your own domain also reaches the inbox far more reliably.
+Create a Telegram **group**, add the bot to it, and use the group's chat id
+(it is negative, e.g. `-1001234567890`). Everyone in the group then gets the
+notifications - which is how Ann gets them too, without any code change.
 
 ### Checking it
 
-`GET /api/lead` reports the configuration without revealing the key:
+`GET /api/lead` reports the configuration without revealing the token:
 
 ```bash
 curl -s https://www.annfernando.com/api/lead
 ```
 
-Add the key as a header to send a real test email and see Resend's reply:
-
-```bash
-curl -s -H "x-diagnose: re_your_key" https://www.annfernando.com/api/lead
-```
-
-The POST path swallows every failure on purpose, so this is the only way to
-find out why an email did not arrive. Verdicts distinguish a missing key, a
-rejected key, and a sender the account is not allowed to use.
+Add the token as a header to run a live test. The POST path swallows every
+failure on purpose, so this is the only way to find out why a notification
+did not arrive. Verdicts distinguish a missing token, a rejected token, and
+a chat id that Telegram does not recognise.
 
 ### Notes
 
-- **An unset key is a normal state.** Without it the route returns 204 and
-  skips the email, so local runs and previews send nothing. The form still
-  works.
-- **A dead mail provider cannot break an enquiry.** Every failure is
-  swallowed and WhatsApp still opens.
+- **Unset variables are a normal state.** Without them the route returns 204
+  and skips the notification, so local runs and previews send nothing. The
+  form still works.
+- **A Telegram outage cannot break an enquiry.** Every failure is swallowed
+  and WhatsApp still opens.
 - **Never await `recordLead`.** `window.open` is only allowed while the click
   is still being handled; awaiting first hands the WhatsApp tab to the popup
   blocker. See the warning in [`lib/leads.ts`](lib/leads.ts).
-- The email sets `reply_to` to the enquirer's address when they gave one, so
-  hitting reply writes straight back to them.
-- Enquirer text is HTML-escaped before it goes into the email body.
-- Fields are collapsed to single spaces and capped at 900 characters.
-  Submissions with no name or no phone are dropped without an email.
+- The notification carries a **Reply on WhatsApp** link that opens a chat
+  with the enquirer directly.
+- Enquirer text is HTML-escaped; only the template's own tags render.
+- Fields are collapsed to single spaces and capped at 900 characters, and the
+  whole message at 3900, under Telegram's 4096 limit. Submissions with no
+  name or no phone are dropped without a notification.
 
 ## Where to edit things
 

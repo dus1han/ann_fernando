@@ -1,6 +1,10 @@
 /**
- * Emails an enquiry to Ann, without ever getting in the way of the WhatsApp
- * handoff.
+ * Sends a copy of the enquiry to Ann, without ever getting in the way of the
+ * WhatsApp handoff.
+ *
+ * WHERE it goes is the route handler's business, not this file's - it has been
+ * a sheet, an email and now a Telegram message, and none of those changed a
+ * line here. Keep it that way.
  *
  * WHY THIS EXISTS
  * The form's real job is to open WhatsApp with the details filled in. But the
@@ -9,15 +13,14 @@
  * vanish completely, even though they typed a name, a phone number and a
  * budget into the form a second earlier.
  *
- * This sends a copy by email, so the lead survives either way.
+ * This posts a copy to /api/lead, so the lead survives either way.
  *
  * ⚠ THE ONE RULE: NEVER AWAIT THIS BEFORE window.open()
  * Browsers only allow window.open() while a user gesture is still being
  * handled. Awaiting a fetch first ends that window, and the popup blocker
  * kills WhatsApp — which would break the primary path in order to improve the
  * backup one. So this fires and returns immediately, and every failure is
- * swallowed: a mail provider being down must never cost Ann a WhatsApp
- * conversation.
+ * swallowed: a downstream outage must never cost Ann a WhatsApp conversation.
  *
  * sendBeacon is built for exactly this case. It hands the request to the
  * browser, which delivers it independently of the page — so it survives the

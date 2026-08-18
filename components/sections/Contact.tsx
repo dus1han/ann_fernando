@@ -12,8 +12,11 @@ import { recordLead } from "@/lib/leads";
  *
  * Deliberate: in this market WhatsApp converts several times better than
  * email, it needs no API key or deliverability setup, and a lead can never be
- * silently lost to a spam folder. If Ann later wants email copies too, swap
- * `onSubmit` for a Server Action calling Resend - the markup does not change.
+ * silently lost to a spam folder.
+ *
+ * A copy still goes to Ann on submit, via recordLead below, because someone
+ * who fills in the form and then does not press send in WhatsApp would
+ * otherwise vanish without trace. See lib/leads.ts.
  */
 export default function Contact() {
   const [form, setForm] = useState({
@@ -72,7 +75,7 @@ export default function Contact() {
       .join("\n");
 
     /**
-     * Email the enquiry before handing over to WhatsApp.
+     * Send a copy of the enquiry before handing over to WhatsApp.
      *
      * ⚠ Do NOT await this. window.open() is only permitted while the click
      * that triggered it is still being handled; awaiting anything first ends
