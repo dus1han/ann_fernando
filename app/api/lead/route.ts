@@ -85,44 +85,68 @@ export async function POST(request: Request) {
  * makes it undebuggable. This does the same round trip and reports what Google
  * actually said.
  *
- * Gated on the shared secret, sent as a header rather than a query parameter
- * so it does not end up in access logs or browser history. A wrong or missing
- * header returns 404, so the endpoint is invisible to anyone probing for it.
+ * TWO TIERS, on purpose.
  *
- * Never returns the webhook URL or the secret — only the host, the shape of
- * the URL, and Google's own response, none of which are sensitive.
+ * Without the header it reports only whether each variable is PRESENT, plus
+ * the URL's host. That is deliberately not sensitive: it reveals nothing an
+ * attacker can use — not the secret, not the unguessable path of the Apps
+ * Script URL — and it is the one fact needed to tell "variable missing" apart
+ * from "variable wrong", which are otherwise identical symptoms.
+ *
+ * With a matching `x-diagnose` header it additionally performs a real round
+ * trip and returns Google's own reply. The secret travels as a header rather
+ * than a query parameter so it stays out of access logs and browser history.
  */
 export async function GET(request: Request) {
   const secret = process.env.LEAD_WEBHOOK_SECRET ?? "";
-  const supplied = request.headers.get("x-diagnose") ?? "";
-
-  if (!secret || supplied !== secret) {
-    return new Response("Not found", { status: 404 });
-  }
-
   const endpoint = process.env.GOOGLE_SHEET_WEBHOOK_URL ?? "";
+  const authorised = secret.length > 0 && request.headers.get("x-diagnose") === secret;
 
   const report: Record<string, unknown> = {
-    urlConfigured: Boolean(endpoint),
-    secretConfigured: Boolean(secret),
-    secretLength: secret.length,
+    GOOGLE_SHEET_WEBHOOK_URL: endpoint ? "set" : "MISSING",
+    LEAD_WEBHOOK_SECRET: secret ? "set" : "MISSING",
   };
 
+  if (endpoint) {
+    try {
+      const parsed = new URL(endpoint);
+      report.urlHost = parsed.host;
+      report.urlEndsWithExec = parsed.pathname.endsWith("/exec");
+    } catch {
+      report.urlValid = false;
+    }
+  }
+
+  // --- the two failures that need no round trip to diagnose ---
   if (!endpoint) {
     report.verdict = "GOOGLE_SHEET_WEBHOOK_URL is not set on this deployment.";
     return Response.json(report);
   }
-
-  try {
-    const parsed = new URL(endpoint);
-    report.urlHost = parsed.host;
-    report.urlEndsWithExec = parsed.pathname.endsWith("/exec");
-    report.urlPathTail = parsed.pathname.slice(-6);
-  } catch {
+  if (!secret) {
+    report.verdict =
+      "LEAD_WEBHOOK_SECRET is not set, so every write is sent with an empty " +
+      "secret and the Apps Script rejects it silently. Add it in Vercel and redeploy.";
+    return Response.json(report);
+  }
+  if (report.urlValid === false) {
     report.verdict = "GOOGLE_SHEET_WEBHOOK_URL is not a valid URL.";
     return Response.json(report);
   }
+  if (report.urlEndsWithExec === false) {
+    report.verdict =
+      "The URL does not end in /exec. A /dev URL only works while you are " +
+      "logged in; redeploy the web app and copy the /exec URL.";
+    return Response.json(report);
+  }
 
+  if (!authorised) {
+    report.verdict =
+      "Both variables are set. Send the x-diagnose header with the secret to " +
+      "run a live round trip against Google.";
+    return Response.json(report);
+  }
+
+  // --- authorised: ask Google directly ---
   try {
     const res = await fetch(endpoint, {
       method: "POST",
@@ -143,21 +167,23 @@ export async function GET(request: Request) {
     });
 
     const text = await res.text();
+    const type = res.headers.get("content-type") ?? "";
 
     report.googleStatus = res.status;
-    report.googleContentType = res.headers.get("content-type");
+    report.googleContentType = type;
     report.googleBody = text.slice(0, 400);
 
     if (res.status === 200 && text.indexOf('"ok":true') >= 0) {
       report.verdict = "WORKING. A diagnostic row was written - delete it.";
     } else if (text.indexOf("bad secret") >= 0) {
       report.verdict =
-        "SECRET MISMATCH. Vercel and the Apps Script SECRET differ.";
-    } else if ((report.googleContentType || "").toString().indexOf("html") >= 0) {
+        "SECRET MISMATCH. Vercel and the Apps Script SECRET line differ.";
+    } else if (type.indexOf("html") >= 0) {
       report.verdict =
-        "GOOGLE RETURNED A LOGIN PAGE. Redeploy the web app with 'Who has access' = Anyone.";
+        "GOOGLE RETURNED A LOGIN PAGE. Redeploy the web app with " +
+        "'Who has access' = Anyone.";
     } else {
-      report.verdict = "Unexpected reply - read googleBody below.";
+      report.verdict = "Unexpected reply - read googleBody.";
     }
   } catch (err) {
     report.verdict = "Could not reach the Apps Script URL at all.";
