@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
-import { enquiryTarget, isEnquiryHash } from "@/lib/enquiry";
+import { ENQUIRY_OFFSET, enquiryTarget, isEnquiryHash } from "@/lib/enquiry";
 
 /**
  * Momentum scrolling. This single component is responsible for most of the
@@ -47,12 +47,13 @@ export default function SmoothScroll() {
       if (!id || id === "#") return;
       // #contact must reach the form, not the top of the section - on mobile
       // those are entirely different screens. See lib/enquiry.ts.
-      const target = isEnquiryHash(id)
-        ? enquiryTarget()
-        : document.querySelector(id);
+      const enquiry = isEnquiryHash(id);
+      const target = enquiry ? enquiryTarget() : document.querySelector(id);
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target as HTMLElement, { offset: -72 });
+      lenis.scrollTo(target as HTMLElement, {
+        offset: enquiry ? -ENQUIRY_OFFSET : -72,
+      });
     };
     document.addEventListener("click", onClick);
 
@@ -112,7 +113,10 @@ export default function SmoothScroll() {
       if (lenis) {
         // immediate, not animated: someone who asked for #contact expects to
         // be there, not to watch the page scroll past everything first.
-        lenis.scrollTo(target as HTMLElement, { offset: -72, immediate: true });
+        lenis.scrollTo(target as HTMLElement, {
+          offset: isEnquiryHash(hash) ? -ENQUIRY_OFFSET : -72,
+          immediate: true,
+        });
       } else {
         // scroll-margin-top in globals.css supplies the nav offset here.
         target.scrollIntoView({ block: "start" });

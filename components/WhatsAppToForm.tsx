@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { track } from "@vercel/analytics";
-import { enquiryTarget } from "@/lib/enquiry";
+import { ENQUIRY_OFFSET, enquiryTarget } from "@/lib/enquiry";
 
 /**
  * Sends every WhatsApp button on the page to the enquiry form instead.
@@ -80,7 +80,7 @@ export default function WhatsAppToForm() {
       ).__lenis;
 
       if (lenis) {
-        lenis.scrollTo(target, { offset: -72 });
+        lenis.scrollTo(target, { offset: -ENQUIRY_OFFSET });
       } else {
         target.scrollIntoView({ behavior: "smooth", block: "start" });
       }

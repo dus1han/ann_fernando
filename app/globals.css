@@ -49,9 +49,18 @@ html {
  * under the nav bar. scroll-margin-top is honoured by the browser's own jump,
  * by scrollIntoView and by native anchor clicks, so it fixes all three at once.
  */
-section[id],
-#enquiry {
+section[id] {
   scroll-margin-top: 72px;
+}
+
+/**
+ * The form gets more clearance than a section does. Lenis is disabled on
+ * touch, so on every phone this rule is the ONLY thing positioning a landing
+ * at /#contact - and the first field's label has to be readable, not tucked
+ * against the nav. Keep in step with ENQUIRY_OFFSET in lib/enquiry.ts.
+ */
+#enquiry {
+  scroll-margin-top: 104px;
 }
 
 body {
