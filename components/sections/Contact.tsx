@@ -193,7 +193,14 @@ export default function Contact() {
         </Reveal>
 
         <Reveal delay={0.12} className="lg:col-span-7">
-          <form onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
+          {/* The scroll target for #contact. On mobile this section stacks
+              details-first, so aiming at the section showed no form at all -
+              see lib/enquiry.ts. */}
+          <form
+            id="enquiry"
+            onSubmit={onSubmit}
+            className="grid gap-5 sm:grid-cols-2"
+          >
             <Field label={contact.fields.name}>
               <input
                 required

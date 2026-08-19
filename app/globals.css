@@ -49,7 +49,8 @@ html {
  * under the nav bar. scroll-margin-top is honoured by the browser's own jump,
  * by scrollIntoView and by native anchor clicks, so it fixes all three at once.
  */
-section[id] {
+section[id],
+#enquiry {
   scroll-margin-top: 72px;
 }
 

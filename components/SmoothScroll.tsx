@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { enquiryTarget, isEnquiryHash } from "@/lib/enquiry";
 
 /**
  * Momentum scrolling. This single component is responsible for most of the
@@ -44,7 +45,11 @@ export default function SmoothScroll() {
       if (!link) return;
       const id = link.getAttribute("href");
       if (!id || id === "#") return;
-      const target = document.querySelector(id);
+      // #contact must reach the form, not the top of the section - on mobile
+      // those are entirely different screens. See lib/enquiry.ts.
+      const target = isEnquiryHash(id)
+        ? enquiryTarget()
+        : document.querySelector(id);
       if (!target) return;
       e.preventDefault();
       lenis.scrollTo(target as HTMLElement, { offset: -72 });
@@ -84,7 +89,10 @@ export default function SmoothScroll() {
 
       let target: Element | null = null;
       try {
-        target = document.querySelector(hash);
+        // Same rule as the click handler: #contact means the form.
+        target = isEnquiryHash(hash)
+          ? enquiryTarget()
+          : document.querySelector(hash);
       } catch {
         return; // a hash that is not a valid CSS selector, e.g. #1abc
       }

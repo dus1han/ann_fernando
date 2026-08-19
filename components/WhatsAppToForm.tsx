@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { track } from "@vercel/analytics";
+import { enquiryTarget } from "@/lib/enquiry";
 
 /**
  * Sends every WhatsApp button on the page to the enquiry form instead.
@@ -43,7 +44,7 @@ export default function WhatsAppToForm() {
       if (!href.includes("wa.me")) return;
       if (link.hasAttribute("data-wa-direct")) return;
 
-      const target = document.getElementById("contact");
+      const target = enquiryTarget();
       if (!target) return; // never trap the click if the form is not on the page
 
       e.preventDefault();
