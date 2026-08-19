@@ -26,7 +26,7 @@ declare global {
  * separate test dataset.
  */
 export const META_PIXEL_ID =
-  process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "1753199645920091";
+  process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "943279378030393";
 
 /**
  * Meta's own standard events. Using the standard names rather than custom ones
