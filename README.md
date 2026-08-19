@@ -21,6 +21,53 @@ npm run dev      # http://localhost:3000
 npm run build    # production build
 ```
 
+## Meta Pixel
+
+Pixel `1753199645920091`, on in every build **except `npm run dev`** - that is
+where the form gets submitted repeatedly while something is being changed, and
+each one would report a `Lead`, the very event a campaign optimises against.
+Preview deploys do report.
+
+`NEXT_PUBLIC_META_PIXEL_ID` overrides the id if a separate test dataset is
+ever needed. Nothing needs configuring for the live pixel to work.
+
+### What it reports
+
+| Event | Fires on | Standard? |
+|---|---|---|
+| `PageView` | Page load | yes |
+| `EnquiryFormOpen` | Any WhatsApp button that routes to the enquiry form | custom |
+| `Lead` | Enquiry form submitted | yes |
+| `Contact` | Floating WhatsApp button, `tel:` and `mailto:` links | yes |
+
+**Optimise campaigns for `Lead`.** It is the only event that means someone
+gave their details. `EnquiryFormOpen` is a click - optimising for it teaches
+the algorithm to find people who click and then leave.
+
+Only the floating WhatsApp button reports `Contact`. Every other WhatsApp
+button is intercepted into the enquiry form, so counting those too would
+report one person three times.
+
+`Lead` carries the selected interest and budget. It never carries a name,
+phone number, email or message - see the warning in [`lib/pixel.ts`](lib/pixel.ts).
+
+### Two things the numbers will not tell you
+
+**Meta's lead count runs higher than the enquiries actually received.** `Lead`
+fires on form submit, which opens WhatsApp with the message prefilled - the
+person still has to press send there, and some will not. Read Ads Manager as
+intent; the Telegram notifications below are the truer count.
+
+**iPhone and Safari visitors are under-counted.** Browser pixels lose a real
+share of conversions on Apple devices. Verifying the domain in Business
+Settings and ranking `Lead` first under Aggregated Event Measurement limits
+the damage; the Conversions API is the proper fix, and is a bigger job.
+
+⚠ The pixel sets cookies, unlike the cookieless Vercel tags, and there is no
+consent banner on this site. Defensible for UAE and Sri Lankan traffic. If
+these ads are ever pointed at the EU or UK, gate `<MetaPixel />` behind
+consent rather than removing it.
+
 ## Lead capture (Telegram)
 
 The enquiry form's real job is to open WhatsApp with the details filled in.

@@ -3,6 +3,7 @@ import { Inter, Noto_Sans_Sinhala, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ConversionTracking from "@/components/ConversionTracking";
+import MetaPixel from "@/components/MetaPixel";
 import { SITE_URL } from "@/lib/site";
 import { agent, faq } from "@/content/copy";
 import "./globals.css";
@@ -179,11 +180,16 @@ export default function RootLayout({
         />
         {children}
 
-        {/* Traffic and Core Web Vitals, straight from Vercel. No cookies, so
-            no consent banner is required. */}
+        {/* Traffic and Core Web Vitals, straight from Vercel. Cookieless. */}
         <Analytics />
         <SpeedInsights />
         <ConversionTracking />
+
+        {/* ⚠ Unlike the Vercel tags above, the Meta Pixel DOES set cookies
+            (_fbp) and sends data to Meta. Off in `next dev`. If the site is
+            ever advertised into the EU or UK, this is the tag that needs a
+            consent banner - gate it, do not delete it. */}
+        <MetaPixel />
       </body>
     </html>
   );

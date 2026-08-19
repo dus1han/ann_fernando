@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { track } from "@vercel/analytics";
+import { fbTrack } from "@/lib/pixel";
 
 /**
  * One document-level listener that records every contact action on the page.
@@ -35,10 +36,27 @@ export default function ConversionTracking() {
 
       if (href.includes("wa.me")) {
         track("whatsapp_click", { section });
+        /**
+         * Only the DIRECT WhatsApp links are a contact attempt. Every other
+         * wa.me button is intercepted by WhatsAppToForm and turned into a
+         * scroll to the enquiry form, which fires its own event and then
+         * Lead on submit. Counting those here too would report one person
+         * three times and inflate the rate the ads are optimised against.
+         *
+         * Testing the attribute rather than `e.defaultPrevented` is
+         * deliberate: it is the same condition WhatsAppToForm branches on,
+         * so the two cannot drift, and it does not depend on which listener
+         * happened to be registered first.
+         */
+        if (link.hasAttribute("data-wa-direct")) {
+          fbTrack("Contact", { method: "whatsapp", section });
+        }
       } else if (href.startsWith("tel:")) {
         track("call_click", { section });
+        fbTrack("Contact", { method: "phone", section });
       } else if (href.startsWith("mailto:")) {
         track("email_click", { section });
+        fbTrack("Contact", { method: "email", section });
       } else if (href.includes("instagram.com")) {
         track("social_click", { section, network: "instagram" });
       } else if (href.includes("facebook.com")) {

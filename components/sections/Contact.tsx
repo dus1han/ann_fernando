@@ -6,6 +6,7 @@ import Reveal from "@/components/Reveal";
 import { agent, contact, whatsappHref } from "@/content/copy";
 import { Say } from "@/lib/bi";
 import { recordLead } from "@/lib/leads";
+import { fbTrack } from "@/lib/pixel";
 
 /**
  * The form composes a WhatsApp message rather than posting to a backend.
@@ -73,6 +74,18 @@ export default function Contact() {
     ]
       .filter(Boolean)
       .join("\n");
+
+    /**
+     * THE conversion event, and the only place on the site that fires it.
+     * A Meta campaign should be optimised for this, not for clicks.
+     *
+     * Interest and budget only. The name, phone, email and message are
+     * personal data and must never reach the pixel - see lib/pixel.ts.
+     */
+    fbTrack("Lead", {
+      content_category: form.interest,
+      content_name: form.budget,
+    });
 
     /**
      * Send a copy of the enquiry before handing over to WhatsApp.

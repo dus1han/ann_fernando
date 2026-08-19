@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { track } from "@vercel/analytics";
 import { ENQUIRY_OFFSET, enquiryTarget } from "@/lib/enquiry";
+import { fbTrackCustom } from "@/lib/pixel";
 
 /**
  * Sends every WhatsApp button on the page to the enquiry form instead.
@@ -54,6 +55,10 @@ export default function WhatsAppToForm() {
         link.closest("footer")?.tagName.toLowerCase() ||
         "unknown";
       track("enquiry_form_open", { section });
+      // Middle of the funnel: PageView -> EnquiryFormOpen -> Lead. Custom
+      // rather than standard because nobody has given a detail yet -
+      // reporting this as a Lead would teach the ad to find people who click.
+      fbTrackCustom("EnquiryFormOpen", { section });
 
       // Each button carries its own prefilled text, which is the context of
       // whatever the reader was looking at when they decided to ask. Hand it to
