@@ -226,6 +226,12 @@ export const roadshow = {
   ],
 
   cta: t("Reserve your slot", "වෙලාවක් වෙන් කරන්න", "high"),
+  /**
+   * Replaces the enquiry form's submit label while the event is running, so
+   * the form reads as booking the Colombo meeting rather than as generic
+   * correspondence. Reverts to `contact.fields.submit` once `endsAt` passes.
+   */
+  formCta: "Book My Colombo Consultation",
   ctaNote: "Or just walk in. Both work.",
   countdownLabel: "Until doors open",
 

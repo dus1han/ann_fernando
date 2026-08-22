@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
-import { agent, contact, whatsappHref } from "@/content/copy";
+import { agent, contact, roadshow, whatsappHref } from "@/content/copy";
 import { Say } from "@/lib/bi";
 import { recordLead } from "@/lib/leads";
 import { fbTrack } from "@/lib/pixel";
+import { useRoadshowLive } from "@/lib/roadshow";
 
 /**
  * The form composes a WhatsApp message rather than posting to a backend.
@@ -33,6 +34,14 @@ export default function Contact() {
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
   const nameRef = useRef<HTMLInputElement>(null);
+
+  /**
+   * While the Colombo event is on, the button books that meeting; afterwards
+   * it goes back to being a plain message. One label, switched on the same
+   * date the roadshow band switches.
+   */
+  const roadshowLive = useRoadshowLive();
+  const submitLabel = roadshowLive ? roadshow.formCta : contact.fields.submit;
 
   /**
    * Every WhatsApp button on the page scrolls here instead of opening WhatsApp
@@ -281,13 +290,9 @@ export default function Contact() {
                 type="submit"
                 className="group relative w-full overflow-hidden rounded-full bg-gold-500 px-8 py-4 text-base font-medium text-ink-950 transition-transform duration-300 hover:scale-[1.01] sm:w-auto"
               >
-                <span className="relative z-10">{contact.fields.submit}</span>
+                <span className="relative z-10">{submitLabel}</span>
                 <span className="absolute inset-0 -translate-x-full bg-gold-400 transition-transform duration-500 group-hover:translate-x-0" />
               </button>
-              <p className="mt-4 text-xs text-bone-faint">
-                Opens WhatsApp with your details filled in. Nothing is sent
-                until you press send there.
-              </p>
             </div>
           </form>
         </Reveal>
